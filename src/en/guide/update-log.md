@@ -3,9 +3,16 @@
 ## Recent Updates
 
 Add Features:
-- Random API supports returning image according to the device (orientation=auto)
-- Admin panel list view supports rubber-band (drag) multi-selection from blank areas
-- Admin panel remembers list/card view selection, automatically restores last view mode after page refresh
+- Upload and move operations now support path traversal protection
+- Optimized HuggingFace channel large file upload
+- Improved announcement settings experience
+
+## 2026.02.23
+
+Add Features:
+- Upload and move operations now support path traversal protection
+- Optimized HuggingFace channel large file upload
+- Improved announcement settings experience
 
 ## 2026.02.09
 
