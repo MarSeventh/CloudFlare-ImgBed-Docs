@@ -6,6 +6,12 @@ Add Features:
 - Upload and move operations now support path traversal protection
 - Optimized HuggingFace channel large file upload
 - Improved announcement settings experience
+- D1 storage now supports chunk upload
+
+## 2026.02.24
+
+Add Features:
+- D1 storage now supports chunk upload
 
 ## 2026.02.23
 
