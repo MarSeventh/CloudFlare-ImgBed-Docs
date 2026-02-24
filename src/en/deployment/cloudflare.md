@@ -56,7 +56,6 @@ The database is used to store file metadata and is a required component. You can
 |---------|-------------|-------------|
 | Read/Write Performance | High | Lower |
 | Free Quota | Less | More |
-| Large File Upload | Supported | Not Supported |
 
 ::: tip Important
 You only need to configure **one** of KV or D1 database, not both! Please choose the database type that suits your needs based on the table above.
