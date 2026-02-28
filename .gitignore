@@ -1,3 +1,4 @@
 src/.vitepress/dist
 src/.vitepress/cache
 node_modules
+.kiro/

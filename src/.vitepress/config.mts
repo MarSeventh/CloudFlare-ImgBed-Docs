@@ -58,7 +58,6 @@ export default defineConfig({
             items: [
               { text: 'Basic Introduction', link: '/en/api/index' },
               { text: 'Upload API', link: '/en/api/upload' },
-              { text: 'Channels API', link: '/en/api/channels' },
               { text: 'Delete API', link: '/en/api/delete' },
               { text: 'List API', link: '/en/api/list' },
               { text: 'Random Image API', link: '/en/api/random' },
@@ -138,7 +137,6 @@ export default defineConfig({
         items: [
           { text: '基本介绍', link: '/api/index' },
           { text: '上传 API', link: '/api/upload' },
-          { text: '渠道列表 API', link: '/api/channels' },
           { text: '删除 API', link: '/api/delete' },
           { text: '列出 API', link: '/api/list' },
           { text: '随机图 API', link: '/api/random' },

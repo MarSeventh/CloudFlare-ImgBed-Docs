@@ -3,10 +3,20 @@
 ## Recent Updates
 
 Add Features:
-- Upload and move operations now support path traversal protection
-- Optimized HuggingFace channel large file upload
-- Improved announcement settings experience
-- D1 storage now supports chunk upload
+- Added directory tree picker component, supports visual directory selection when uploading or moving files
+- channels and fetchRes APIs now support dual authentication
+
+Fix Bugs:
+- Fixed Element Plus component property warnings (size, pagerCount)
+
+## 2026.02.28
+
+Add Features:
+- Added directory tree picker component, supports visual directory selection when uploading or moving files
+- channels and fetchRes APIs now support dual authentication
+
+Fix Bugs:
+- Fixed Element Plus component property warnings
 
 ## 2026.02.24
 

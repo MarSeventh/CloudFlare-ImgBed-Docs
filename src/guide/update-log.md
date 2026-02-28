@@ -3,10 +3,20 @@
 ## 最近更新
 
 Add Features:
-- 上传和移动支持路径穿越防护
-- 优化 HuggingFace 渠道大文件上传
-- 优化公告设置体验
-- D1存储支持大文件分块上传
+- 新增目录树选择器组件，上传页面和管理面板移动文件时支持可视化选择目标目录
+- channels 和 fetchRes 接口接入混合鉴权
+
+Fix Bugs:
+- 修复 Element Plus 组件属性警告（size、pagerCount）
+
+## 2026.02.28
+
+Add Features:
+- 新增目录树选择器组件，上传页面和管理面板移动文件时支持可视化选择目标目录
+- channels 和 fetchRes 接口接入混合鉴权
+
+Fix Bugs:
+- 修复 Element Plus 组件属性警告
 
 ## 2026.02.24
 
