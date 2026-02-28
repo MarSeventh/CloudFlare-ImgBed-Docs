@@ -7,7 +7,7 @@ Add Features:
 - channels and fetchRes APIs now support dual authentication
 
 Fix Bugs:
-- Fixed Element Plus component property warnings (size, pagerCount)
+- Fixed Element Plus component property warnings
 - Fixed S3 chunk upload failure issue
 
 ## 2026.02.28

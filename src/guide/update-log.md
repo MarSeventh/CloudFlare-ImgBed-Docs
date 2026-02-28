@@ -7,7 +7,7 @@ Add Features:
 - channels 和 fetchRes 接口接入混合鉴权
 
 Fix Bugs:
-- 修复 Element Plus 组件属性警告（size、pagerCount）
+- 修复 Element Plus 组件属性警告
 - 修复 S3 分块上传失败的问题
 
 ## 2026.02.28
