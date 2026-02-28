@@ -141,6 +141,10 @@ docker run -d -p 127.0.0.1:5000:5000/tcp \
 ```
 Enter the moderation service address in the management console under "System Settings" → "Security Settings", e.g., https://nsfwjs.your.domain
 
+#### Show Directory Suggestions
+
+When enabled, a directory tree picker button will be displayed on the upload page. Users can visually select the target folder instead of manually entering the path.
+
 ### Access Management
 
 - Domain Filtering

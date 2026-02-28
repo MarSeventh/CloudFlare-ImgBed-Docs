@@ -8,6 +8,7 @@ Add Features:
 
 Fix Bugs:
 - Fixed Element Plus component property warnings (size, pagerCount)
+- Fixed S3 chunk upload failure issue
 
 ## 2026.02.28
 
@@ -17,6 +18,7 @@ Add Features:
 
 Fix Bugs:
 - Fixed Element Plus component property warnings
+- Fixed S3 chunk upload failure issue
 
 ## 2026.02.24
 
