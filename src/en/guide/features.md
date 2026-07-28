@@ -6,33 +6,39 @@ CloudFlare ImgBed provides rich features to meet the needs of different users.
 
 ### File Upload
 
-- **Multi-format Support**: Supports most common image, video, and animated formats
+- **Common File Support**: Host images, animations, videos, audio, and other common file types
 - **Multiple Upload Methods**:
   - Drag and drop upload
   - Click to select upload
   - Paste upload (supports files and URLs)
-  - Batch upload (unlimited total number of files)
+  - Batch upload
+  - Recursive folder upload while preserving relative directory structure
 - **Real-time Progress Display**: Shows real-time progress during upload
-- **Automatic Compression**: Automatically compresses oversized images to improve upload stability
-- **WebP Conversion**: Supports converting images to WebP format before upload to reduce file size
+- **Optional Image Optimization**: Compress images or convert them to WebP before upload
+- **Large File Support**: Chunked uploads for Telegram, R2, S3, and Discord, plus Hugging Face LFS direct upload
+- **Upload Retry**: Automatically switch to another available channel when an upload fails
 
 ### Storage Channels
 
-| Channel Type | File Size Limit | Cost | Features |
-|--------------|----------------|------|----------|
-| Telegram Bot | Single file 20M | Free | Stable and reliable, supports compression |
-| Cloudflare R2 | Unlimited | Free within 10GB | High performance, enterprise-grade |
-| S3 API | Varies by provider | Varies by provider | Strong compatibility, diverse options |
-| Discord | Single file 10MB (Nitro 25MB) | Free | Simple and easy to use |
-| HuggingFace | Unlimited | Free | Supports large file direct upload |
-| WebDAV | Varies by provider | Varies by provider | Wide compatibility, supports self-hosted storage |
+| Channel Type | Size and Quota | Features |
+|--------------|----------------|----------|
+| Telegram Bot | 20 MB per part; larger files can be chunked | Free and easy to use, with image compression support |
+| Cloudflare R2 | Subject to Cloudflare plan, request-body, and object limits | Integrated with Cloudflare deployments and supports chunked uploads |
+| S3-compatible Storage | Depends on the provider | Supports many object storage services, custom endpoints, and CDNs |
+| Discord | Usually 10 MB per part or 25 MB with Nitro; larger files can be chunked | Simple setup for lightweight use |
+| Hugging Face | Subject to platform policies | LFS large-file direct upload and private dataset repositories |
+| WebDAV | Depends on the provider | Connect self-hosted or third-party WebDAV services |
+
+Exact limits and costs depend on the current policies of the selected provider and deployment platform.
 
 ### File Management
 
 - **Directory Function**: Supports creating directories for file categorization management
-- **Batch Operations**: Batch delete, move, add to blacklist/whitelist
-- **File Search**: Quickly find specific files
+- **Batch Operations**: Copy, download, move, tag, allowlist/blocklist, and concurrently delete files
+- **Search and Filters**: Find files by name, directory, tag, channel, file type, access status, and more
+- **Tag Management**: Edit and batch-apply tags with autocomplete
 - **Detailed Information**: View file size, upload time, source IP, etc.
+- **Multiple Views**: Card and list views with rubber-band selection
 
 ### Diverse Copy Options
 
@@ -48,6 +54,13 @@ CloudFlare ImgBed provides rich features to meet the needs of different users.
 - **Error Retry**: Failed files support re-upload
 - **Directory Suggestions**: Upload page directory input supports auto-suggestion and completion
 
+### File Reading and Image Processing
+
+- **Unified Reads**: Access every storage channel through `/file/{path}`
+- **Standard Request Support**: Supports `GET`, `HEAD`, and Range reads where the storage channel provides them
+- **Image Resizing**: Cloudflare Worker and Docker deployments can resize, center-crop, or stretch images using `width`, `height`, and `fit`
+- **Size Controls**: Administrators can disable image processing or restrict allowed dimension combinations
+
 ## 🌐 Internationalization
 
 - **Bilingual Support**: All page text supports dynamic Chinese/English switching
@@ -58,14 +71,15 @@ CloudFlare ImgBed provides rich features to meet the needs of different users.
 
 ### Modern Design
 
-- **Responsive Layout**: Perfect adaptation to desktop and mobile devices
+- **Responsive Layout**: Adapts to desktop and mobile devices
 - **Dark Mode**: Supports light/dark theme switching
-- **Smooth Animations**: Silky transition effects and interaction animations
-- **Breathing Light Effect**: Visual feedback during upload process
+- **Unified Visuals**: Flat, lightweight glass-style surfaces and consistent theme colors
+- **Mobile Interactions**: Two-column cards, swipe pagination, and compact mobile controls
 
 ### Custom Configuration
 
 - **Background Settings**:
+  - Disable wallpapers and use a solid-color background
   - Single image background
   - Multi-image carousel
   - Bing random images
@@ -86,7 +100,8 @@ CloudFlare ImgBed provides rich features to meet the needs of different users.
 - **Admin Authentication**: Backend management page password protection
 - **Upload Authentication**: Web and API upload authentication codes
 - **API Token**: Supports expiration time, auto-deletion after expiry
-- **Access Control**: Domain whitelist restrictions
+- **API Token Permissions**: Grant `upload`, `delete`, `list`, and `manage` permissions independently
+- **Access Control**: Source-domain restrictions, file allowlists/blocklists, and allowed image sizing combinations
 - **Password Reset**: Supports resetting authentication via environment variable for password recovery
 
 ### Content Security
@@ -94,8 +109,8 @@ CloudFlare ImgBed provides rich features to meet the needs of different users.
 - **Image Review**: Integrates third-party APIs for content review
 - **IP Management**:
   - Upload IP recording and statistics
-  - IP blacklist function
-  - Geographic location display
+  - IP allowlists and blocklists
+  - Query and record IP geolocation through a custom API
 - **Whitelist Mode**: Only allows whitelisted images to be accessed
 
 ## 🔧 Management Features
@@ -106,17 +121,25 @@ CloudFlare ImgBed provides rich features to meet the needs of different users.
 - **Rubber-band Selection**: Card view supports drag multi-selection from blank areas
 - **Paginated Loading**: Efficient loading for large numbers of files
 - **Batch Operations**: Supports operations in user-selected order
+- **Concurrent Batch Deletion**: Delete multiple files in one request with per-item results
 - **File Movement**: Supports moving files between directories with visual directory tree picker
 - **Tag Management**: Add and manage tags for files with autocomplete
 - **Metadata Editing**: Supports editing file name, file type, and renaming File ID
 - **Backup & Restore**: Supports batch backup and restore of file data
 - **Index Rebuild**: Supports batch index rebuild to avoid CPU time limits
+- **Public Browsing**: Expose selected directories for visitor browsing
 
 ### User Management
 
 - **Upload Statistics**: User upload file count statistics
 - **IP Tracking**: Records uploader IP and geographic location
 - **Permission Control**: User upload permission management
+
+### System Status
+
+- **Storage Statistics**: View file counts, storage usage, and channel distribution
+- **Upload Trends**: View upload trends by date, channel type, or channel name
+- **Channel Capacity**: Configure capacity thresholds for R2, S3, and WebDAV channels
 
 ### System Settings
 
@@ -125,36 +148,40 @@ CloudFlare ImgBed provides rich features to meet the needs of different users.
 - **Cache Management**: Automatic CDN cache cleanup
 - **Announcement System**: Site announcement publishing functionality
 - **Client Default Settings**: Supports configuring default upload channel, naming method, compression settings, etc.
+- **Image Processing Settings**: Enable image resizing and configure allowed dimensions
 
 ## 🌐 API Support
 
-### RESTful API
+### HTTP APIs
 
-- **Upload Interface**: Supports file upload and configuration
-- **Random Image Interface**: Randomly returns images from the image hosting
+- **Complete Endpoint Set**: Upload, Read, Delete, Batch Delete, List, Random Image, and Token Management APIs
+- **File Reads**: Binary responses, HEAD, Range, and optional image resizing
+- **Permission Control**: Protected endpoints accept scoped API Tokens
+- **API Documentation**: See the [API Overview](/en/api/) for parameters and response details
 
 ### WebDAV Support
-- **Standard Protocol**: Supports WebDAV standard methods (PROPFIND, GET, PUT, DELETE, etc.)
+- **Standard Protocol**: Supports `OPTIONS`, `PROPFIND`, `GET`, `PUT`, `DELETE`, `MOVE`, and `MKCOL`
 - **Directory Browsing**: Supports browsing and managing files via WebDAV clients
-- **File Operations**: Supports uploading, downloading, and deleting files and directories
+- **File Operations**: Upload, download, move, and delete files, and create directories
 
 ### Third-party Integration
 
-- **PicGo Support**: Perfect compatibility with PicGo image hosting tool
+- **PicGo Support**: Integrates with the PicGo image hosting tool
 - **Cross-origin Support**: API supports cross-origin access
 
 ## 📊 Deployment & Operations
 
 ### Multiple Deployment Methods
 
-- **Cloudflare Pages**: Recommended, visual setup, supports automatic updates
-- **Cloudflare Workers**: One-click deployment via GitHub Actions
-- **Docker**: Self-hosted server deployment
+- **Cloudflare Pages**: Git-connected serverless deployment with straightforward configuration, but no Images binding support
+- **Cloudflare Workers**: GitHub Actions deployment and Cloudflare Images processing support
+- **Docker**: Self-hosted Node.js and Hono service using SQLite and a local data directory
 
 ### Performance Optimization
 
-- **CDN Acceleration**: Global Cloudflare CDN network
-- **Cache Strategy**: Fine-grained cache strategy with automatic cache clearing after operations
+- **CDN Acceleration**: Cloudflare deployments can use the global CDN network
+- **Cache Strategy**: Workers cache public responses according to application `Cache-Control` while avoiding cached Range fragments
+- **Preview Optimization**: Async decoding and deferred off-screen rendering reduce dashboard jank with many image previews
 
 ### Stability
 

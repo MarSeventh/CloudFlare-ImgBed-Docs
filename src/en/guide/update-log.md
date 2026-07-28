@@ -20,7 +20,7 @@ Optimization:
 
 Documentation:
 - Added Chinese and English documentation for the batch deletion API
-- Added Chinese and English documentation for the read-file API, including image sizing parameters, deployment differences, and actual error statuses
+- Added Chinese and English documentation for the Read API, including image sizing parameters, deployment differences, and actual error statuses
 
 ## 2026.07.28
 
@@ -42,7 +42,7 @@ Optimization:
 
 Documentation:
 - Added Chinese and English documentation for the batch deletion API
-- Added Chinese and English documentation for the read-file API, including image sizing parameters, deployment differences, and actual error statuses
+- Added Chinese and English documentation for the Read API, including image sizing parameters, deployment differences, and actual error statuses
 
 ## 2026.07.21
 

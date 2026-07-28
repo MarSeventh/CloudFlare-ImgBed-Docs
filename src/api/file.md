@@ -1,6 +1,6 @@
-# 读取文件 API
+# 读取 API
 
-读取文件 API 用于通过统一路径访问已经存储在 CloudFlare ImgBed 中的文件。接口支持各存储渠道的文件读取、HEAD 请求、Range 分段读取，以及在 Worker 和 Docker 部署中按 URL 参数缩放图片。
+读取 API 用于通过统一路径访问已经存储在 CloudFlare ImgBed 中的文件。接口支持各存储渠道的文件读取、HEAD 请求、Range 分段读取，以及在 Worker 和 Docker 部署中按 URL 参数缩放图片。
 
 ## 基本信息
 
@@ -38,14 +38,9 @@
 
 ## 图片尺寸处理
 
-该功能默认关闭，需要先在“系统设置 → 安全设置 → 访问管理 → 图片尺寸处理”中开启。允许尺寸留空时接受任意合法尺寸；也可以填写 `320xauto,autox480,1280x720` 等组合限制可用尺寸，其中 `auto` 表示不限制对应的一边。
-
-图片尺寸处理仅在以下部署方式可用：
-
-- **Cloudflare Worker**：使用 Cloudflare Images binding。免费套餐每月包含 5,000 个唯一转换组合
-- **Docker**：使用 Sharp 处理图片
-
-Cloudflare Pages Functions 当前不提供 Images binding，因此 Pages 部署不能使用尺寸处理参数。待处理源文件最大为 20 MB，支持 JPEG、PNG、WebP、AVIF、GIF 和 SVG；处理 GIF 时输出 WebP，处理 SVG 时输出 PNG。
+::: warning 注意
+图片尺寸处理默认关闭，仅支持 Cloudflare Worker 和 Docker 部署。待处理源文件最大为 20 MB，支持 JPEG、PNG、WebP、AVIF、GIF 和 SVG；GIF 处理后输出 WebP，SVG 处理后输出 PNG。使用前请在[配置说明 → 安全设置 → 访问管理](/deployment/configuration#访问管理)中开启功能并配置允许尺寸。
+:::
 
 ## 响应
 

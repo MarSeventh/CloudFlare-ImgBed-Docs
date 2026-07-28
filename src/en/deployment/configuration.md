@@ -203,6 +203,14 @@ If response fields are not configured, the API returns non-JSON content, field e
 - Domain Filtering
   - Allowed Domains: List of domains allowed to access (leave empty to allow all domains, otherwise manually add the image hosting's own domain)
 - Whitelist Mode: When enabled, only files added to the whitelist can be accessed
+- Image Resizing
+  - **Enable**: Disabled by default. When enabled, the [Read API](/en/api/file) can process images using the `width`, `height`, and `fit` parameters
+  - **Allowed Sizes**: Leave empty to allow any valid dimensions, or enter comma-separated combinations such as `320xauto,autox480,1280x720`. Here, `auto` leaves that dimension unrestricted, while numeric dimensions must be from `1` to `4096`
+
+::: warning Notice
+Image resizing is available only on Cloudflare Worker and Docker deployments: Workers use the Images binding, while Docker uses Sharp. Cloudflare Pages Functions does not support this feature.
+:::
+
 - Session Security Policy
   - **Secure Mode**: When enabled, the Session Cookie will include the `Secure` attribute and only be transmitted over HTTPS connections. Make sure your site has HTTPS enabled, otherwise the browser will not send the Cookie and login will fail. Disabled by default.
   - **User Session Max Age**: How long a user session remains valid after login, in days, minimum 1, default `14` days.

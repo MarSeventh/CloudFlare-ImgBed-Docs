@@ -22,26 +22,30 @@ hero:
 features:
   - icon: 🚀
     title: Easy Deployment
-    details: Supports free hosting on Cloudflare Pages, Cloudflare Workers and Docker deployment to meet different needs
+    details: Deploy on Cloudflare Pages or Workers as a serverless app, or self-host with Docker
   
   - icon: 📁
     title: Multiple Storage Channels
-    details: Supports Telegram Bot, Cloudflare R2, S3 API and other storage methods to meet various requirements
+    details: Manage Telegram, R2, S3, Discord, Hugging Face, WebDAV, and other storage backends in one place
   
   - icon: 🎨
-    title: Stunning Interface
-    details: Smooth transition animations, breathing light effects, dynamic operation experience, supports dark mode
+    title: Modern Interface
+    details: Responsive upload and file management interfaces with dark mode, bilingual UI, and mobile support
   
   - icon: 🔐
     title: Secure and Reliable
-    details: Support authentication, IP whitelist, image review, anti-abuse and other multi-layer security protections
+    details: Secure sessions, scoped API Tokens, domain and file access rules, IP management, and content moderation
   
   - icon: 📱
     title: Versatile Upload
-    details: Support drag, click, paste, URL and other upload methods, batch upload and directory management
+    details: Drag, select, paste, URL, batch, and recursive folder uploads while preserving directory structure
+
+  - icon: 🖼️
+    title: Read and Transform
+    details: Unified Read API with HEAD and channel-dependent Range support, plus image resizing on Worker and Docker
   
   - icon: 🔧
     title: Highly Customizable
-    details: Support custom background, logo, color scheme, link prefix and more to create your unique image hosting
+    details: Customize backgrounds, logos, colors, announcements, public directories, and link prefixes
 ---
 

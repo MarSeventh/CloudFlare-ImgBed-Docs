@@ -17,7 +17,7 @@
     </div>
 </div>
 
-CloudFlare ImgBed 是一个基于 Cloudflare 的开源文件托管解决方案，为用户提供免费、稳定、高效的文件存储服务。项目支持多种存储渠道，支持无服务器和有服务器部署方式，满足不同用户的需求。
+CloudFlare ImgBed 是一个支持 Docker 与 Serverless 部署的开源图床和文件托管方案，可将 Telegram、Discord、Cloudflare R2、S3 兼容存储、Hugging Face 和 WebDAV 等后端统一接入一个管理界面。项目提供上传、读取、目录与标签管理、身份认证、内容审查、HTTP API、WebDAV 和公开浏览等能力，适用于个人图床、网站资源管理和轻量文件分发。
 
 <div style="position: relative; padding: 30% 45%;">
     <iframe 
@@ -48,10 +48,11 @@ CloudFlare ImgBed 是一个基于 Cloudflare 的开源文件托管解决方案�
 
 ## 技术架构
 
-- **前端界面**：基于 Vue.js 开发，支持响应式设计，支持中英文双语切换
-- **后端 API**：基于 Cloudflare Workers 构建的无服务器架构
-- **存储层**：支持多种存储后端（Telegram、R2、S3、Discord、HuggingFace、WebDAV）
-- **数据库**：支持 Cloudflare KV 和 D1 数据库
+- **前端界面**：基于 Vue 3 和 Element Plus，支持响应式设计、深色模式及中英文切换
+- **后端 API**：Cloudflare Pages Functions 与 Workers 使用 Serverless 运行时；Docker 使用 Node.js 和 Hono 原生服务
+- **存储层**：支持多种存储后端（Telegram、R2、S3、Discord、Hugging Face、WebDAV）
+- **数据层**：Cloudflare 部署支持 KV 或 D1，Docker 使用本地 SQLite，并可使用本地文件系统替代 R2
+- **图片处理**：Cloudflare Worker 使用 Images binding，Docker 使用 Sharp；Pages Functions 不支持该功能
 - **部署方式**：支持 Cloudflare Pages、Cloudflare Workers、Docker 多种部署方式
 
 
@@ -59,15 +60,15 @@ CloudFlare ImgBed 是一个基于 Cloudflare 的开源文件托管解决方案�
 
 ### v2.x 重大更新
 
-- 🎨 全新 UI 设计，支持深色模式
-- 📁 目录功能上线，支持文件分类管理
-- 🔧 S3 API 渠道接入，支持更多存储服务商
-- ⚡ 多渠道负载均衡，提升上传成功率
-- 🎯 短链接命名方式，更简洁的文件链接
+- 🎨 响应式管理与上传界面，支持深色模式、中英文切换和自定义背景
+- 📁 目录、标签、筛选、批量操作及递归文件夹上传
+- 🗄️ 接入 Telegram、R2、S3、Discord、Hugging Face 和 WebDAV 等存储后端
+- ⚡ 多渠道负载均衡、容量限制、失败切换和大文件分块上传
+- 🌐 完整的上传、读取、删除、列出、随机图和 Token 管理 API，以及 WebDAV 服务
+- 🖼️ Worker 与 Docker 支持通过 URL 参数处理图片尺寸
 - 🔐 认证系统安全加固：PBKDF2 密码哈希、HttpOnly Cookie 会话管理
-- 🌐 中英文双语国际化支持
-- ☁️ 新增 Cloudflare Workers 部署方式，支持 GitHub Actions 一键部署
-- ⏰ API Token 支持设置过期时间
+- 🔑 API Token 支持细分权限、过期时间和自动删除
+- ☁️ 支持 Cloudflare Pages、Workers 和 Docker，分别使用 KV/D1 或 SQLite 数据层
 
 ### v1.x 功能基础
 

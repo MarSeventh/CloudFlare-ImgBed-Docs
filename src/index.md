@@ -22,26 +22,29 @@ hero:
 features:
   - icon: 🚀
     title: 轻松部署
-    details: 支持 Cloudflare Pages、Cloudflare Workers 免费托管和 Docker 部署，满足不同需求
+    details: 支持 Cloudflare Pages、Cloudflare Workers Serverless 部署和 Docker 自托管
   
   - icon: 📁
     title: 多种渠道
-    details: 支持 Telegram Bot、Cloudflare R2、S3 API 等多种存储方式，满足不同需求
+    details: 统一接入 Telegram、R2、S3、Discord、Hugging Face 和 WebDAV 等存储后端
   
   - icon: 🎨
-    title: 炫酷界面
-    details: 流畅丝滑的过渡动画，呼吸灯效果，灵动的操作体验，支持深色模式
+    title: 现代界面
+    details: 响应式文件管理与上传界面，支持深色模式、中英文切换和移动端操作
   
   - icon: 🔐
     title: 安全可靠
-    details: 支持身份认证、IP 白名单、图片审查、防滥用等多重安全保障
+    details: 支持安全会话、API Token 权限、域名与文件访问控制、IP 管理和内容审查
   
   - icon: 📱
     title: 多样上传
-    details: 支持拖拽、点击、粘贴、URL 等多种上传方式，支持批量上传和目录管理
+    details: 支持拖拽、选择、粘贴、URL、批量及递归文件夹上传，并可保留目录结构
+
+  - icon: 🖼️
+    title: 读取与处理
+    details: 提供统一读取 API 和 HEAD 请求，并在对应渠道支持 Range；Worker 和 Docker 可处理图片尺寸
   
   - icon: 🔧
     title: 随心定制
-    details: 支持自定义背景、Logo、配色、链接前缀等，打造专属图床
+    details: 支持自定义背景、Logo、配色、公告、公开目录和链接前缀，打造专属文件站点
 ---
-

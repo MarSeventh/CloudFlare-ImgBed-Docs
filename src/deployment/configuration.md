@@ -203,6 +203,14 @@ city
 - 域名过滤
   - 放行域名：允许访问的域名列表（留空放行所有域名，否则需要手动添加图床自身域名）
 - 白名单模式：启用后仅允许加入白名单的文件被访问
+- 图片尺寸处理
+  - **是否开启**：默认关闭。开启后，[读取 API](/api/file) 可通过 `width`、`height` 和 `fit` 参数处理图片尺寸
+  - **允许尺寸**：留空时允许任意合法尺寸；也可填写 `320xauto,autox480,1280x720` 等以英文逗号分隔的组合。`auto` 表示不限制对应的一边，数值范围为 `1`–`4096`
+
+::: warning 注意
+图片尺寸处理仅支持 Cloudflare Worker 和 Docker 部署：Worker 使用 Images binding，Docker 使用 Sharp。Cloudflare Pages Functions 不支持该功能。
+:::
+
 - 会话安全策略
   - **Secure 模式**：开启后，Session Cookie 将附带 `Secure` 属性，仅通过 HTTPS 连接传输。请确保您的站点已启用 HTTPS，否则浏览器将无法发送 Cookie，导致登录失效。默认关闭。
   - **用户端会话有效期**：用户端登录后 Session 的有效时长，单位为天，最小值为 1，默认 `14` 天。

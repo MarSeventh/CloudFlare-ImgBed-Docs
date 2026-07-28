@@ -1,6 +1,6 @@
-# Read File API
+# Read API
 
-The Read File API provides a unified path for accessing files stored in CloudFlare ImgBed. It supports all storage channels, HEAD requests, byte-range reads, and URL-based image resizing on Worker and Docker deployments.
+The Read API provides a unified path for accessing files stored in CloudFlare ImgBed. It supports all storage channels, HEAD requests, byte-range reads, and URL-based image resizing on Worker and Docker deployments.
 
 ## Basic Information
 
@@ -38,14 +38,9 @@ Without `fit`, `width` and `height` define a maximum bounding box. The source as
 
 ## Image Resizing
 
-This feature is disabled by default. Enable it under **System Settings → Security Settings → Access Management → Image Resizing**. Leave Allowed Sizes empty to accept any valid dimensions, or enter combinations such as `320xauto,autox480,1280x720` to restrict available sizes. Here, `auto` leaves that dimension unrestricted.
-
-Image resizing is available with the following deployment types:
-
-- **Cloudflare Worker**: Uses the Cloudflare Images binding. The Free plan includes 5,000 unique transformation combinations per month
-- **Docker**: Uses Sharp to process images
-
-Cloudflare Pages Functions does not currently provide the Images binding, so resizing parameters are unavailable on Pages deployments. Source images are limited to 20 MB. JPEG, PNG, WebP, AVIF, GIF, and SVG are supported; processed GIF files are returned as WebP, and SVG files as PNG.
+::: warning Notice
+Image resizing is disabled by default and is available only on Cloudflare Worker and Docker deployments. Source files are limited to 20 MB. JPEG, PNG, WebP, AVIF, GIF, and SVG are supported; processed GIF files are returned as WebP, while SVG files are returned as PNG. Before using it, enable the feature and configure allowed sizes under [Configuration → Security Settings → Access Management](/en/deployment/configuration#access-management).
+:::
 
 ## Response
 
