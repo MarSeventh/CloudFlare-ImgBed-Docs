@@ -37,7 +37,7 @@ features:
     details: 支持安全会话、API Token 权限、域名与文件访问控制、IP 管理和内容审查
   
   - icon: 📱
-    title: 多样上传
+    title: 灵活上传
     details: 支持拖拽、选择、粘贴、URL、批量及递归文件夹上传，并可保留目录结构
 
   - icon: 🗂️
