@@ -40,8 +40,12 @@ features:
     title: 多样上传
     details: 支持拖拽、选择、粘贴、URL、批量及递归文件夹上传，并可保留目录结构
 
+  - icon: 🗂️
+    title: 高效管理
+    details: 支持目录、标签、搜索筛选、卡片与列表视图，以及复制、移动、下载和批量删除
+
   - icon: 🖼️
-    title: 读取与处理
+    title: 自由读取
     details: 提供统一读取 API 和 HEAD 请求，并在对应渠道支持 Range；Worker 和 Docker 可处理图片尺寸
   
   - icon: 🔧

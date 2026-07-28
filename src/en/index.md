@@ -40,6 +40,10 @@ features:
     title: Versatile Upload
     details: Drag, select, paste, URL, batch, and recursive folder uploads while preserving directory structure
 
+  - icon: 🗂️
+    title: Efficient Management
+    details: Directories, tags, search filters, card and list views, plus copy, move, download, and batch deletion
+
   - icon: 🖼️
     title: Read and Transform
     details: Unified Read API with HEAD and channel-dependent Range support, plus image resizing on Worker and Docker
