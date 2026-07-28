@@ -6,6 +6,7 @@ CloudFlare ImgBed 提供了一系列 API 接口，方便用户和开发者进行
 
 ## API 端点
 - **上传 API**：`/upload`
+- **读取文件 API**：`/file/{path}`
 - **删除 API**：`/api/manage/delete`
 - **列出 API**：`/api/manage/list`
 - **随机图 API**：`/random`

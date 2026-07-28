@@ -6,6 +6,7 @@ Additionally, the project supports the standard WebDAV protocol, allowing users 
 
 ## API Endpoints
 - **Upload API**: `/upload`
+- **Read File API**: `/file/{path}`
 - **Delete API**: `/api/manage/delete`
 - **List API**: `/api/manage/list`
 - **Random Image API**: `/random`

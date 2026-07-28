@@ -3,20 +3,46 @@
 ## Recent Updates
 
 Add Features:
-- Added an “Enable Wallpaper” switch to Web Settings. It is enabled by default; after disabling and saving it, pages use a solid-color background on the next reload
+- Added a concurrent batch deletion endpoint to the dashboard, allowing multiple files to be deleted in one request with per-item results
+- Added a folder upload button that recursively reads nested folders and preserves their relative directory structure
+- Added URL-based image resizing to the read-file endpoint with `width`, `height`, center cropping via `fit=cover`, and stretching via `fit=squeeze`; Cloudflare Workers use the Images binding, while Docker uses Sharp
+- Added an image resizing switch and allowed-size configuration under System Settings → Security Settings → Access Management to restrict requested dimension combinations
 
 Fix Bugs:
-- Fixed insufficient text/background contrast in dark mode for dialog options, System Settings tabs, dropdowns, IP geolocation parameter buttons, Token permissions, and related controls
-- Fixed selected dates appearing oval in the upload trend calendar, oversized folder title overlays in the dashboard, and upload channel card hover glows collapsing into circles
+- Improved request-body validation and error handling for the batch deletion endpoint to prevent invalid requests from producing incorrect results
+- Fixed announcement textarea auto-resizing overriding manually selected heights or changing the height when focused
+- Fixed several upload-list and paste-upload textarea interaction issues
+- Fixed the mobile date-range calendar layout and alignment of indeterminate checkbox marks
 
 Optimization:
-- Refined the frontend with a flatter, lighter glass-style design and unified cards, toolbars, dialogs, and interaction states across the upload page, dashboard, and System Settings
-- Adjusted the upload page directory-tree button size and hover scale for a more balanced proportion with adjacent toolbar buttons
-- Simplified frontend state management by removing the unused `credentials` compatibility mapping
-- Reduced Docker runtime image contents to lower the final image size
+- Refined dashboard search, sorting, view switching, batch actions, and responsive table layouts while unifying primary theme colors and dialog styling
+- Refined paste-upload controls, upload cards, and interactions across light and dark themes
 
 Documentation:
-- Updated the Chinese and English READMEs and storage backend guides with compatible storage services and channel configuration details
+- Added Chinese and English documentation for the batch deletion API
+- Added Chinese and English documentation for the read-file API, including image sizing parameters, deployment differences, and actual error statuses
+
+## 2026.07.28
+
+Add Features:
+- Added a concurrent batch deletion endpoint to the dashboard, allowing multiple files to be deleted in one request with per-item results
+- Added a folder upload button that recursively reads nested folders and preserves their relative directory structure
+- Added URL-based image resizing to the read-file endpoint with `width`, `height`, center cropping via `fit=cover`, and stretching via `fit=squeeze`; Cloudflare Workers use the Images binding, while Docker uses Sharp
+- Added an image resizing switch and allowed-size configuration under System Settings → Security Settings → Access Management to restrict requested dimension combinations
+
+Fix Bugs:
+- Improved request-body validation and error handling for the batch deletion endpoint to prevent invalid requests from producing incorrect results
+- Fixed announcement textarea auto-resizing overriding manually selected heights or changing the height when focused
+- Fixed several upload-list and paste-upload textarea interaction issues
+- Fixed the mobile date-range calendar layout and alignment of indeterminate checkbox marks
+
+Optimization:
+- Refined dashboard search, sorting, view switching, batch actions, and responsive table layouts while unifying primary theme colors and dialog styling
+- Refined paste-upload controls, upload cards, and interactions across light and dark themes
+
+Documentation:
+- Added Chinese and English documentation for the batch deletion API
+- Added Chinese and English documentation for the read-file API, including image sizing parameters, deployment differences, and actual error statuses
 
 ## 2026.07.21
 
