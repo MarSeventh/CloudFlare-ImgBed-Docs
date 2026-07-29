@@ -4,7 +4,7 @@
 
 Add Features:
 - Added image resizing to Cloudflare Pages through custom-domain `/cdn-cgi/image/` URL transformations, using a client redirect to avoid 404 responses from same-domain internal requests in Pages Functions
-- Added original-file fallback via `fallback=original` to the Read API and format validation by MIME type or file extension before selecting a processing path; GIF resizing is available only on Docker, while SVG and other unsupported formats return `415` by default
+- Added original-file fallback via `fallback=original` to the Read API and format validation by MIME type or file extension before selecting a processing path; AVIF is available only on Worker and Docker, GIF resizing only on Docker, and SVG and other unsupported formats return `415` by default
 
 Fix Bugs:
 - Fixed abnormal `fetchRes` content in Docker/Node when an upstream compressed body had already been decoded but retained its original encoding and length headers, and corrected the base URL used for chained relative redirects
@@ -17,7 +17,7 @@ Optimization:
 
 Add Features:
 - Added image resizing to Cloudflare Pages through custom-domain `/cdn-cgi/image/` URL transformations, using a client redirect to avoid 404 responses from same-domain internal requests in Pages Functions
-- Added original-file fallback via `fallback=original` to the Read API and format validation by MIME type or file extension before selecting a processing path; GIF resizing is available only on Docker, while SVG and other unsupported formats return `415` by default
+- Added original-file fallback via `fallback=original` to the Read API and format validation by MIME type or file extension before selecting a processing path; AVIF is available only on Worker and Docker, GIF resizing only on Docker, and SVG and other unsupported formats return `415` by default
 
 Fix Bugs:
 - Fixed abnormal `fetchRes` content in Docker/Node when an upstream compressed body had already been decoded but retained its original encoding and length headers, and corrected the base URL used for chained relative redirects

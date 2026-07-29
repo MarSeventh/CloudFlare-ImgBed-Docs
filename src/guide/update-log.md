@@ -4,7 +4,7 @@
 
 Add Features:
 - Cloudflare Pages 部署新增通过自定义域名 `/cdn-cgi/image/` URL 转换处理图片尺寸，并采用客户端重定向避免 Pages Functions 同域内部请求返回 404
-- 读取 API 新增 `fallback=original` 原图回退，并在进入具体处理渠道前按 MIME 类型或文件扩展名校验格式；GIF 仅 Docker 支持尺寸处理，SVG 及其他不支持格式默认返回 `415`
+- 读取 API 新增 `fallback=original` 原图回退，并在进入具体处理渠道前按 MIME 类型或文件扩展名校验格式；AVIF 仅 Worker 和 Docker 支持，GIF 仅 Docker 支持，SVG 及其他不支持格式默认返回 `415`
 
 Fix Bugs:
 - 修复 `fetchRes` 在 Docker/Node 环境代理压缩响应时，正文已解码但仍保留原编码和长度响应头导致内容异常的问题，并修正多级相对重定向的基准 URL
@@ -17,7 +17,7 @@ Optimization:
 
 Add Features:
 - Cloudflare Pages 部署新增通过自定义域名 `/cdn-cgi/image/` URL 转换处理图片尺寸，并采用客户端重定向避免 Pages Functions 同域内部请求返回 404
-- 读取 API 新增 `fallback=original` 原图回退，并在进入具体处理渠道前按 MIME 类型或文件扩展名校验格式；GIF 仅 Docker 支持尺寸处理，SVG 及其他不支持格式默认返回 `415`
+- 读取 API 新增 `fallback=original` 原图回退，并在进入具体处理渠道前按 MIME 类型或文件扩展名校验格式；AVIF 仅 Worker 和 Docker 支持，GIF 仅 Docker 支持，SVG 及其他不支持格式默认返回 `415`
 
 Fix Bugs:
 - 修复 `fetchRes` 在 Docker/Node 环境代理压缩响应时，正文已解码但仍保留原编码和长度响应头导致内容异常的问题，并修正多级相对重定向的基准 URL
