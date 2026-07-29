@@ -40,7 +40,7 @@
 ## 图片尺寸处理
 
 ::: warning 注意
-图片尺寸处理默认关闭，JPEG、PNG 和 WebP 可在所有部署方式中处理；AVIF 仅 Worker 和 Docker 支持，Pages 默认返回 `415`；GIF 仅 Docker 支持并保持 GIF 格式，Pages 和 Worker 默认返回 `415`；SVG 及其他格式不支持。Worker 和 Docker 的待处理源文件最大为 20 MB，Pages 以 Cloudflare Images 当前限制为准。使用 `fallback=original` 可在格式不支持、源文件超限或处理失败时返回原文件。使用前请在[配置说明 → 安全设置 → 访问管理](/deployment/configuration#访问管理)中开启功能并配置允许尺寸。
+图片尺寸处理默认关闭，JPEG、PNG 和 WebP 可在所有部署方式中处理；AVIF 仅 Worker 和 Docker 支持，Pages 默认返回 `415`；GIF 仅 Docker 支持并保持 GIF 格式，Pages 和 Worker 默认返回 `415`；SVG 及其他格式不支持。Worker 和 Docker 的待处理源文件最大为 20 MB，Pages 以 Cloudflare Images 当前限制为准。使用 `fallback=original` 可在格式不支持、源文件超限或处理失败时返回原文件。使用前请在[配置说明 → 安全设置 → 访问管理](/deployment/configuration#访问管理)中开启功能并配置允许尺寸。实际支持情况以各渠道测试为准。
 :::
 
 ## 响应

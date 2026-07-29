@@ -40,7 +40,7 @@ Without `fit`, `width` and `height` define a maximum bounding box. The source as
 ## Image Resizing
 
 ::: warning Notice
-Image resizing is disabled by default. JPEG, PNG, and WebP can be processed on every deployment. AVIF is available only on Worker and Docker; Pages returns `415` by default. GIF resizing is available only on Docker and preserves the GIF format; Pages and Worker return `415` by default. SVG and other formats are unsupported. Worker and Docker source files are limited to 20 MB, while Pages follows the current Cloudflare Images limits. Use `fallback=original` to return the original file when its format is unsupported, the source exceeds a processing limit, or transformation fails. Before using it, enable the feature and configure allowed sizes under [Configuration → Security Settings → Access Management](/en/deployment/configuration#access-management).
+Image resizing is disabled by default. JPEG, PNG, and WebP can be processed on every deployment. AVIF is available only on Worker and Docker; Pages returns `415` by default. GIF resizing is available only on Docker and preserves the GIF format; Pages and Worker return `415` by default. SVG and other formats are unsupported. Worker and Docker source files are limited to 20 MB, while Pages follows the current Cloudflare Images limits. Use `fallback=original` to return the original file when its format is unsupported, the source exceeds a processing limit, or transformation fails. Before using it, enable the feature and configure allowed sizes under [Configuration → Security Settings → Access Management](/en/deployment/configuration#access-management). Actual support may vary by channel and should be verified through testing.
 :::
 
 ## Response
