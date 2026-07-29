@@ -8,6 +8,7 @@ Add Features:
 
 Fix Bugs:
 - 修复 `fetchRes` 在 Docker/Node 环境代理压缩响应时，正文已解码但仍保留原编码和长度响应头导致内容异常的问题，并修正多级相对重定向的基准 URL
+- 修复 Docker/Node 部署经 Cloudflare/Nginx 访问 Telegram 或 Telegraph 文件时，入口代理头被继续转发给上游而导致图片返回 `500` 的问题；上游请求现仅保留 Range 和条件缓存头
 
 Optimization:
 - 将公共、Docker 和 Worker 生产依赖拆分为独立部署配置，仅安装对应运行环境所需依赖，减少无关依赖和部署体积
@@ -21,6 +22,7 @@ Add Features:
 
 Fix Bugs:
 - 修复 `fetchRes` 在 Docker/Node 环境代理压缩响应时，正文已解码但仍保留原编码和长度响应头导致内容异常的问题，并修正多级相对重定向的基准 URL
+- 修复 Docker/Node 部署经 Cloudflare/Nginx 访问 Telegram 或 Telegraph 文件时，入口代理头被继续转发给上游而导致图片返回 `500` 的问题；上游请求现仅保留 Range 和条件缓存头
 
 Optimization:
 - 将公共、Docker 和 Worker 生产依赖拆分为独立部署配置，仅安装对应运行环境所需依赖，减少无关依赖和部署体积

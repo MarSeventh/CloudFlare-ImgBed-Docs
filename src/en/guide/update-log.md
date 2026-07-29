@@ -8,6 +8,7 @@ Add Features:
 
 Fix Bugs:
 - Fixed abnormal `fetchRes` content in Docker/Node when an upstream compressed body had already been decoded but retained its original encoding and length headers, and corrected the base URL used for chained relative redirects
+- Fixed `500` responses when Docker/Node deployments served Telegram or Telegraph files through Cloudflare/Nginx and forwarded incoming proxy headers to the upstream; upstream requests now retain only Range and conditional cache headers
 
 Optimization:
 - Split common, Docker, and Worker production dependencies into deployment-specific profiles so each environment installs only the packages it needs, reducing unrelated dependencies and deployment size
@@ -21,6 +22,7 @@ Add Features:
 
 Fix Bugs:
 - Fixed abnormal `fetchRes` content in Docker/Node when an upstream compressed body had already been decoded but retained its original encoding and length headers, and corrected the base URL used for chained relative redirects
+- Fixed `500` responses when Docker/Node deployments served Telegram or Telegraph files through Cloudflare/Nginx and forwarded incoming proxy headers to the upstream; upstream requests now retain only Range and conditional cache headers
 
 Optimization:
 - Split common, Docker, and Worker production dependencies into deployment-specific profiles so each environment installs only the packages it needs, reducing unrelated dependencies and deployment size
