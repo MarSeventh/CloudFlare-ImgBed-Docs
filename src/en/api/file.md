@@ -1,6 +1,6 @@
 # Read API
 
-The Read API provides a unified path for accessing files stored in CloudFlare ImgBed. It supports all storage channels, HEAD requests, byte-range reads, and URL-based image resizing on Worker and Docker deployments.
+The Read API provides a unified path for accessing files stored in CloudFlare ImgBed. It supports all storage channels, HEAD requests, byte-range reads, and URL-based image resizing.
 
 ## Basic Information
 
@@ -39,7 +39,7 @@ Without `fit`, `width` and `height` define a maximum bounding box. The source as
 ## Image Resizing
 
 ::: warning Notice
-Image resizing is disabled by default and is available only on Cloudflare Worker and Docker deployments. Source files are limited to 20 MB. JPEG, PNG, WebP, AVIF, GIF, and SVG are supported; processed GIF files are returned as WebP, while SVG files are returned as PNG. Before using it, enable the feature and configure allowed sizes under [Configuration → Security Settings → Access Management](/en/deployment/configuration#access-management).
+Image resizing is disabled by default. Source files are limited to 20 MB. JPEG, PNG, WebP, AVIF, GIF, and SVG are supported; processed GIF files are returned as WebP, while SVG files are returned as PNG. Before using it, enable the feature and configure allowed sizes under [Configuration → Security Settings → Access Management](/en/deployment/configuration#access-management).
 :::
 
 ## Response

@@ -46,7 +46,7 @@ features:
 
   - icon: 🖼️
     title: 自由读取
-    details: 提供统一读取 API 和 HEAD 请求，并在对应渠道支持 Range；Worker 和 Docker 可处理图片尺寸
+    details: 提供统一读取 API 和 HEAD 请求，并在对应渠道支持 Range，还可通过 URL 参数处理图片尺寸
   
   - icon: 🔧
     title: 随心定制

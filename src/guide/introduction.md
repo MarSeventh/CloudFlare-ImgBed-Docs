@@ -52,7 +52,7 @@ CloudFlare ImgBed 是一个支持 Docker 与 Serverless 部署的开源图床和
 - **后端 API**：Cloudflare Pages Functions 与 Workers 使用 Serverless 运行时；Docker 使用 Node.js 和 Hono 原生服务
 - **存储层**：支持多种存储后端（Telegram、R2、S3、Discord、Hugging Face、WebDAV）
 - **数据层**：Cloudflare 部署支持 KV 或 D1，Docker 使用本地 SQLite，并可使用本地文件系统替代 R2
-- **图片处理**：Cloudflare Worker 使用 Images binding，Docker 使用 Sharp；Pages Functions 不支持该功能
+- **图片处理**：Cloudflare Pages 使用同域 URL 转换，Worker 使用 Images binding，Docker 使用 Sharp
 - **部署方式**：支持 Cloudflare Pages、Cloudflare Workers、Docker 多种部署方式
 
 
@@ -65,7 +65,7 @@ CloudFlare ImgBed 是一个支持 Docker 与 Serverless 部署的开源图床和
 - 🗄️ 接入 Telegram、R2、S3、Discord、Hugging Face 和 WebDAV 等存储后端
 - ⚡ 多渠道负载均衡、容量限制、失败切换和大文件分块上传
 - 🌐 完整的上传、读取、删除、列出、随机图和 Token 管理 API，以及 WebDAV 服务
-- 🖼️ Worker 与 Docker 支持通过 URL 参数处理图片尺寸
+- 🖼️ 支持通过 URL 参数缩放、裁剪或拉伸图片
 - 🔐 认证系统安全加固：PBKDF2 密码哈希、HttpOnly Cookie 会话管理
 - 🔑 API Token 支持细分权限、过期时间和自动删除
 - ☁️ 支持 Cloudflare Pages、Workers 和 Docker，分别使用 KV/D1 或 SQLite 数据层

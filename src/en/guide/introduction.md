@@ -53,7 +53,7 @@ CloudFlare ImgBed is an open-source image and file hosting solution for Docker a
 - **Backend API**: Cloudflare Pages Functions and Workers use serverless runtimes; Docker runs a native Node.js and Hono service
 - **Storage Layer**: Supports multiple storage backends (Telegram, R2, S3, Discord, Hugging Face, WebDAV)
 - **Data Layer**: Cloudflare deployments support KV or D1; Docker uses local SQLite and can use the local filesystem in place of R2
-- **Image Processing**: Cloudflare Workers use the Images binding, Docker uses Sharp, and Pages Functions does not support this feature
+- **Image Processing**: Cloudflare Pages uses same-domain URL transformations, Workers use the Images binding, and Docker uses Sharp
 - **Deployment**: Supports Cloudflare Pages, Cloudflare Workers, and Docker deployment
 
 
@@ -66,7 +66,7 @@ CloudFlare ImgBed is an open-source image and file hosting solution for Docker a
 - 🗄️ Telegram, R2, S3, Discord, Hugging Face, and WebDAV storage backends
 - ⚡ Multi-channel load balancing, capacity limits, failover, and chunked large-file uploads
 - 🌐 Upload, Read, Delete, List, Random Image, and Token Management APIs, plus WebDAV
-- 🖼️ URL-based image resizing on Cloudflare Worker and Docker deployments
+- 🖼️ URL-based image resizing, cropping, and stretching
 - 🔐 Auth system hardening: PBKDF2 password hashing, HttpOnly Cookie session management
 - 🔑 Scoped API Tokens with expiration and automatic deletion
 - ☁️ Cloudflare Pages, Workers, and Docker deployment using KV/D1 or SQLite data layers

@@ -58,7 +58,7 @@ Exact limits and costs depend on the current policies of the selected provider a
 
 - **Unified Reads**: Access every storage channel through `/file/{path}`
 - **Standard Request Support**: Supports `GET`, `HEAD`, and Range reads where the storage channel provides them
-- **Image Resizing**: Cloudflare Worker and Docker deployments can resize, center-crop, or stretch images using `width`, `height`, and `fit`
+- **Image Resizing**: Resize, center-crop, or stretch images using `width`, `height`, and `fit`
 - **Size Controls**: Administrators can disable image processing or restrict allowed dimension combinations
 
 ## 🌐 Internationalization
@@ -173,7 +173,7 @@ Exact limits and costs depend on the current policies of the selected provider a
 
 ### Multiple Deployment Methods
 
-- **Cloudflare Pages**: Git-connected serverless deployment with straightforward configuration, but no Images binding support
+- **Cloudflare Pages**: Git-connected serverless deployment with straightforward configuration and URL-based image transformations
 - **Cloudflare Workers**: GitHub Actions deployment and Cloudflare Images processing support
 - **Docker**: Self-hosted Node.js and Hono service using SQLite and a local data directory
 

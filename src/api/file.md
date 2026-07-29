@@ -1,6 +1,6 @@
 # 读取 API
 
-读取 API 用于通过统一路径访问已经存储在 CloudFlare ImgBed 中的文件。接口支持各存储渠道的文件读取、HEAD 请求、Range 分段读取，以及在 Worker 和 Docker 部署中按 URL 参数缩放图片。
+读取 API 用于通过统一路径访问已经存储在 CloudFlare ImgBed 中的文件。接口支持各存储渠道的文件读取、HEAD 请求、Range 分段读取，以及按 URL 参数缩放图片。
 
 ## 基本信息
 
@@ -39,7 +39,7 @@
 ## 图片尺寸处理
 
 ::: warning 注意
-图片尺寸处理默认关闭，仅支持 Cloudflare Worker 和 Docker 部署。待处理源文件最大为 20 MB，支持 JPEG、PNG、WebP、AVIF、GIF 和 SVG；GIF 处理后输出 WebP，SVG 处理后输出 PNG。使用前请在[配置说明 → 安全设置 → 访问管理](/deployment/configuration#访问管理)中开启功能并配置允许尺寸。
+图片尺寸处理默认关闭。待处理源文件最大为 20 MB，支持 JPEG、PNG、WebP、AVIF、GIF 和 SVG；GIF 处理后输出 WebP，SVG 处理后输出 PNG。使用前请在[配置说明 → 安全设置 → 访问管理](/deployment/configuration#访问管理)中开启功能并配置允许尺寸。
 :::
 
 ## 响应

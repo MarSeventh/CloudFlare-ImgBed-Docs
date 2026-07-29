@@ -46,7 +46,7 @@ features:
 
   - icon: 🖼️
     title: Read and Transform
-    details: Unified Read API with HEAD and channel-dependent Range support, plus image resizing on Worker and Docker
+    details: Unified Read API with HEAD and channel-dependent Range support, plus URL-based image resizing
   
   - icon: 🔧
     title: Highly Customizable

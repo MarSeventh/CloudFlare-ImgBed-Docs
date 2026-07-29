@@ -58,7 +58,7 @@ CloudFlare ImgBed 提供了丰富的功能特性，满足不同用户的需求�
 
 - **统一读取**：通过 `/file/{path}` 读取各存储渠道的文件
 - **标准请求能力**：支持 `GET`、`HEAD`，并在对应存储渠道支持 Range 分段读取
-- **图片尺寸处理**：Cloudflare Worker 和 Docker 可通过 `width`、`height` 与 `fit` 参数缩放、居中裁剪或拉伸图片
+- **图片尺寸处理**：可通过 `width`、`height` 与 `fit` 参数缩放、居中裁剪或拉伸图片
 - **尺寸控制**：管理员可关闭图片处理或限制客户端允许请求的尺寸组合
 
 ## 🌐 国际化
@@ -174,7 +174,7 @@ CloudFlare ImgBed 提供了丰富的功能特性，满足不同用户的需求�
 
 ### 多种部署方式
 
-- **Cloudflare Pages**：Git 仓库关联的 Serverless 部署，配置直观，但不支持 Images binding
+- **Cloudflare Pages**：Git 仓库关联的 Serverless 部署，配置直观，并可通过 URL 使用图片转换
 - **Cloudflare Workers**：支持 GitHub Actions 部署及 Cloudflare Images 图片处理
 - **Docker**：Node.js 与 Hono 自托管服务，使用 SQLite 和本地数据目录
 
