@@ -5,7 +5,7 @@
 Add Features:
 - 管理端新增并发批量删除接口，可在一次请求中删除多个文件，并分别返回每项结果
 - 上传页新增文件夹上传按钮，支持递归读取文件夹及其子目录，并保留相对目录结构
-- 读取文件接口新增 URL 图片尺寸处理，支持 `width`、`height`、`fit=cover` 居中裁剪和 `fit=squeeze` 拉伸；Cloudflare Pages 使用同域 URL 转换，Worker 使用 Images binding，Docker 使用 Sharp
+- 读取文件接口新增 URL 图片尺寸处理，支持 `width`、`height`、`fit=cover` 居中裁剪、`fit=squeeze` 拉伸和 `fallback=original` 原图回退；GIF 仅 Docker 支持尺寸处理，SVG 不支持处理
 - 系统设置 → 安全设置 → 访问管理新增图片尺寸处理开关和允许尺寸配置，可限制客户端请求的宽高组合
 
 Fix Bugs:

@@ -24,6 +24,7 @@ The Read API provides a unified path for accessing files stored in CloudFlare Im
 | `width` | integer | No | - | Maximum image width from `1` to `4096`; may be used alone while preserving the source aspect ratio |
 | `height` | integer | No | - | Maximum image height from `1` to `4096`; may be used alone while preserving the source aspect ratio |
 | `fit` | string | No | - | Fit mode when both dimensions are set: `cover` proportionally resizes and center-crops, while `squeeze` stretches to the exact dimensions; requires both `width` and `height` |
+| `fallback` | string | No | - | Accepts only `original`; returns the original file when its format is unsupported by the current deployment, the source exceeds a processing limit, or transformation fails; requires image resizing parameters |
 | `from` | string | No | - | Set to `admin` for an authenticated management preview; regular file requests should omit it |
 
 Without `fit`, `width` and `height` define a maximum bounding box. The source aspect ratio is preserved and the image is not enlarged. For example, a `1600×900` source requested with `width=640&height=480` is returned as `640×360`.
@@ -39,7 +40,7 @@ Without `fit`, `width` and `height` define a maximum bounding box. The source as
 ## Image Resizing
 
 ::: warning Notice
-Image resizing is disabled by default. Source files are limited to 20 MB. JPEG, PNG, WebP, AVIF, GIF, and SVG are supported; processed GIF files are returned as WebP, while SVG files are returned as PNG. Before using it, enable the feature and configure allowed sizes under [Configuration → Security Settings → Access Management](/en/deployment/configuration#access-management).
+Image resizing is disabled by default. JPEG, PNG, WebP, and AVIF can be processed on every deployment. GIF resizing is available only on Docker and preserves the GIF format; Pages and Worker deployments return `415` by default. SVG and other formats are unsupported. Worker and Docker source files are limited to 20 MB, while Pages follows the current Cloudflare Images limits. Use `fallback=original` to return the original file when its format is unsupported, the source exceeds a processing limit, or transformation fails. Before using it, enable the feature and configure allowed sizes under [Configuration → Security Settings → Access Management](/en/deployment/configuration#access-management).
 :::
 
 ## Response
@@ -59,17 +60,17 @@ Common response headers include:
 
 | Status | Description |
 |--------|-------------|
-| `400` | The file path cannot be decoded, resizing parameters are invalid or duplicated, or resizing is combined with a Range request |
+| `400` | The file path cannot be decoded; resizing or fallback parameters are invalid, duplicated, or missing a required combination; or resizing is combined with a Range request |
 | `401` | The management preview is unauthorized |
 | `403` | Access is denied by file access rules, or image resizing is disabled |
 | `404` | File not found |
 | `405` | A resized request used a method other than GET |
-| `413` | The source image exceeds 20 MB |
-| `415` | The file is not a supported image format |
+| `413` | A Worker or Docker source image exceeds 20 MB and `fallback=original` is not set |
+| `415` | The current deployment cannot process the image format and `fallback=original` is not set |
 | `416` | The requested byte range is invalid for a storage channel that supports range reads |
-| `422` | Image transformation failed |
+| `422` | Image transformation failed and `fallback=original` is not set |
 | `500` | Storage configuration, source retrieval, or chunk reconstruction failed |
-| `501` | No image processor is configured for this deployment |
+| `501` | No image processor is configured for this deployment and `fallback=original` is not set |
 
 ## Examples
 
@@ -83,5 +84,5 @@ curl --location 'https://your.domain/file/album/example.jpg' \
 ### Center-Crop to Exact Dimensions
 
 ```html
-<img src="https://your.domain/file/album/example.jpg?width=640&height=480&fit=cover" alt="Example image">
+<img src="https://your.domain/file/album/example.jpg?width=640&height=480&fit=cover&fallback=original" alt="Example image">
 ```
