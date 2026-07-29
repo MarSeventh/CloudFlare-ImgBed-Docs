@@ -208,7 +208,7 @@ city
   - **允许尺寸**：留空时允许任意合法尺寸；也可填写 `320xauto,autox480,1280x720` 等以英文逗号分隔的组合。`auto` 表示不限制对应的一边，数值范围为 `1`–`4096`
 
 ::: warning 注意
-Cloudflare Pages 部署还需在 Cloudflare 控制台进入 **构建 → 媒体 → Images → 转换**，开启图片转换功能。Pages 通过同域 URL 转换图片，Worker 使用 Images binding，Docker 使用 Sharp。
+Cloudflare Pages 部署还需在 Cloudflare 控制台进入 **构建 → 媒体 → Images → 转换**，开启图片转换功能。URL 图片转换不支持 `pages.dev` 域名，请为 Pages 项目绑定已接入 Cloudflare 的自定义域名后使用。
 :::
 
 - 会话安全策略

@@ -208,7 +208,7 @@ If response fields are not configured, the API returns non-JSON content, field e
   - **Allowed Sizes**: Leave empty to allow any valid dimensions, or enter comma-separated combinations such as `320xauto,autox480,1280x720`. Here, `auto` leaves that dimension unrestricted, while numeric dimensions must be from `1` to `4096`
 
 ::: warning Notice
-Cloudflare Pages deployments must also enable image transformations in the Cloudflare Dashboard under **Build → Media → Images → Transformations**. Pages transforms images through same-domain URLs, Workers use the Images binding, and Docker uses Sharp.
+Cloudflare Pages deployments must also enable image transformations in the Cloudflare Dashboard under **Build → Media → Images → Transformations**. URL-based image transformations do not support `pages.dev` domains; bind a custom domain managed by Cloudflare to the Pages project before using this feature.
 :::
 
 - Session Security Policy
