@@ -5,7 +5,7 @@
 Add Features:
 - Added a concurrent batch deletion endpoint to the dashboard, allowing multiple files to be deleted in one request with per-item results
 - Added a folder upload button that recursively reads nested folders and preserves their relative directory structure
-- Added URL-based image resizing to the read-file endpoint with `width`, `height`, center cropping via `fit=cover`, and stretching via `fit=squeeze`; Cloudflare Workers use the Images binding, while Docker uses Sharp
+- Added URL-based image resizing to the read-file endpoint with `width`, `height`, center cropping via `fit=cover`, and stretching via `fit=squeeze`; Cloudflare Pages uses same-domain URL transformations, Workers use the Images binding, and Docker uses Sharp
 - Added an image resizing switch and allowed-size configuration under System Settings → Security Settings → Access Management to restrict requested dimension combinations
 
 Fix Bugs:
