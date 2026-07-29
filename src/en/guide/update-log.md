@@ -3,24 +3,28 @@
 ## Recent Updates
 
 Add Features:
-- Added a concurrent batch deletion endpoint to the dashboard, allowing multiple files to be deleted in one request with per-item results
-- Added a folder upload button that recursively reads nested folders and preserves their relative directory structure
-- Added URL-based image resizing to the read-file endpoint with `width`, `height`, center cropping via `fit=cover`, stretching via `fit=squeeze`, and original-file fallback via `fallback=original`; GIF resizing is available only on Docker, while SVG is unsupported
-- Added an image resizing switch and allowed-size configuration under System Settings → Security Settings → Access Management to restrict requested dimension combinations
+- Added image resizing to Cloudflare Pages through custom-domain `/cdn-cgi/image/` URL transformations, using a client redirect to avoid 404 responses from same-domain internal requests in Pages Functions
+- Added original-file fallback via `fallback=original` to the Read API and format validation by MIME type or file extension before selecting a processing path; GIF resizing is available only on Docker, while SVG and other unsupported formats return `415` by default
 
 Fix Bugs:
-- Improved request-body validation and error handling for the batch deletion endpoint to prevent invalid requests from producing incorrect results
-- Fixed announcement textarea auto-resizing overriding manually selected heights or changing the height when focused
-- Fixed several upload-list and paste-upload textarea interaction issues
-- Fixed the mobile date-range calendar layout and alignment of indeterminate checkbox marks
+- Fixed abnormal `fetchRes` content in Docker/Node when an upstream compressed body had already been decoded but retained its original encoding and length headers, and corrected the base URL used for chained relative redirects
 
 Optimization:
-- Refined dashboard search, sorting, view switching, batch actions, and responsive table layouts while unifying primary theme colors and dialog styling
-- Refined paste-upload controls, upload cards, and interactions across light and dark themes
+- Split common, Docker, and Worker production dependencies into deployment-specific profiles so each environment installs only the packages it needs, reducing unrelated dependencies and deployment size
+- Changed Star History bootstrap data to weekly aggregation, matching the automated update cadence and reducing daily noise in reconstructed charts
 
-Documentation:
-- Added Chinese and English documentation for the batch deletion API
-- Added Chinese and English documentation for the Read API, including image sizing parameters, deployment differences, and actual error statuses
+## 2026.07.29
+
+Add Features:
+- Added image resizing to Cloudflare Pages through custom-domain `/cdn-cgi/image/` URL transformations, using a client redirect to avoid 404 responses from same-domain internal requests in Pages Functions
+- Added original-file fallback via `fallback=original` to the Read API and format validation by MIME type or file extension before selecting a processing path; GIF resizing is available only on Docker, while SVG and other unsupported formats return `415` by default
+
+Fix Bugs:
+- Fixed abnormal `fetchRes` content in Docker/Node when an upstream compressed body had already been decoded but retained its original encoding and length headers, and corrected the base URL used for chained relative redirects
+
+Optimization:
+- Split common, Docker, and Worker production dependencies into deployment-specific profiles so each environment installs only the packages it needs, reducing unrelated dependencies and deployment size
+- Changed Star History bootstrap data to weekly aggregation, matching the automated update cadence and reducing daily noise in reconstructed charts
 
 ## 2026.07.28
 
