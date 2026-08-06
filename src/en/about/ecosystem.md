@@ -28,6 +28,11 @@ Welcome to contribute to the ecosystem of this project! Below is a curated list 
 - **Link:** [Click here](https://github.com/fantasy-ke/obsidian-cf-imgbed/tree/1.0.2)
 - **Description:** An exclusive plugin for Obsidian, allowing you to seamlessly connect to the cloud image bed while writing notes locally.
 
+#### siyuan-cf-imgbed
+- **Author:** [Sirin-Schariac](https://github.com/Sirin-Schariac)
+- **Link:** [Click here](https://github.com/Sirin-Schariac/siyuan-cf-imgbed)
+- **Description:** A SiYuan plugin that uploads local images to CloudFlare-ImgBed via context menus, paste, drag and drop, or batch operations, then automatically replaces them with remote images. It supports Telegram, Cloudflare R2, S3, Discord, Hugging Face, WebDAV, chunked uploads, and direct uploads to Hugging Face; settings and logs remain local.
+
 #### wp-sanyueqicfimg
 - **Author:** [imysen](https://github.com/imysen)
 - **Link:** [Click here](https://github.com/imysen/wp-sanyueqicfimg)

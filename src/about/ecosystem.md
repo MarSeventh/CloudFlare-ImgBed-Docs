@@ -28,6 +28,11 @@
 - 公开地址：[点击跳转](https://github.com/fantasy-ke/obsidian-cf-imgbed/tree/1.0.2)
 - 介绍：为 Obsidian 知识管理软件打造的专属插件，支持在本地记笔记时快捷接入云端图床。
 
+#### siyuan-cf-imgbed
+- 作者：[Sirin-Schariac](https://github.com/Sirin-Schariac)
+- 公开地址：[点击跳转](https://github.com/Sirin-Schariac/siyuan-cf-imgbed)
+- 介绍：思源笔记图床插件，可通过右键、粘贴、拖拽或批量操作将本地图片上传至 CloudFlare-ImgBed，并自动替换为远程图片。兼容 Telegram、Cloudflare R2、S3、Discord、HuggingFace、WebDAV 等渠道，支持大文件分块上传或 HuggingFace 直传；配置与日志仅保存在本地。
+
 #### wp-sanyueqicfimg
 - 作者：[邹云森森](https://github.com/imysen)
 - 公开地址：[点击跳转](https://github.com/imysen/wp-sanyueqicfimg)
