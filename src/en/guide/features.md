@@ -56,14 +56,10 @@ Exact limits and costs depend on the current policies of the selected provider a
 
 ### AI Capabilities
 
-- **Image Tag Recognition**: Manually generate suggested tags for single or multiple images in the admin dashboard, select tags to save, and preserve existing tags
-- **Batch Progress and Retry**: Process images in batches, show recognition progress, cancel further processing, and retry failed items
 - **Unified AI Settings**: Configure OpenAI compatible (chat) providers, models, image input support, and structured output modes in one place
+- **Image Tag Recognition**: Manually generate suggested tags for single or multiple images in the admin dashboard, select tags to save, and preserve existing tags
 - **Prompt Management**: Customize the image tag recognition prompt, tag language, maximum tags per image, and preferred vocabulary
 - **Key Protection**: Enter provider API Keys in the interface; keys are encrypted before storage using the deployment environment's `AI_CONFIG_SECRET`
-- **Lightweight Processing**: Generate temporary previews in the browser without storing thumbnails; generating suggestions does not write to the database, and saving only updates tags that changed
-
-The first release requires manual recognition and does not run automatically after upload. See [AI Settings](/en/deployment/configuration#ai-settings) for configuration and usage.
 
 ### File Reading and Image Processing
 

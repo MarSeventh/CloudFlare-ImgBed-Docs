@@ -3,45 +3,20 @@
 ## Recent Updates
 
 Add Features:
+
 - Added AI Settings for centralized provider, model, image input, structured output, and prompt management; provider API Keys are encrypted using AI_CONFIG_SECRET across Cloudflare and Docker deployments
 - Added manual AI tag recognition for single and multiple images in the admin dashboard, with selection before appending tags, progress, cancellation of further processing, and retry for failed items; no stored thumbnails required
 - Added an unsaved-changes red dot to settings save buttons and a manually dismissed yellow security notice when the admin username and password are not configured
-- Enhanced dashboard file sorting with ascending and descending order by time, size, file ID, or file name, browser-persisted sorting preferences, and a combined icon that clearly indicates the active field and direction
-- Added a dynamic greeting and runtime overview to System Settings → System Status, showing a time-aware greeting, local clock, and timezone while generating bilingual status summaries from the index API response, file count, and upload channel count
-- Added a “Default Language” dropdown to Web Settings with “简体中文” and English options, defaulting to Simplified Chinese; on initial page load, the locale is resolved in order from the persisted user preference, the website default, and then Simplified Chinese
-- Added an “All Channels / Configured Only” filter to channel types in Upload Settings, showing configured and currently available channels by default; when the current selection is unavailable and another channel is available, it automatically switches to the first configured channel
-- Added image resizing to Cloudflare Pages through custom-domain `/cdn-cgi/image/` URL transformations, using a client redirect to avoid 404 responses from same-domain internal requests in Pages Functions
-- Added original-file fallback via `fallback=original` to the Read API and format validation by MIME type or file extension before selecting a processing path; AVIF is available only on Worker and Docker, GIF resizing only on Docker, and SVG and other unsupported formats return `415` by default
 
 Fix Bugs:
+
 - Fixed models remaining usable after their provider was disabled and recognition failing to switch to an available model; recognition now turns off when no image model remains
 - Improved per-item tag saving and index synchronization results and retry prompts so partial failures are not reported as complete success
-- Fixed upload items continuing to show an uploading animation after a confirmed failure, when automatic retries were disabled, or after the maximum automatic retry count was reached; failed items now show a static error state and remain available for manual retry, which resets their progress and automatic retry count before uploading again
-- Fixed paste uploads not working with `Cmd + V` in Safari on macOS and added platform-specific paste shortcut labels
-- Fixed the public gallery list cache incorrectly using `expirationTtl`, which prevented the 24-hour lifetime from taking effect; the cache TTL is now set correctly through `Cache-Control`
-- Fixed inconsistent search and theme button sizes on the public gallery page and made the entire search button clickable instead of only the magnifying-glass icon
-- Fixed abnormal `fetchRes` content in Docker/Node when an upstream compressed body had already been decoded but retained its original encoding and length headers, and corrected the base URL used for chained relative redirects
-- Fixed `500` responses when Docker/Node deployments served Telegram or Telegraph files through Cloudflare/Nginx and forwarded incoming proxy headers to the upstream; upstream requests now retain only Range and conditional cache headers
-- Fixed dark-mode logo hover effects not following the active page theme and multiple global messages overlapping because of a fixed top position
-- Fixed the upload page title's crayon-writing animation being clipped at the bottom, and adjusted title layering and responsive spacing so the hover transition remains fully visible
 
 Optimization:
+
 - Aligned AI Settings with other settings pages and refined provider and model cards, configuration dialogs, and bilingual messages
 - Restyled single-file and batch tag dialogs with consistent rounded sections, tags, inputs, and action buttons; batch tabs use two columns on mobile and support light and dark themes
-- Added bilingual AI feature and settings documentation and an AI homepage card while keeping the total at eight
-- Increased hover-background contrast in light mode for dropdown menus, selects, the upload channel filter, and the System Settings tab toggle, while restoring hover feedback for the selected item when a select opens for clearer and more consistent interaction states
-- Refined the admin top page switcher with stronger dark-mode hover contrast, spacing between the current and remaining options, and a corrected highlight exit animation that no longer slides back to the first option
-- Unified dashed borders across the default-upload and paste-link cards, with clearer neutral hover borders, opacity changes, and soft shadows in light and dark themes
-- Increased light-mode border contrast for shared glass cards, dialogs, and dropdowns while preserving a clearer visual distinction between default and hover borders
-- Unified popup spacing, corner radii, selected states, and light/dark hover feedback across the dashboard sorting menu, System Settings selects, and the Upload Settings channel filter so option backgrounds no longer touch the popup edges
-- Added a hover lift effect to the three overview cards at the top of System Settings → System Status, using subtle upward movement, shadow and border transitions for clearer interaction feedback while respecting the system's reduced-motion preference
-- Added hover feedback to the bar-style labels in Upload Channel Distribution and File Status Distribution, using subtle lift plus background, border, and shadow changes for clearer interaction states across light and dark themes while respecting reduced-motion preferences
-- Reordered Web Settings by placing “Default Language” after “Site Icon”, renaming “Enable Wallpaper” to “Enable Background Image”, and moving it before “Background Interval”
-- Expanded the “Default URL Prefix” tooltip to explain its use in scenarios such as CDN acceleration and remind administrators to ensure the custom prefix is accessible
-- Added the same background blur used by cards to the admin top bar through a shared global glass-blur variable, and consolidated top-bar, pagination, and loading-action styles into one common stylesheet for consistent visuals and maintenance
-- Split common, Docker, and Worker production dependencies into deployment-specific profiles so each environment installs only the packages it needs, reducing unrelated dependencies and deployment size
-- Changed Star History bootstrap data to weekly aggregation, matching the automated update cadence and reducing daily noise in reconstructed charts
-- Refined layouts for desktop viewports with limited available height by reducing spacing above the upload page title and upload area, tightening upload-list toolbar sizing, and preloading the title font for a smoother initial render
 
 ## 2026.10.01
 
