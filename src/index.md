@@ -30,7 +30,7 @@ features:
   
   - icon: 🎨
     title: 现代界面
-    details: 响应式文件管理与上传界面，支持深色模式、中英文切换和移动端操作
+    details: 响应式界面适配深色模式、中英文和移动端，可自定义背景、Logo、配色、公告和链接前缀
   
   - icon: 🔐
     title: 安全可靠
@@ -48,7 +48,8 @@ features:
     title: 自由读取
     details: 提供统一读取 API 和 HEAD 请求，并在对应渠道支持 Range，还可通过 URL 参数处理图片尺寸
   
-  - icon: 🔧
-    title: 随心定制
-    details: 支持自定义背景、Logo、配色、公告、公开目录和链接前缀，打造专属文件站点
+  - icon: 🤖
+    title: AI 能力
+    details: 统一管理供应商、模型和 Prompt，支持单张及批量图片标签识别，选择建议标签后保存
+    link: /deployment/configuration#ai-settings
 ---

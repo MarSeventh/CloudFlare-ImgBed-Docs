@@ -255,6 +255,118 @@ Frontend web-related settings are configured in "System Settings" → "Web Setti
 - **Login Background**: Admin login page background. Uses the same format as the client Login Background.
 - **Admin Background**: Admin dashboard background. Uses the same format as the client Login Background.
 
+## 🤖 AI Settings {#ai-settings}
+
+Configure AI in the admin backend under **System Settings → AI Settings**, before Other Settings. The current release connects to OpenAI compatible (chat) providers and supports manual image tag recognition in file management.
+
+### Configure the Encryption Secret
+
+Before first use, set `AI_CONFIG_SECRET` in the deployment environment to a **random secret of at least 32 characters**. It encrypts stored provider API Keys. Provider API Keys are entered in the admin interface; no separate environment variable is needed for each provider.
+
+::: warning Keep the secret safe
+Keep `AI_CONFIG_SECRET` fixed and back it up separately from the database. If it is changed or lost, saved provider API Keys cannot be decrypted and must be entered again. Do not commit real secrets to the repository.
+:::
+
+Deployment options:
+
+- **Cloudflare Pages**: Add `AI_CONFIG_SECRET` as a secret under the project's **Settings → Variables and Secrets**. Configure the production or preview environment you use, then redeploy.
+- **Cloudflare Workers**: Add the same secret in the dashboard, or run this command in the backend repository:
+
+  ```bash
+  npx wrangler secret put AI_CONFIG_SECRET --config deploy/worker/wrangler.toml
+  ```
+
+- **Docker**: Uncomment the reserved field in `docker-compose.yml` and supply your secret, for example:
+
+  ```yaml
+  services:
+    imgbed:
+      environment:
+        AI_CONFIG_SECRET: "replace-with-a-random-secret-of-at-least-32-characters"
+  ```
+
+  Use the service name from your Compose file, then run `docker compose up -d` to recreate the container.
+- **Local development**: With Wrangler, add `AI_CONFIG_SECRET="your-random-secret"` to `.dev.vars` in the backend root. With Node.js, set the process environment variable of the same name and restart the service.
+
+AI Settings follow the admin backend's authentication rules. They remain available when the admin username and password are not configured, but each entry into the admin backend displays a yellow warning that must be dismissed manually. Configure admin authentication in Security Settings first if possible.
+
+### General Settings
+
+| Setting | Description | Default / Range |
+|---------|-------------|-----------------|
+| Enable AI | Main switch for AI capabilities | Off by default |
+| Provider timeout (ms) | Maximum wait for a single model call | `20000`, range `1000–20000` |
+| Maximum images per batch | Maximum images per recognition request; the frontend splits larger selections into batches | `3`, range `1–3` |
+| Concurrent model calls | Simultaneous model calls within each recognition request | `2`, range `1–2` |
+
+#### Providers
+
+Click **Add provider** and complete the dialog:
+
+- **Name**: A name to distinguish the provider.
+- **Protocol**: Currently `OpenAI compatible (chat)`.
+- **Base URL**: Enter the API base address, such as `https://api.example.com/v1`. The server appends `/chat/completions`. Public HTTPS addresses are required by default; credentials, query parameters, and fragments are not allowed.
+- **API Key**: Enter the provider key, which is encrypted using `AI_CONFIG_SECRET` when saved. Leave this field blank while editing to preserve the existing key; select **Delete saved Key** to remove it.
+- **Enable provider**: Disabled providers' models cannot be used for recognition or connection tests.
+
+Up to 8 providers can be configured. Cards show only the first two and last four characters of a key; short keys are fully masked. Remove or reassign a provider's models before deleting the provider.
+
+#### Models
+
+Click **Add model**, select a provider, and enter the **Model identifier** supplied by that provider. Available options:
+
+| Setting | Description |
+|---------|-------------|
+| Supports images | Required for image tag recognition; verify that the provider actually accepts image requests for this model. Cards show `text` and `img` when enabled, otherwise only `text` |
+| Structured output | **Prompt constraints**: Request JSON through instructions for broader compatibility. **Native JSON object**: Enable the API's native JSON object mode, which requires provider and model support |
+| Maximum output tokens | Limit response length; default `256`, range `64–2048` |
+
+Up to 16 models can be configured. **Test connection** on a model card tests text calls only and does not prove image input is available. Disabling a provider switches image tag recognition to the first available image model. If none remains, the selection is cleared and recognition is disabled.
+
+### Prompt Management
+
+Edit **Image tag recognition prompt** or restore the built-in prompt. Supported variables:
+
+| Variable | Purpose |
+|----------|---------|
+| `{language}` | Tag language |
+| `{maxTags}` | Maximum tags per image |
+| `{preferredTags}` | Preferred tag vocabulary |
+
+The system appends the required tag JSON format; you do not need to implement response parsing.
+
+### Image Tag Recognition
+
+- **Enable recognition**: Controls image tag recognition in the admin backend; Enable AI must also be on.
+- **Model**: Select an available image model; options show both the model identifier and provider.
+- **Tag language**: Simplified Chinese or English; defaults to Simplified Chinese.
+- **Maximum tags per image**: Default `6`, range `1–10`.
+- **Preferred tags**: Separate with English commas `,`, Chinese commas `，`, or newlines, up to 100 tags. The model considers relevant vocabulary but is not guaranteed to use it every time.
+
+Click **Save** after configuration. A red dot appears at the top left of the save button when changes are unsaved. Confirming a provider or model dialog does not replace saving the settings page.
+
+### Use in File Management
+
+1. **Single image**: Open the file's tag management dialog and click **Generate** in the **AI Tag Recognition** card.
+2. **Multiple images**: Select files, open the batch tag operation dialog, switch to **AI Tag Recognition**, and click **Generate**.
+3. Select the suggested tags you want and click **Save** to append them to existing tags. Generating suggestions does not change saved tags.
+4. Click **Retry** for failed items. You can cancel further batch processing and still select and save results already generated.
+
+::: tip Image and runtime limits
+JPEG, PNG, WebP, AVIF, and GIF are supported (using the first frame decoded by the browser), with an original-file limit of 20 MiB. SVG and non-image files are unsupported. The browser creates a temporary JPEG preview with a maximum dimension of 768 pixels and a size limit of 256 KiB. No stored thumbnails are needed, and the server does not resize or decode images.
+
+Each recognition request has an overall processing deadline of 25 seconds, with at most 3 images per batch and 2 concurrent calls to control serverless execution time and resource use. Configuration is read once per request. Generating suggestions does not write to the database; saving updates only changed files and synchronizes the tag index in batches. Completion still depends on model latency and deployment platform limits.
+:::
+
+The first release provides manual recognition, without automatic tagging after upload. Image previews are sent to the selected provider; billing and data handling follow that provider's policies.
+
+### Common Issues
+
+- **Cannot save an API Key**: Check that the service has loaded an `AI_CONFIG_SECRET` of at least 32 characters. Restart Docker containers or local processes after changing environment variables.
+- **Connection test succeeds but recognition returns 401 / 403**: Text tests and image requests differ. Check image model permissions, upstream credentials, and provider access rules.
+- **Timeout or connection failure**: Check the Base URL, server network, and provider status. Reduce batch size or concurrency, or retry failed items.
+- **Tags saved but index synchronization failed**: Retry synchronization as prompted; recognition does not need to run again.
+
 ## 🛠️ Other Settings
 Other setting items are configured in "System Settings" → "Other Settings" in the admin backend
 
@@ -292,7 +404,7 @@ WebDAV service related settings, detailed introduction and usage methods can be 
 ## 🔧 Environment Variables List
 
 ::: warning Note
-Environment variable setting method has been deprecated after v2.0. Please configure the following in the admin backend.
+The legacy business environment variables listed below were deprecated after v2.0; configure them in the admin backend. The `AI_CONFIG_SECRET` described above must still be set in the deployment environment.
 :::
 
 ### Basic Authentication Configuration

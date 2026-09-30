@@ -54,6 +54,17 @@ Exact limits and costs depend on the current policies of the selected provider a
 - **Error Retry**: Failed files support re-upload
 - **Directory Suggestions**: Upload page directory input supports auto-suggestion and completion
 
+### AI Capabilities
+
+- **Image Tag Recognition**: Manually generate suggested tags for single or multiple images in the admin dashboard, select tags to save, and preserve existing tags
+- **Batch Progress and Retry**: Process images in batches, show recognition progress, cancel further processing, and retry failed items
+- **Unified AI Settings**: Configure OpenAI compatible (chat) providers, models, image input support, and structured output modes in one place
+- **Prompt Management**: Customize the image tag recognition prompt, tag language, maximum tags per image, and preferred vocabulary
+- **Key Protection**: Enter provider API Keys in the interface; keys are encrypted before storage using the deployment environment's `AI_CONFIG_SECRET`
+- **Lightweight Processing**: Generate temporary previews in the browser without storing thumbnails; generating suggestions does not write to the database, and saving only updates tags that changed
+
+The first release requires manual recognition and does not run automatically after upload. See [AI Settings](/en/deployment/configuration#ai-settings) for configuration and usage.
+
 ### File Reading and Image Processing
 
 - **Unified Reads**: Access every storage channel through `/file/{path}`
@@ -143,6 +154,7 @@ Exact limits and costs depend on the current policies of the selected provider a
 
 ### System Settings
 
+- **AI Settings**: Manage AI providers, models, prompts, and image tag recognition; see the [Configuration Guide](/en/deployment/configuration#ai-settings)
 - **Channel Management**: Multi-storage channel configuration and switching
 - **Load Balancing**: Multi-channel load balancing settings
 - **Cache Management**: Automatic CDN cache cleanup

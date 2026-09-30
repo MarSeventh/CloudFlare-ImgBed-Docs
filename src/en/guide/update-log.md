@@ -3,6 +3,9 @@
 ## Recent Updates
 
 Add Features:
+- Added AI Settings for centralized provider, model, image input, structured output, and prompt management; provider API Keys are encrypted using AI_CONFIG_SECRET across Cloudflare and Docker deployments
+- Added manual AI tag recognition for single and multiple images in the admin dashboard, with selection before appending tags, progress, cancellation of further processing, and retry for failed items; no stored thumbnails required
+- Added an unsaved-changes red dot to settings save buttons and a manually dismissed yellow security notice when the admin username and password are not configured
 - Enhanced dashboard file sorting with ascending and descending order by time, size, file ID, or file name, browser-persisted sorting preferences, and a combined icon that clearly indicates the active field and direction
 - Added a dynamic greeting and runtime overview to System Settings → System Status, showing a time-aware greeting, local clock, and timezone while generating bilingual status summaries from the index API response, file count, and upload channel count
 - Added a “Default Language” dropdown to Web Settings with “简体中文” and English options, defaulting to Simplified Chinese; on initial page load, the locale is resolved in order from the persisted user preference, the website default, and then Simplified Chinese
@@ -11,6 +14,8 @@ Add Features:
 - Added original-file fallback via `fallback=original` to the Read API and format validation by MIME type or file extension before selecting a processing path; AVIF is available only on Worker and Docker, GIF resizing only on Docker, and SVG and other unsupported formats return `415` by default
 
 Fix Bugs:
+- Fixed models remaining usable after their provider was disabled and recognition failing to switch to an available model; recognition now turns off when no image model remains
+- Improved per-item tag saving and index synchronization results and retry prompts so partial failures are not reported as complete success
 - Fixed upload items continuing to show an uploading animation after a confirmed failure, when automatic retries were disabled, or after the maximum automatic retry count was reached; failed items now show a static error state and remain available for manual retry, which resets their progress and automatic retry count before uploading again
 - Fixed paste uploads not working with `Cmd + V` in Safari on macOS and added platform-specific paste shortcut labels
 - Fixed the public gallery list cache incorrectly using `expirationTtl`, which prevented the 24-hour lifetime from taking effect; the cache TTL is now set correctly through `Cache-Control`
@@ -21,6 +26,9 @@ Fix Bugs:
 - Fixed the upload page title's crayon-writing animation being clipped at the bottom, and adjusted title layering and responsive spacing so the hover transition remains fully visible
 
 Optimization:
+- Aligned AI Settings with other settings pages and refined provider and model cards, configuration dialogs, and bilingual messages
+- Restyled single-file and batch tag dialogs with consistent rounded sections, tags, inputs, and action buttons; batch tabs use two columns on mobile and support light and dark themes
+- Added bilingual AI feature and settings documentation and an AI homepage card while keeping the total at eight
 - Increased hover-background contrast in light mode for dropdown menus, selects, the upload channel filter, and the System Settings tab toggle, while restoring hover feedback for the selected item when a select opens for clearer and more consistent interaction states
 - Refined the admin top page switcher with stronger dark-mode hover contrast, spacing between the current and remaining options, and a corrected highlight exit animation that no longer slides back to the first option
 - Unified dashed borders across the default-upload and paste-link cards, with clearer neutral hover borders, opacity changes, and soft shadows in light and dark themes
@@ -34,6 +42,25 @@ Optimization:
 - Split common, Docker, and Worker production dependencies into deployment-specific profiles so each environment installs only the packages it needs, reducing unrelated dependencies and deployment size
 - Changed Star History bootstrap data to weekly aggregation, matching the automated update cadence and reducing daily noise in reconstructed charts
 - Refined layouts for desktop viewports with limited available height by reducing spacing above the upload page title and upload area, tightening upload-list toolbar sizing, and preloading the title font for a smoother initial render
+
+## 2026.10.01
+
+Add Features:
+
+- Added AI Settings for centralized provider, model, image input, structured output, and prompt management; provider API Keys are encrypted using AI_CONFIG_SECRET across Cloudflare and Docker deployments
+- Added manual AI tag recognition for single and multiple images in the admin dashboard, with selection before appending tags, progress, cancellation of further processing, and retry for failed items; no stored thumbnails required
+- Added an unsaved-changes red dot to settings save buttons and a manually dismissed yellow security notice when the admin username and password are not configured
+
+Fix Bugs:
+
+- Fixed models remaining usable after their provider was disabled and recognition failing to switch to an available model; recognition now turns off when no image model remains
+- Improved per-item tag saving and index synchronization results and retry prompts so partial failures are not reported as complete success
+
+Optimization:
+
+- Aligned AI Settings with other settings pages and refined provider and model cards, configuration dialogs, and bilingual messages
+- Restyled single-file and batch tag dialogs with consistent rounded sections, tags, inputs, and action buttons; batch tabs use two columns on mobile and support light and dark themes
+- Added bilingual AI feature and settings documentation and an AI homepage card while keeping the total at eight
 
 ## 2026.09.11
 

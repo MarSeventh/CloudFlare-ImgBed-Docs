@@ -30,7 +30,7 @@ features:
   
   - icon: 🎨
     title: Modern Interface
-    details: Responsive upload and file management interfaces with dark mode, bilingual UI, and mobile support
+    details: Responsive, bilingual UI with dark mode and mobile support; customize backgrounds, logos, colors, announcements, and link prefixes
   
   - icon: 🔐
     title: Secure and Reliable
@@ -48,8 +48,9 @@ features:
     title: Read and Transform
     details: Unified Read API with HEAD and channel-dependent Range support, plus URL-based image resizing
   
-  - icon: 🔧
-    title: Highly Customizable
-    details: Customize backgrounds, logos, colors, announcements, public directories, and link prefixes
+  - icon: 🤖
+    title: AI Capabilities
+    details: Manage providers, models, and prompts in one place; recognize tags for single or multiple images, then select suggestions to save
+    link: /en/deployment/configuration#ai-settings
 ---
 
