@@ -7,16 +7,21 @@ Add Features:
 - Added AI Settings for centralized provider, model, image input, structured output, and prompt management; provider API Keys are encrypted using AI_CONFIG_SECRET across Cloudflare and Docker deployments
 - Added manual AI tag recognition for single and multiple images in the admin dashboard, with selection before appending tags, progress, cancellation of further processing, and retry for failed items; no stored thumbnails required
 - Added an unsaved-changes red dot to settings save buttons and a manually dismissed yellow security notice when the admin username and password are not configured
+- Added optional `text` / `secret` types for each `WORKER_VARS` entry in GitHub Actions Worker deployments while preserving the existing format; secrets are excluded from ordinary variable configuration and uploaded together as Cloudflare Secrets after deployment succeeds
 
 Fix Bugs:
 
 - Fixed models remaining usable after their provider was disabled and recognition failing to switch to an available model; recognition now turns off when no image model remains
 - Improved per-item tag saving and index synchronization results and retry prompts so partial failures are not reported as complete success
+- Fixed vertical alignment of icons, text, and buttons in provider and model headings in AI Settings and the AI tag recognition toolbar in tag management
 
 Optimization:
 
 - Aligned AI Settings with other settings pages and refined provider and model cards, configuration dialogs, and bilingual messages
 - Restyled single-file and batch tag dialogs with consistent rounded sections, tags, inputs, and action buttons; batch tabs use two columns on mobile and support light and dark themes
+- Unified the simple AI icon across the sidebar, batch actions, and AI tag recognition, refining its size and stroke weight while keeping the robot icon for models
+- Added viewport-aware maximum heights to dialogs, with internal content scrolling and visible thin scrollbars while keeping headings and footer buttons visible; centered and fullscreen dialogs are supported
+- Updated bilingual Worker deployment instructions and the `WORKER_VARS` format guide, with a direct link from the AI secret setup instructions in AI Settings to the variable format section
 
 ## 2026.10.01
 
@@ -25,16 +30,21 @@ Add Features:
 - Added AI Settings for centralized provider, model, image input, structured output, and prompt management; provider API Keys are encrypted using AI_CONFIG_SECRET across Cloudflare and Docker deployments
 - Added manual AI tag recognition for single and multiple images in the admin dashboard, with selection before appending tags, progress, cancellation of further processing, and retry for failed items; no stored thumbnails required
 - Added an unsaved-changes red dot to settings save buttons and a manually dismissed yellow security notice when the admin username and password are not configured
+- Added optional `text` / `secret` types for each `WORKER_VARS` entry in GitHub Actions Worker deployments while preserving the existing format; secrets are excluded from ordinary variable configuration and uploaded together as Cloudflare Secrets after deployment succeeds
 
 Fix Bugs:
 
 - Fixed models remaining usable after their provider was disabled and recognition failing to switch to an available model; recognition now turns off when no image model remains
 - Improved per-item tag saving and index synchronization results and retry prompts so partial failures are not reported as complete success
+- Fixed vertical alignment of icons, text, and buttons in provider and model headings in AI Settings and the AI tag recognition toolbar in tag management
 
 Optimization:
 
 - Aligned AI Settings with other settings pages and refined provider and model cards, configuration dialogs, and bilingual messages
 - Restyled single-file and batch tag dialogs with consistent rounded sections, tags, inputs, and action buttons; batch tabs use two columns on mobile and support light and dark themes
+- Unified the simple AI icon across the sidebar, batch actions, and AI tag recognition, refining its size and stroke weight while keeping the robot icon for models
+- Added viewport-aware maximum heights to dialogs, with internal content scrolling and visible thin scrollbars while keeping headings and footer buttons visible; centered and fullscreen dialogs are supported
+- Updated bilingual Worker deployment instructions and the `WORKER_VARS` format guide, with a direct link from the AI secret setup instructions in AI Settings to the variable format section
 - Added bilingual AI feature and settings documentation and an AI homepage card while keeping the total at eight
 
 ## 2026.09.11
