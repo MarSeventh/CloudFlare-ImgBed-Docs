@@ -99,18 +99,12 @@ Cloudflare Workers 部署是 Pages 部署之外的另一种 Serverless 部署方
 | `"变量名": { "value": "值", "type": "text" }` | 写入 `wrangler.toml` 的 `[vars]`，作为 Cloudflare 普通文本变量部署 |
 | `"变量名": { "value": "值", "type": "secret" }` | 不写入 `[vars]`；Worker 部署成功后统一通过 `wrangler secret bulk` 上传为 Cloudflare Secret |
 
-`type` 只支持小写 `text` 和 `secret`。配置格式错误会停止部署。生成配置时会隐藏业务变量的值，上传 Secret 的临时文件在流程结束时清理。修改 GitHub Secret 后，需要重新运行部署流程才能生效。
-
-使用 AI 功能时，将 `AI_CONFIG_SECRET` 配置为 `secret`，值为至少 **32 个字符的随机密钥**；供应商 API Key 则在管理面板的「智能设置」中填写。迁移原来的直接值写法时，保持 `AI_CONFIG_SECRET` 的值不变，否则已保存的供应商 API Key 将无法解密。
-
 所有可用的环境变量请参考 [配置说明](/deployment/configuration)。
 
 ::: warning 非必要不建议在此处配置
-所有业务设置（存储渠道、审查策略等）都可以在部署完成后通过管理面板进行配置，无需在此处填写。仅当管理面板无法覆盖的特殊环境变量才需要通过 `WORKER_VARS` 配置。
-:::
+所有业务设置都可以在部署完成后通过管理面板进行配置，无需在此处填写，仅当管理面板无法覆盖的特殊环境变量才需要通过 `WORKER_VARS` 配置。
 
-::: warning 安全提示
-请将配置保存在 GitHub Secrets 中，不要将真实密钥提交到代码仓库或填写到公开仓库的 Variables。GitHub Secret 不会自动变成 Cloudflare Secret：直接值写法和 `type: "text"` 都会部署成普通文本变量，密钥、Token 等敏感值应明确设置 `type: "secret"`。
+请将配置保存在 GitHub Secrets 中，不要将真实密钥提交到代码仓库或填写到公开仓库的 Variables。GitHub Secret 不会自动变成 Cloudflare Secret，密钥、Token 等敏感值应明确设置 `type: "secret"`。
 :::
 
 ## 🚀 第四步：运行部署

@@ -99,18 +99,12 @@ Add a GitHub Actions Secret named `WORKER_VARS` and set its value to the complet
 | `"NAME": { "value": "value", "type": "text" }` | Written to `[vars]` in `wrangler.toml` and deployed as a Cloudflare plain text variable |
 | `"NAME": { "value": "value", "type": "secret" }` | Excluded from `[vars]`; uploaded together as Cloudflare Secrets using `wrangler secret bulk` after the Worker deploys successfully |
 
-`type` only accepts lowercase `text` and `secret`. Invalid configuration stops deployment. Business variable values are hidden when printing the generated configuration, and the temporary secrets file is cleaned up at the end of the workflow. Run the deployment workflow again after changing a GitHub Secret.
-
-For AI features, configure `AI_CONFIG_SECRET` as `secret` with a **random value of at least 32 characters**, and enter provider API Keys in **AI Settings** in the admin panel. When migrating from the original direct-value format, keep the same `AI_CONFIG_SECRET` value so existing provider API Keys can still be decrypted.
-
 For all available environment variables, refer to the [Configuration Guide](/en/deployment/configuration).
 
 ::: warning Not recommended unless necessary
-All business settings (storage channels, moderation policies, etc.) can be configured through the admin panel after deployment. Only use `WORKER_VARS` for special environment variables that cannot be set via the admin panel.
-:::
+All business settings can be configured through the admin panel after deployment, so there is no need to fill them in here. Only use `WORKER_VARS` for special environment variables that cannot be set via the admin panel.
 
-::: warning Security Note
-Store configuration in GitHub Secrets. Do not commit real credentials or put them in Variables in a public repository. A GitHub Secret does not automatically become a Cloudflare Secret: direct values and `type: "text"` deploy as plain text variables. Set `type: "secret"` explicitly for keys, tokens, and other sensitive values.
+Store configuration in GitHub Secrets. Do not commit real credentials or put them in Variables in a public repository. A GitHub Secret does not automatically become a Cloudflare Secret. Set `type: "secret"` explicitly for keys, tokens, and other sensitive values.
 :::
 
 ## 🚀 Step 4: Run Deployment
