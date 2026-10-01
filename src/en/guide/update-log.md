@@ -14,13 +14,22 @@ Fix Bugs:
 - Fixed models remaining usable after their provider was disabled and recognition failing to switch to an available model; recognition now turns off when no image model remains
 - Improved per-item tag saving and index synchronization results and retry prompts so partial failures are not reported as complete success
 - Fixed vertical alignment of icons, text, and buttons in provider and model headings in AI Settings and the AI tag recognition toolbar in tag management
+- Fixed vertical alignment of sidebar icons and text in System Settings and standardized the AI icon width
+- Restored previous and next pagination buttons in User Management on mobile; only File Management hides these buttons on mobile
+- Fixed file content being covered by the header and inconsistent mobile spacing in User Management, System Status, and settings pages; standardized gaps around upload trends, channel distribution, file status, system maintenance, and recent uploads
+- Fixed File Management retaining the previous scroll position when opened from System Settings; unified scrolling on admin page and settings tab changes, including custom scroll containers
 
 Optimization:
 
 - Aligned AI Settings with other settings pages and refined provider and model cards, configuration dialogs, and bilingual messages
 - Restyled single-file and batch tag dialogs with consistent rounded sections, tags, inputs, and action buttons; batch tabs use two columns on mobile and support light and dark themes
 - Unified the simple AI icon across the sidebar, batch actions, and AI tag recognition, refining its size and stroke weight while keeping the robot icon for models
-- Added viewport-aware maximum heights to dialogs, with internal content scrolling and hidden scrollbars while keeping headings and footer buttons visible; centered and fullscreen dialogs are supported
+- Added viewport-aware maximum heights to dialogs, with internal content scrolling and hidden scrollbars while keeping headings and footer buttons visible; gradient masks soften the upper and lower content edges, with support for centered and fullscreen dialogs
+- Consolidated headers for File Management, User Management, and System Settings into a shared component with consistent theme, language, link format, and logout controls; mobile actions use a single row, and the file filter sits beside the search box without scaling on hover
+- Added header contraction when scrolling down and expansion when scrolling up or returning to the top; the page switcher, search box, and action buttons resize together, with improved vertical alignment and spacing above the compact header
+- Moved common tags into the bottom of the current-tags card; successfully added AI suggestions disappear while suggestions that have not been added remain available, with simpler save confirmation messages
+- Aligned spacing in System Status, Security, Web, AI, and Other Settings with Upload Settings, reducing excess space at the top on desktop and at the bottom on mobile
+- Removed redundant styles and logic after the refactor, consolidated header scroll handling, and fixed the System Settings sidebar failing to remove its resize listener on unmount
 - Updated bilingual Worker deployment instructions and the `WORKER_VARS` format guide, with a direct link from the AI secret setup instructions in AI Settings to the variable format section
 
 ## 2026.10.01
@@ -37,13 +46,22 @@ Fix Bugs:
 - Fixed models remaining usable after their provider was disabled and recognition failing to switch to an available model; recognition now turns off when no image model remains
 - Improved per-item tag saving and index synchronization results and retry prompts so partial failures are not reported as complete success
 - Fixed vertical alignment of icons, text, and buttons in provider and model headings in AI Settings and the AI tag recognition toolbar in tag management
+- Fixed vertical alignment of sidebar icons and text in System Settings and standardized the AI icon width
+- Restored previous and next pagination buttons in User Management on mobile; only File Management hides these buttons on mobile
+- Fixed file content being covered by the header and inconsistent mobile spacing in User Management, System Status, and settings pages; standardized gaps around upload trends, channel distribution, file status, system maintenance, and recent uploads
+- Fixed File Management retaining the previous scroll position when opened from System Settings; unified scrolling on admin page and settings tab changes, including custom scroll containers
 
 Optimization:
 
 - Aligned AI Settings with other settings pages and refined provider and model cards, configuration dialogs, and bilingual messages
 - Restyled single-file and batch tag dialogs with consistent rounded sections, tags, inputs, and action buttons; batch tabs use two columns on mobile and support light and dark themes
 - Unified the simple AI icon across the sidebar, batch actions, and AI tag recognition, refining its size and stroke weight while keeping the robot icon for models
-- Added viewport-aware maximum heights to dialogs, with internal content scrolling and hidden scrollbars while keeping headings and footer buttons visible; centered and fullscreen dialogs are supported
+- Added viewport-aware maximum heights to dialogs, with internal content scrolling and hidden scrollbars while keeping headings and footer buttons visible; gradient masks soften the upper and lower content edges, with support for centered and fullscreen dialogs
+- Consolidated headers for File Management, User Management, and System Settings into a shared component with consistent theme, language, link format, and logout controls; mobile actions use a single row, and the file filter sits beside the search box without scaling on hover
+- Added header contraction when scrolling down and expansion when scrolling up or returning to the top; the page switcher, search box, and action buttons resize together, with improved vertical alignment and spacing above the compact header
+- Moved common tags into the bottom of the current-tags card; successfully added AI suggestions disappear while suggestions that have not been added remain available, with simpler save confirmation messages
+- Aligned spacing in System Status, Security, Web, AI, and Other Settings with Upload Settings, reducing excess space at the top on desktop and at the bottom on mobile
+- Removed redundant styles and logic after the refactor, consolidated header scroll handling, and fixed the System Settings sidebar failing to remove its resize listener on unmount
 - Updated bilingual Worker deployment instructions and the `WORKER_VARS` format guide, with a direct link from the AI secret setup instructions in AI Settings to the variable format section
 - Added bilingual AI feature and settings documentation and an AI homepage card while keeping the total at eight
 

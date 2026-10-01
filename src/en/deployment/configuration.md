@@ -261,10 +261,10 @@ Configure AI capabilities in the admin backend under **System Settings → AI Se
 
 ### Configure the Encryption Secret
 
-Before first use, set `AI_CONFIG_SECRET` in the deployment environment to a **random secret of at least 32 characters**. It encrypts stored provider API Keys.
+Before first use, set `AI_CONFIG_SECRET` in the deployment environment to a **random secret of at least 32 characters** to encrypt stored provider API Keys.
 
 ::: warning Keep the secret safe
-Keep `AI_CONFIG_SECRET` fixed and back it up separately from the database. If it is changed or lost, saved provider API Keys cannot be decrypted and must be entered again. Do not commit real secrets to the repository!
+Keep `AI_CONFIG_SECRET` fixed and back it up separately from the database; if it is changed or lost, saved provider API Keys cannot be decrypted. Do not commit real secrets to the repository!
 :::
 
 Deployment options:
@@ -292,7 +292,7 @@ Click **Add provider** and complete the dialog:
 - **API Key**: Enter the provider key, which is encrypted using `AI_CONFIG_SECRET` when saved. Leave this field blank while editing to preserve the existing key; select **Delete saved Key** to remove it.
 - **Enable provider**: Disabled providers' models cannot be used for recognition or connection tests.
 
-Up to 8 providers can be configured. Cards show only the first two and last four characters of a key; short keys are fully masked. Remove or reassign a provider's models before deleting the provider.
+Up to 8 providers can be configured. Remove or reassign a provider's models before deleting the provider.
 
 #### Models
 
