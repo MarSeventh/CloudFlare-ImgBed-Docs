@@ -272,7 +272,7 @@ AI 能力的相关配置，在管理后台的「系统设置」→「智能设�
 不同部署方式：
 
 - **Cloudflare Pages**：在项目「设置」→「变量和机密」中添加 `AI_CONFIG_SECRET`，选择机密类型，在实际使用的生产或预览环境配置后重新部署。
-- **Cloudflare Workers**：在 `Github Secrets` 中配置 `WORKER_VARS`。
+- **Cloudflare Workers**：在 GitHub Secrets 的 `WORKER_VARS` 中添加 `AI_CONFIG_SECRET`，使用 `value` 填写密钥并设置 `type: "secret"`，然后重新运行部署。具体格式和示例见 [WORKER_VARS 格式说明](/deployment/worker#worker-vars)。
 - **Docker**：取消 `docker-compose.yml` 中预留字段的注释并填写密钥。
 
 ### 基础设置

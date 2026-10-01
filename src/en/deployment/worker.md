@@ -68,14 +68,40 @@ In your forked repository, go to **Settings → Secrets and variables → Action
 | `KV_NAMESPACE_ID` | KV Namespace ID | Pick one |
 | `R2_BUCKET_NAME` | R2 Bucket name | Optional |
 | `WORKER_NAME` | Worker name (default `cloudflare-imgbed`) | Optional |
-| `WORKER_VARS` | Business environment variables (JSON format) | Optional |
+| `WORKER_VARS` | Business environment variables (JSON format, supports `text` / `secret`) | Optional |
 
-::: details WORKER_VARS Format
-`WORKER_VARS` is used to configure business-related environment variables in JSON string format. For example, to configure the Telegram channel:
+### WORKER_VARS Format {#worker-vars}
+
+Add a GitHub Actions Secret named `WORKER_VARS` and set its value to the complete JSON object. Each entry accepts a direct value or an object with `value` and an optional `type`:
 
 ```json
-{"TG_BOT_TOKEN":"your-bot-token","TG_CHAT_ID":"your-chat-id"}
+{
+  "TG_CHAT_ID": "your-chat-id",
+  "CUSTOM_DOMAIN": {
+    "value": "https://img.example.com",
+    "type": "text"
+  },
+  "AI_CONFIG_SECRET": {
+    "value": "replace-with-a-random-secret-of-at-least-32-characters",
+    "type": "secret"
+  },
+  "TG_BOT_TOKEN": {
+    "value": "your-bot-token",
+    "type": "secret"
+  }
+}
 ```
+
+| Format / Type | Deployment behavior |
+|---|---|
+| `"NAME": "value"` | Preserves the original format and deploys as a regular `text` environment variable |
+| `"NAME": { "value": "value" }` | Defaults to `text` when `type` is omitted |
+| `"NAME": { "value": "value", "type": "text" }` | Written to `[vars]` in `wrangler.toml` and deployed as a Cloudflare plain text variable |
+| `"NAME": { "value": "value", "type": "secret" }` | Excluded from `[vars]`; uploaded together as Cloudflare Secrets using `wrangler secret bulk` after the Worker deploys successfully |
+
+`type` only accepts lowercase `text` and `secret`. Invalid configuration stops deployment. Business variable values are hidden when printing the generated configuration, and the temporary secrets file is cleaned up at the end of the workflow. Run the deployment workflow again after changing a GitHub Secret.
+
+For AI features, configure `AI_CONFIG_SECRET` as `secret` with a **random value of at least 32 characters**, and enter provider API Keys in **AI Settings** in the admin panel. When migrating from the original direct-value format, keep the same `AI_CONFIG_SECRET` value so existing provider API Keys can still be decrypted.
 
 For all available environment variables, refer to the [Configuration Guide](/en/deployment/configuration).
 
@@ -84,7 +110,7 @@ All business settings (storage channels, moderation policies, etc.) can be confi
 :::
 
 ::: warning Security Note
-All configuration is passed through Secrets. GitHub Secrets are encrypted and will not be exposed in logs. Do not use Variables (visible to everyone in public repositories).
+Store configuration in GitHub Secrets. Do not commit real credentials or put them in Variables in a public repository. A GitHub Secret does not automatically become a Cloudflare Secret: direct values and `type: "text"` deploy as plain text variables. Set `type: "secret"` explicitly for keys, tokens, and other sensitive values.
 :::
 
 ## 🚀 Step 4: Run Deployment

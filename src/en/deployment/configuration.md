@@ -270,7 +270,7 @@ Keep `AI_CONFIG_SECRET` fixed and back it up separately from the database. If it
 Deployment options:
 
 - **Cloudflare Pages**: Add `AI_CONFIG_SECRET` as a secret under the project's **Settings → Variables and Secrets**. Configure the production or preview environment you use, then redeploy.
-- **Cloudflare Workers**: Configure `WORKER_VARS` in `GitHub Secrets`.
+- **Cloudflare Workers**: Add `AI_CONFIG_SECRET` to the `WORKER_VARS` GitHub Secret with your secret in `value` and `type: "secret"`, then run deployment again. See [WORKER_VARS Format](/en/deployment/worker#worker-vars) for the format and examples.
 - **Docker**: Uncomment the reserved field in `docker-compose.yml` and supply your secret.
 
 ### General Settings

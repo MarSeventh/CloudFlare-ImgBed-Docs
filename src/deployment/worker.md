@@ -68,14 +68,40 @@ Cloudflare Workers 部署是 Pages 部署之外的另一种 Serverless 部署方
 | `KV_NAMESPACE_ID` | KV 命名空间 ID | 二选一 |
 | `R2_BUCKET_NAME` | R2 存储桶名称 | 可选 |
 | `WORKER_NAME` | Worker 名称（默认 `cloudflare-imgbed`） | 可选 |
-| `WORKER_VARS` | 业务环境变量（JSON 格式） | 可选 |
+| `WORKER_VARS` | 业务环境变量（JSON 格式，支持 `text` / `secret`） | 可选 |
 
-::: details WORKER_VARS 格式说明
-`WORKER_VARS` 用于配置业务相关的环境变量，格式为 JSON 字符串。例如配置 Telegram 渠道：
+### WORKER_VARS 格式说明 {#worker-vars}
+
+在 GitHub Actions 的 Secrets 中添加名为 `WORKER_VARS` 的 Secret，将完整 JSON 对象填写为它的值。每项可以直接填写值，也可以使用包含 `value` 和可选 `type` 的对象：
 
 ```json
-{"TG_BOT_TOKEN":"your-bot-token","TG_CHAT_ID":"your-chat-id"}
+{
+  "TG_CHAT_ID": "your-chat-id",
+  "CUSTOM_DOMAIN": {
+    "value": "https://img.example.com",
+    "type": "text"
+  },
+  "AI_CONFIG_SECRET": {
+    "value": "replace-with-a-random-secret-of-at-least-32-characters",
+    "type": "secret"
+  },
+  "TG_BOT_TOKEN": {
+    "value": "your-bot-token",
+    "type": "secret"
+  }
+}
 ```
+
+| 写法 / 类型 | 部署行为 |
+|---|---|
+| `"变量名": "值"` | 兼容原有写法，作为普通 `text` 环境变量部署 |
+| `"变量名": { "value": "值" }` | 省略 `type`，默认为 `text` |
+| `"变量名": { "value": "值", "type": "text" }` | 写入 `wrangler.toml` 的 `[vars]`，作为 Cloudflare 普通文本变量部署 |
+| `"变量名": { "value": "值", "type": "secret" }` | 不写入 `[vars]`；Worker 部署成功后统一通过 `wrangler secret bulk` 上传为 Cloudflare Secret |
+
+`type` 只支持小写 `text` 和 `secret`。配置格式错误会停止部署。生成配置时会隐藏业务变量的值，上传 Secret 的临时文件在流程结束时清理。修改 GitHub Secret 后，需要重新运行部署流程才能生效。
+
+使用 AI 功能时，将 `AI_CONFIG_SECRET` 配置为 `secret`，值为至少 **32 个字符的随机密钥**；供应商 API Key 则在管理面板的「智能设置」中填写。迁移原来的直接值写法时，保持 `AI_CONFIG_SECRET` 的值不变，否则已保存的供应商 API Key 将无法解密。
 
 所有可用的环境变量请参考 [配置说明](/deployment/configuration)。
 
@@ -84,7 +110,7 @@ Cloudflare Workers 部署是 Pages 部署之外的另一种 Serverless 部署方
 :::
 
 ::: warning 安全提示
-所有配置项均通过 Secrets 传入。GitHub 的 Secrets 是加密存储的，不会在日志中泄露。请勿使用 Variables（在 public 仓库中对所有人可见）。
+请将配置保存在 GitHub Secrets 中，不要将真实密钥提交到代码仓库或填写到公开仓库的 Variables。GitHub Secret 不会自动变成 Cloudflare Secret：直接值写法和 `type: "text"` 都会部署成普通文本变量，密钥、Token 等敏感值应明确设置 `type: "secret"`。
 :::
 
 ## 🚀 第四步：运行部署
