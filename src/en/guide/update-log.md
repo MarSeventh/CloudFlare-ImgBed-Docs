@@ -20,7 +20,7 @@ Optimization:
 - Aligned AI Settings with other settings pages and refined provider and model cards, configuration dialogs, and bilingual messages
 - Restyled single-file and batch tag dialogs with consistent rounded sections, tags, inputs, and action buttons; batch tabs use two columns on mobile and support light and dark themes
 - Unified the simple AI icon across the sidebar, batch actions, and AI tag recognition, refining its size and stroke weight while keeping the robot icon for models
-- Added viewport-aware maximum heights to dialogs, with internal content scrolling and visible thin scrollbars while keeping headings and footer buttons visible; centered and fullscreen dialogs are supported
+- Added viewport-aware maximum heights to dialogs, with internal content scrolling and hidden scrollbars while keeping headings and footer buttons visible; centered and fullscreen dialogs are supported
 - Updated bilingual Worker deployment instructions and the `WORKER_VARS` format guide, with a direct link from the AI secret setup instructions in AI Settings to the variable format section
 
 ## 2026.10.01
@@ -43,7 +43,7 @@ Optimization:
 - Aligned AI Settings with other settings pages and refined provider and model cards, configuration dialogs, and bilingual messages
 - Restyled single-file and batch tag dialogs with consistent rounded sections, tags, inputs, and action buttons; batch tabs use two columns on mobile and support light and dark themes
 - Unified the simple AI icon across the sidebar, batch actions, and AI tag recognition, refining its size and stroke weight while keeping the robot icon for models
-- Added viewport-aware maximum heights to dialogs, with internal content scrolling and visible thin scrollbars while keeping headings and footer buttons visible; centered and fullscreen dialogs are supported
+- Added viewport-aware maximum heights to dialogs, with internal content scrolling and hidden scrollbars while keeping headings and footer buttons visible; centered and fullscreen dialogs are supported
 - Updated bilingual Worker deployment instructions and the `WORKER_VARS` format guide, with a direct link from the AI secret setup instructions in AI Settings to the variable format section
 - Added bilingual AI feature and settings documentation and an AI homepage card while keeping the total at eight
 
