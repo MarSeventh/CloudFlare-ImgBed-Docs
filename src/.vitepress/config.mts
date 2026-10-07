@@ -170,7 +170,8 @@ export default defineConfig({
 
     socialLinks: [
       { icon: 'github', link: 'https://github.com/MarSeventh/CloudFlare-ImgBed' },
-      { icon: 'telegram', link: 'https://t.me/sanyue_club', ariaLabel: 'Sanyue Telegram' }
+      { icon: 'telegram', link: 'https://t.me/sanyue_club', ariaLabel: 'Sanyue Telegram' },
+      { icon: 'tencentqq', link: 'https://qm.qq.com/q/zB8wPvdaMg', ariaLabel: '叁月俱乐部 QQ / Sanyue Club QQ' }
     ],
 
     footer: {
