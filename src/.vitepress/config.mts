@@ -169,7 +169,8 @@ export default defineConfig({
     ],
 
     socialLinks: [
-      { icon: 'github', link: 'https://github.com/MarSeventh/CloudFlare-ImgBed' }
+      { icon: 'github', link: 'https://github.com/MarSeventh/CloudFlare-ImgBed' },
+      { icon: 'telegram', link: 'https://t.me/sanyue_club', ariaLabel: 'Sanyue Telegram' }
     ],
 
     footer: {
