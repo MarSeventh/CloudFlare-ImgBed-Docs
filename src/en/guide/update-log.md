@@ -4,6 +4,8 @@
 
 Add Features:
 
+- Added a custom User-Agent setting for S3 channels to support providers that validate the client associated with an access key; uploads and other S3 file operations use the configured value
+- Added search result display settings in File Management with "Show folders" and "Expand all" modes; recursive expansion is the default and the preference is saved. On desktop, focus the search box and hover over the search icon to open settings; on mobile, long-press the search icon
 - Added a default link format badge (U / M / H / B) and a hover menu with format icons to the upload list's Copy All button; uploaded files can be copied as URL, Markdown, HTML, or BBCode without changing the default copy format
 - Added AI Settings for centralized provider, model, image input, structured output, and prompt management; provider API Keys are encrypted using AI_CONFIG_SECRET across Cloudflare and Docker deployments
 - Added manual AI tag recognition for single and multiple images in the admin dashboard, with selection before appending tags, progress, cancellation of further processing, and retry for failed items; no stored thumbnails required
@@ -12,6 +14,7 @@ Add Features:
 
 Fix Bugs:
 
+- Fixed file selections being lost when loading more files or loading additional pages in File Management
 - Improved dark-mode text contrast for common tags on hover, selected AI tags and their hover state, current tags, file detail tags, tag input suggestions, and batch tag management tabs
 - Improved dark-mode readability for selected directory tree items, date filters and the System Status calendar button, upload link format labels, upload history view buttons, and text buttons and quota refresh links in Upload Settings and AI Settings
 - Fixed models remaining usable after their provider was disabled and recognition failing to switch to an available model; recognition now turns off when no image model remains
@@ -24,6 +27,8 @@ Fix Bugs:
 
 Optimization:
 
+- Improved mobile upload channel details by allowing long bucket names and other field values to wrap
+- Unified corner radii, backgrounds, borders, and shadows across Popover, Dropdown, and Select popups in light and dark themes
 - Unified these dark-mode text colors through the theme accent color while preserving light-mode colors, existing backgrounds and borders, and white text on date range endpoints
 - Aligned AI Settings with other settings pages and refined provider and model cards, configuration dialogs, and bilingual messages
 - Restyled single-file and batch tag dialogs with consistent rounded sections, tags, inputs, and action buttons; batch tabs use two columns on mobile and support light and dark themes
@@ -36,6 +41,22 @@ Optimization:
 - Removed redundant styles and logic after the refactor, consolidated header scroll handling, and fixed the System Settings sidebar failing to remove its resize listener on unmount
 - Updated bilingual Worker deployment instructions and the `WORKER_VARS` format guide, with a direct link from the AI secret setup instructions in AI Settings to the variable format section
 - Added bilingual AI feature and settings documentation and an AI homepage card while keeping the total at eight
+
+## 2026.10.08
+
+Add Features:
+
+- Added a custom User-Agent setting for S3 channels to support providers that validate the client associated with an access key; uploads and other S3 file operations use the configured value
+- Added search result display settings in File Management with "Show folders" and "Expand all" modes; recursive expansion is the default and the preference is saved. On desktop, focus the search box and hover over the search icon to open settings; on mobile, long-press the search icon
+
+Fix Bugs:
+
+- Fixed file selections being lost when loading more files or loading additional pages in File Management
+
+Optimization:
+
+- Improved mobile upload channel details by allowing long bucket names and other field values to wrap
+- Unified corner radii, backgrounds, borders, and shadows across Popover, Dropdown, and Select popups in light and dark themes
 
 ## 2026.10.02
 
