@@ -15,6 +15,7 @@ Add Features:
 Fix Bugs:
 
 - Fixed file selections being lost when loading more files or loading additional pages in File Management
+- Fixed file and folder card borders extending beyond the grid, restoring symmetric spacing between the mobile header and both card columns
 - Improved dark-mode text contrast for common tags on hover, selected AI tags and their hover state, current tags, file detail tags, tag input suggestions, and batch tag management tabs
 - Improved dark-mode readability for selected directory tree items, date filters and the System Status calendar button, upload link format labels, upload history view buttons, and text buttons and quota refresh links in Upload Settings and AI Settings
 - Fixed models remaining usable after their provider was disabled and recognition failing to switch to an available model; recognition now turns off when no image model remains
@@ -27,6 +28,8 @@ Fix Bugs:
 
 Optimization:
 
+- Updated admin headers to blend into the page at the top, then gradually reveal a frosted-glass background, border, and soft shadow while moving inward as the page scrolls; text and control sizes remain stable
+- Refined header gutters and grouped search, filters, and actions into a continuous toolbar; enlarged mobile buttons and prevented the focused search box from overlapping the filter button on narrow screens
 - Improved mobile upload channel details by allowing long bucket names and other field values to wrap
 - Unified corner radii, backgrounds, borders, and shadows across Popover, Dropdown, and Select popups in light and dark themes
 - Unified these dark-mode text colors through the theme accent color while preserving light-mode colors, existing backgrounds and borders, and white text on date range endpoints
@@ -35,7 +38,6 @@ Optimization:
 - Unified the simple AI icon across the sidebar, batch actions, and AI tag recognition, refining its size and stroke weight while keeping the robot icon for models
 - Added viewport-aware maximum heights to dialogs, with internal content scrolling and hidden scrollbars while keeping headings and footer buttons visible; gradient masks soften the upper and lower content edges, with support for centered and fullscreen dialogs
 - Consolidated headers for File Management, User Management, and System Settings into a shared component with consistent theme, language, link format, and logout controls; mobile actions use a single row, and the file filter sits beside the search box without scaling on hover
-- Added header contraction when scrolling down and expansion when scrolling up or returning to the top; the page switcher, search box, and action buttons resize together, with improved vertical alignment and spacing above the compact header
 - Moved common tags into the bottom of the current-tags card; successfully added AI suggestions disappear while suggestions that have not been added remain available, with simpler save confirmation messages
 - Aligned spacing in System Status, Security, Web, AI, and Other Settings with Upload Settings, reducing excess space at the top on desktop and at the bottom on mobile
 - Removed redundant styles and logic after the refactor, consolidated header scroll handling, and fixed the System Settings sidebar failing to remove its resize listener on unmount
@@ -52,9 +54,12 @@ Add Features:
 Fix Bugs:
 
 - Fixed file selections being lost when loading more files or loading additional pages in File Management
+- Fixed file and folder card borders extending beyond the grid, restoring symmetric spacing between the mobile header and both card columns
 
 Optimization:
 
+- Updated admin headers to blend into the page at the top, then gradually reveal a frosted-glass background, border, and soft shadow while moving inward as the page scrolls; text and control sizes remain stable
+- Refined header gutters and grouped search, filters, and actions into a continuous toolbar; enlarged mobile buttons and prevented the focused search box from overlapping the filter button on narrow screens
 - Improved mobile upload channel details by allowing long bucket names and other field values to wrap
 - Unified corner radii, backgrounds, borders, and shadows across Popover, Dropdown, and Select popups in light and dark themes
 
