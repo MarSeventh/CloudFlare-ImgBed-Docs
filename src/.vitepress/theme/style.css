@@ -137,3 +137,8 @@
   --docsearch-primary-color: var(--vp-c-brand-1) !important;
 }
 
+/* Follow the document theme, including the site's manual theme switch. */
+html:not(.dark) .star-history-dark,
+html.dark .star-history-light {
+  display: none;
+}

@@ -93,11 +93,8 @@ But you must retain the original author's copyright notice in all copies or subs
 ## Star History
 
 <a href="https://github.com/MarSeventh/CloudFlare-ImgBed">
- <picture>
-   <source media="(prefers-color-scheme: dark)" srcset="https://marseventh.github.io/CloudFlare-ImgBed/star-history-dark.svg" />
-   <source media="(prefers-color-scheme: light)" srcset="https://marseventh.github.io/CloudFlare-ImgBed/star-history-light.svg" />
-   <img alt="Star-History" src="https://marseventh.github.io/CloudFlare-ImgBed/star-history-light.svg" />
- </picture>
+ <img class="star-history-light" alt="Star-History" src="https://api.star-history.com/svg?repos=marseventh%2Fcloudflare-imgbed,marseventh/sanyue-imghub&amp;type=Date" />
+ <img class="star-history-dark" alt="Star-History" src="https://api.star-history.com/svg?repos=marseventh%2Fcloudflare-imgbed,marseventh/sanyue-imghub&amp;type=Date&amp;theme=dark" />
 </a>
 
 Like the project? Please consider giving it a free star ✨✨✨, thank you!

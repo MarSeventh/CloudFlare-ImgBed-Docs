@@ -92,11 +92,8 @@ CloudFlare ImgBed 是一个支持 Docker 与 Serverless 部署的开源图床和
 ## Star History
 
 <a href="https://github.com/MarSeventh/CloudFlare-ImgBed">
- <picture>
-   <source media="(prefers-color-scheme: dark)" srcset="https://marseventh.github.io/CloudFlare-ImgBed/star-history-dark.svg" />
-   <source media="(prefers-color-scheme: light)" srcset="https://marseventh.github.io/CloudFlare-ImgBed/star-history-light.svg" />
-   <img alt="Star-History" src="https://marseventh.github.io/CloudFlare-ImgBed/star-history-light.svg" />
- </picture>
+ <img class="star-history-light" alt="Star-History" src="https://api.star-history.com/svg?repos=marseventh%2Fcloudflare-imgbed,marseventh/sanyue-imghub&amp;type=Date" />
+ <img class="star-history-dark" alt="Star-History" src="https://api.star-history.com/svg?repos=marseventh%2Fcloudflare-imgbed,marseventh/sanyue-imghub&amp;type=Date&amp;theme=dark" />
 </a>
 
 喜欢项目的话，希望您能给个免费的 star✨✨✨，非常感谢！
