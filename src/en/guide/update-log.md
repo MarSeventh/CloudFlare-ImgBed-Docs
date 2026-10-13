@@ -4,6 +4,7 @@
 
 Add Features:
 
+- Added an entry loading animation with the configured image hosting name, a gently swaying duck, and a synchronized looping progress bar, followed by fly-in page transitions when ready; internal navigation does not replay it
 - Added a custom User-Agent setting for S3 channels to support providers that validate the client associated with an access key; uploads and other S3 file operations use the configured value
 - Added search result display settings in File Management with "Show folders" and "Expand all" modes; recursive expansion is the default and the preference is saved. On desktop, focus the search box and hover over the search icon to open settings; on mobile, long-press the search icon
 - Added a default link format badge (U / M / H / B) and a hover menu with format icons to the upload list's Copy All button; uploaded files can be copied as URL, Markdown, HTML, or BBCode without changing the default copy format
@@ -14,6 +15,7 @@ Add Features:
 
 Fix Bugs:
 
+- Fixed WebDAV uploads failing on 3xx redirects and leaving remote files without database or index records, restoring visibility in File Management, file lists, and the random image API
 - Fixed file selections being lost when loading more files or loading additional pages in File Management
 - Fixed file and folder card borders extending beyond the grid, restoring symmetric spacing between the mobile header and both card columns
 - Improved dark-mode text contrast for common tags on hover, selected AI tags and their hover state, current tags, file detail tags, tag input suggestions, and batch tag management tabs
@@ -28,6 +30,9 @@ Fix Bugs:
 
 Optimization:
 
+- The upload page now displays the configured image hosting name without appending the ImgHub suffix
+- Smoothed the loading text wave, duck fades, and progress synchronization while reducing per-frame layout and painting; the upload area's star background keeps flowing and respects the system's reduced-motion preference
+- Updated the clock in System Settings → System Status to use a locally hosted digital clock font
 - Updated admin headers to blend into the page at the top, then gradually reveal a frosted-glass background, border, and soft shadow while moving inward as the page scrolls; text and control sizes remain stable
 - Refined header gutters and grouped search, filters, and actions into a continuous toolbar; enlarged mobile buttons and prevented the focused search box from overlapping the filter button on narrow screens
 - Improved mobile upload channel details by allowing long bucket names and other field values to wrap
@@ -43,6 +48,22 @@ Optimization:
 - Removed redundant styles and logic after the refactor, consolidated header scroll handling, and fixed the System Settings sidebar failing to remove its resize listener on unmount
 - Updated bilingual Worker deployment instructions and the `WORKER_VARS` format guide, with a direct link from the AI secret setup instructions in AI Settings to the variable format section
 - Added bilingual AI feature and settings documentation and an AI homepage card while keeping the total at eight
+
+## 2026.10.13
+
+Add Features:
+
+- Added an entry loading animation with the configured image hosting name, a gently swaying duck, and a synchronized looping progress bar, followed by fly-in page transitions when ready; internal navigation does not replay it
+
+Fix Bugs:
+
+- Fixed WebDAV uploads failing on 3xx redirects and leaving remote files without database or index records, restoring visibility in File Management, file lists, and the random image API
+
+Optimization:
+
+- The upload page now displays the configured image hosting name without appending the ImgHub suffix
+- Smoothed the loading text wave, duck fades, and progress synchronization while reducing per-frame layout and painting; the upload area's star background keeps flowing and respects the system's reduced-motion preference
+- Updated the clock in System Settings → System Status to use a locally hosted digital clock font
 
 ## 2026.10.08
 
