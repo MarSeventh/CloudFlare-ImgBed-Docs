@@ -15,6 +15,9 @@ Add Features:
 
 Fix Bugs:
 
+- Fixed a white loading background and delayed image hosting name in dark mode when a custom background is configured; theme and configuration initialization run in parallel before the app starts
+- Fixed loading title flicker on the login page; the login card now displays the configured image hosting name without appending “图床” or ImgHub
+- Fixed delayed background blur during card fly-in transitions and dialog opening, keeping the frosted-glass effect synchronized with content fades
 - Fixed WebDAV uploads failing on 3xx redirects and leaving remote files without database or index records, restoring visibility in File Management, file lists, and the random image API
 - Fixed file selections being lost when loading more files or loading additional pages in File Management
 - Fixed file and folder card borders extending beyond the grid, restoring symmetric spacing between the mobile header and both card columns
@@ -30,6 +33,10 @@ Fix Bugs:
 
 Optimization:
 
+- Changed the loading progress bar to a fixed-length segment that loops at a constant speed, with the duck moving in sync with its leading edge; the animation ends when the page is ready
+- Kept the upload page title floating continuously, smoothed the transition from fly-in to its first floating cycle, and reduced position shifts caused by font loading
+- The System Status clock appears after its digital font loads and falls back to the original font on failure or timeout without blocking page loading
+- Moved loading animation sources into `src/entry/` and build output into `dist/entry/`, with content-hashed filenames and automatically updated HTML references to avoid stale CDN assets while preserving independent early loading
 - The upload page now displays the configured image hosting name without appending the ImgHub suffix
 - Smoothed the loading text wave, duck fades, and progress synchronization while reducing per-frame layout and painting; the upload area's star background keeps flowing and respects the system's reduced-motion preference
 - Updated the clock in System Settings → System Status to use a locally hosted digital clock font
@@ -48,6 +55,21 @@ Optimization:
 - Removed redundant styles and logic after the refactor, consolidated header scroll handling, and fixed the System Settings sidebar failing to remove its resize listener on unmount
 - Updated bilingual Worker deployment instructions and the `WORKER_VARS` format guide, with a direct link from the AI secret setup instructions in AI Settings to the variable format section
 - Added bilingual AI feature and settings documentation and an AI homepage card while keeping the total at eight
+
+## 2026.10.14
+
+Fix Bugs:
+
+- Fixed a white loading background and delayed image hosting name in dark mode when a custom background is configured; theme and configuration initialization run in parallel before the app starts
+- Fixed loading title flicker on the login page; the login card now displays the configured image hosting name without appending “图床” or ImgHub
+- Fixed delayed background blur during card fly-in transitions and dialog opening, keeping the frosted-glass effect synchronized with content fades
+
+Optimization:
+
+- Changed the loading progress bar to a fixed-length segment that loops at a constant speed, with the duck moving in sync with its leading edge; the animation ends when the page is ready
+- Kept the upload page title floating continuously, smoothed the transition from fly-in to its first floating cycle, and reduced position shifts caused by font loading
+- The System Status clock appears after its digital font loads and falls back to the original font on failure or timeout without blocking page loading
+- Moved loading animation sources into `src/entry/` and build output into `dist/entry/`, with content-hashed filenames and automatically updated HTML references to avoid stale CDN assets while preserving independent early loading
 
 ## 2026.10.13
 
