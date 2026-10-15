@@ -4,6 +4,7 @@
 
 Add Features:
 
+- Added MIME type and file size badges beside upload filenames, with a down-arrow icon and the actual size reduction shown in the size badge; successful WebP conversions have a distinct icon and color
 - Added an entry loading animation with the configured image hosting name, a gently swaying duck, and a synchronized looping progress bar, followed by fly-in page transitions when ready; internal navigation does not replay it
 - Added a custom User-Agent setting for S3 channels to support providers that validate the client associated with an access key; uploads and other S3 file operations use the configured value
 - Added search result display settings in File Management with "Show folders" and "Expand all" modes; recursive expansion is the default and the preference is saved. On desktop, focus the search box and hover over the search icon to open settings; on mobile, long-press the search icon
@@ -15,6 +16,8 @@ Add Features:
 
 Fix Bugs:
 
+- Fixed image recognition, filtering, and processing when clients omit a valid MIME type; uploads infer missing types from file extensions, historical records with missing or generic types also use extension inference, and explicit types are preserved
+- Animated GIF, WebP, and APNG uploads now skip WebP conversion, local compression, and Telegram server-side compression to preserve animation
 - Fixed a white loading background and delayed image hosting name in dark mode when a custom background is configured; theme and configuration initialization run in parallel before the app starts
 - Fixed loading title flicker on the login page; the login card now displays the configured image hosting name without appending “图床” or ImgHub
 - Fixed delayed background blur during card fly-in transitions and dialog opening, keeping the frosted-glass effect synchronized with content fades
@@ -33,6 +36,9 @@ Fix Bugs:
 
 Optimization:
 
+- Kept complete upload filenames and added horizontal scrolling for overflowing filenames, MIME badges, and file information rows, with consistent badge styles across light and dark themes and mobile layouts
+- Centralized frontend and backend MIME utilities across uploads, chunked uploads, WebDAV, file serving, indexing, and AI image validation to reduce inconsistent extension mappings
+- Added frontend and backend regression tests organized by feature and automated GitHub Actions checks, with updated contribution guides and testing documentation
 - Changed the loading progress bar to a fixed-length segment that loops at a constant speed, with the duck moving in sync with its leading edge; the animation ends when the page is ready
 - Kept the upload page title floating continuously, smoothed the transition from fly-in to its first floating cycle, and reduced position shifts caused by font loading
 - The System Status clock appears after its digital font loads and falls back to the original font on failure or timeout without blocking page loading
@@ -55,6 +61,23 @@ Optimization:
 - Removed redundant styles and logic after the refactor, consolidated header scroll handling, and fixed the System Settings sidebar failing to remove its resize listener on unmount
 - Updated bilingual Worker deployment instructions and the `WORKER_VARS` format guide, with a direct link from the AI secret setup instructions in AI Settings to the variable format section
 - Added bilingual AI feature and settings documentation and an AI homepage card while keeping the total at eight
+
+## 2026.10.15
+
+Add Features:
+
+- Added MIME type and file size badges beside upload filenames, with a down-arrow icon and the actual size reduction shown in the size badge; successful WebP conversions have a distinct icon and color
+
+Fix Bugs:
+
+- Fixed image recognition, filtering, and processing when clients omit a valid MIME type; uploads infer missing types from file extensions, historical records with missing or generic types also use extension inference, and explicit types are preserved
+- Animated GIF, WebP, and APNG uploads now skip WebP conversion, local compression, and Telegram server-side compression to preserve animation
+
+Optimization:
+
+- Kept complete upload filenames and added horizontal scrolling for overflowing filenames, MIME badges, and file information rows, with consistent badge styles across light and dark themes and mobile layouts
+- Centralized frontend and backend MIME utilities across uploads, chunked uploads, WebDAV, file serving, indexing, and AI image validation to reduce inconsistent extension mappings
+- Added frontend and backend regression tests organized by feature and automated GitHub Actions checks, with updated contribution guides and testing documentation
 
 ## 2026.10.14
 
