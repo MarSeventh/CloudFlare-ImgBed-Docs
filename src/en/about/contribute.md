@@ -10,6 +10,8 @@ Thanks to all developers and users who have contributed to CloudFlare ImgBed! He
 
 ## Contribution Guidelines
 
+Read the [complete contribution guide](https://github.com/MarSeventh/CloudFlare-ImgBed/blob/dev/CONTRIBUTING.md) for repository responsibilities, PR target branches, code style, tests and atomic PR requirements. Documentation PRs target `main`.
+
 Community contributions are welcome! You can participate in the following ways:
 
 - 🐛 [Report Bugs](https://github.com/MarSeventh/CloudFlare-ImgBed/issues)

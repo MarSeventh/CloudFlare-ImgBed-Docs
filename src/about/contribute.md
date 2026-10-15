@@ -10,6 +10,8 @@
 
 ## 贡献指南
 
+参与前请阅读[完整贡献指南](https://github.com/MarSeventh/CloudFlare-ImgBed/blob/dev/CONTRIBUTING.md)（英文），了解三个仓库的分工、PR 目标分支、代码风格、测试与原子化提交要求。文档仓库的 PR 请提交到 `main`。
+
 欢迎社区贡献！您可以通过以下方式参与：
 
 - 🐛 [报告 Bug](https://github.com/MarSeventh/CloudFlare-ImgBed/issues)
