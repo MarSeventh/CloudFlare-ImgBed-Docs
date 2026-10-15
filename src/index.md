@@ -1,10 +1,11 @@
 ---
 layout: home
+pageClass: imgbed-home
 
 hero:
   name: "CloudFlare ImgBed"
   text: "开源文件托管解决方案"
-  tagline: "安心存取，轻松分享"
+  tagline: "让你的每一刻精彩，在云端相会"
   image:
     src: /logo.png
     alt: CloudFlare ImgBed
@@ -23,30 +24,39 @@ features:
   - icon: 🚀
     title: 轻松部署
     details: 支持 Cloudflare Pages、Cloudflare Workers Serverless 部署和 Docker 自托管
+    link: /guide/quick-start
+    linkText: 选择部署方式
   
   - icon: 📁
     title: 多种渠道
     details: 统一接入 Telegram、R2、S3、Discord、Hugging Face 和 WebDAV 等存储后端
+    link: /deployment/configuration
+    linkText: 连接你的存储
   
   - icon: 🎨
     title: 现代界面
     details: 响应式界面适配深色模式、中英文和移动端，可自定义背景、Logo、配色、公告和链接前缀
+    link: /guide/features#现代化设计
   
   - icon: 🔐
     title: 安全可靠
     details: 支持安全会话、API Token 权限、域名与文件访问控制、IP 管理和内容审查
+    link: /deployment/configuration#🔒-安全设置
   
   - icon: 📱
     title: 灵活上传
     details: 支持拖拽、选择、粘贴、URL、批量及递归文件夹上传，并可保留目录结构
+    link: /guide/features#文件上传
 
   - icon: 🗂️
     title: 高效管理
     details: 支持目录、标签、搜索筛选、卡片与列表视图，以及复制、移动、下载和批量删除
+    link: /guide/features#文件管理
 
   - icon: 🖼️
     title: 自由读取
     details: 提供统一读取 API 和 HEAD 请求，并在对应渠道支持 Range，还可通过 URL 参数处理图片尺寸
+    link: /api/file
   
   - icon: 🤖
     title: AI 能力
