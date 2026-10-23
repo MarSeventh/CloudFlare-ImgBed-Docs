@@ -36,6 +36,7 @@ Fix Bugs:
 
 Optimization:
 
+- Removed the remote telemetry sampling configuration request; the sampling rate now uses the local `sampleRate` environment variable and defaults to `1` (100%)
 - Kept complete upload filenames and added horizontal scrolling for overflowing filenames, MIME badges, and file information rows, with consistent badge styles across light and dark themes and mobile layouts
 - Centralized frontend and backend MIME utilities across uploads, chunked uploads, WebDAV, file serving, indexing, and AI image validation to reduce inconsistent extension mappings
 - Added frontend and backend regression tests organized by feature and automated GitHub Actions checks, with updated contribution guides and testing documentation
@@ -61,6 +62,12 @@ Optimization:
 - Removed redundant styles and logic after the refactor, consolidated header scroll handling, and fixed the System Settings sidebar failing to remove its resize listener on unmount
 - Updated bilingual Worker deployment instructions and the `WORKER_VARS` format guide, with a direct link from the AI secret setup instructions in AI Settings to the variable format section
 - Added bilingual AI feature and settings documentation and an AI homepage card while keeping the total at eight
+
+## 2026.10.23
+
+Optimization:
+
+- Removed the remote telemetry sampling configuration request; the sampling rate now uses the local `sampleRate` environment variable and defaults to `1` (100%)
 
 ## 2026.10.15
 

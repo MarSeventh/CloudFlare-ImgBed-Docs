@@ -398,6 +398,7 @@ WebDAV 服务相关设置，详细介绍和使用方式请查看 [API 文档](..
 | `AllowRandom` | boolean | `false` | 启用随机图 API |
 | `WhiteList_Mode` | boolean | `false` | 启用白名单模式 |
 | `disable_telemetry` | boolean | `false` | 禁用遥测数据 |
+| `sampleRate` | number | `1` | Sentry 性能追踪采样率，范围 `0`～`1`，无效值回退为 `1` |
 
 ### 安全配置
 

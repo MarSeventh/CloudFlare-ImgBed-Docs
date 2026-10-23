@@ -394,6 +394,7 @@ The legacy business environment variables listed below were deprecated after v2.
 | `AllowRandom` | boolean | `false` | Enable random image API |
 | `WhiteList_Mode` | boolean | `false` | Enable whitelist mode |
 | `disable_telemetry` | boolean | `false` | Disable telemetry data |
+| `sampleRate` | number | `1` | Sentry performance tracing sample rate, from `0` to `1`; invalid values fall back to `1` |
 
 ### Security Configuration
 
