@@ -50,12 +50,17 @@ CloudFlare ImgBed 是一个支持 Docker 与 Serverless 部署的开源图床和
 
 ## 技术架构
 
+![CloudFlare ImgBed 技术架构：多端接入、多平台运行时、数据库兼容、统一存储渠道与可扩展 AI 能力](/images/guide/architecture.apng)
+
+同一套应用核心适配 **Pages、Workers 与 Docker**，按部署环境选用 **KV / D1 / SQLite**。元数据与文件内容通过独立链路适配，渠道路由支持负载均衡与失败切换；AI 能力框架则将可配置模型、Prompt 与结构化结果融入文件工作流。
+
 - **前端界面**：基于 Vue 3 和 Element Plus，支持响应式设计、深色模式及中英文切换
 - **后端 API**：Cloudflare Pages Functions 与 Workers 使用 Serverless 运行时；Docker 使用 Node.js 和 Hono 原生服务
 - **存储层**：支持多种存储后端（Telegram、R2、S3、Discord、Hugging Face、WebDAV）
 - **数据层**：Cloudflare 部署支持 KV 或 D1，Docker 使用本地 SQLite，并可使用本地文件系统替代 R2
 - **图片处理**：Cloudflare Pages 使用同域 URL 转换，Worker 使用 Images binding，Docker 使用 Sharp
 - **部署方式**：支持 Cloudflare Pages、Cloudflare Workers、Docker 多种部署方式
+- **AI 能力框架**：统一能力注册、供应商与模型选择、Prompt 配置及结构化输出，图片标签识别为其中一个能力示例
 
 
 ## 版本历史

@@ -51,12 +51,17 @@ CloudFlare ImgBed is an open-source image and file hosting solution for Docker a
 
 ## Technical Architecture
 
+![CloudFlare ImgBed architecture: client interfaces, portable service runtimes, database compatibility, unified storage channels, and extensible AI capabilities](/images/guide/architecture.apng)
+
+A shared application core runs on **Pages, Workers, or Docker**, with **KV / D1 / SQLite** selected for the deployment. Metadata and file content follow separate adapters; channel routing handles load balancing and failure fallback, while the AI capability framework brings configurable models, prompts, and structured results into file workflows.
+
 - **Frontend Interface**: Built with Vue 3 and Element Plus, with responsive design, dark mode, and Chinese/English switching
 - **Backend API**: Cloudflare Pages Functions and Workers use serverless runtimes; Docker runs a native Node.js and Hono service
 - **Storage Layer**: Supports multiple storage backends (Telegram, R2, S3, Discord, Hugging Face, WebDAV)
 - **Data Layer**: Cloudflare deployments support KV or D1; Docker uses local SQLite and can use the local filesystem in place of R2
 - **Image Processing**: Cloudflare Pages uses same-domain URL transformations, Workers use the Images binding, and Docker uses Sharp
 - **Deployment**: Supports Cloudflare Pages, Cloudflare Workers, and Docker deployment
+- **AI Capability Framework**: Shared capability registration, provider and model selection, prompt configuration, and structured output; image tagging is one capability example
 
 
 ## Version History
