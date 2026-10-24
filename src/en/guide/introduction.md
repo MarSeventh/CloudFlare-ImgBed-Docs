@@ -53,16 +53,12 @@ CloudFlare ImgBed is an open-source image and file hosting solution for Docker a
 
 ![CloudFlare ImgBed architecture: client interfaces, portable service runtimes, database compatibility, unified storage channels, and extensible AI capabilities](/images/guide/architecture.apng)
 
-A shared application core runs on **Pages, Workers, or Docker**, with **KV / D1 / SQLite** selected for the deployment. Metadata and file content follow separate adapters; channel routing handles load balancing and failure fallback, while the AI capability framework brings configurable models, prompts, and structured results into file workflows.
+> **Write Once, Run Anywhere: A next-gen media engine uniting decoupled storage, resilient routing, and AI-native workflows.**
 
-- **Frontend Interface**: Built with Vue 3 and Element Plus, with responsive design, dark mode, and Chinese/English switching
-- **Backend API**: Cloudflare Pages Functions and Workers use serverless runtimes; Docker runs a native Node.js and Hono service
-- **Storage Layer**: Supports multiple storage backends (Telegram, R2, S3, Discord, Hugging Face, WebDAV)
-- **Data Layer**: Cloudflare deployments support KV or D1; Docker uses local SQLite and can use the local filesystem in place of R2
-- **Image Processing**: Cloudflare Pages uses same-domain URL transformations, Workers use the Images binding, and Docker uses Sharp
-- **Deployment**: Supports Cloudflare Pages, Cloudflare Workers, and Docker deployment
-- **AI Capability Framework**: Shared capability registration, provider and model selection, prompt configuration, and structured output; image tagging is one capability example
-
+- **Isomorphic Core & Adaptive Persistence**: A unified application engine running seamlessly across Cloudflare Pages, Workers, and Docker, dynamically backed by KV, D1, or SQLite.
+- **Decoupled Control & Data Planes**: Strictly separates metadata management from binary file payloads via pluggable adapters, unlocking limitless storage extensibility.
+- **Resilient Channel Routing**: Intelligent multi-channel traffic orchestration with built-in load balancing and automatic failover for rock-solid availability.
+- **AI-Native Media Pipeline**: Embeds an extensible AI framework directly into file workflows—bringing configurable models, prompt orchestration, and structured outputs out of the box.
 
 ## Version History
 

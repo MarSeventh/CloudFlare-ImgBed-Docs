@@ -52,16 +52,12 @@ CloudFlare ImgBed 是一个支持 Docker 与 Serverless 部署的开源图床和
 
 ![CloudFlare ImgBed 技术架构：多端接入、多平台运行时、数据库兼容、统一存储渠道与可扩展 AI 能力](/images/guide/architecture.apng)
 
-同一套应用核心适配 **Pages、Workers 与 Docker**，按部署环境选用 **KV / D1 / SQLite**。元数据与文件内容通过独立链路适配，渠道路由支持负载均衡与失败切换；AI 能力框架则将可配置模型、Prompt 与结构化结果融入文件工作流。
+> **一次构建，全域运行：融合存算解耦、智能容灾路由与 AI 原生管线的下一代媒体引擎。**
 
-- **前端界面**：基于 Vue 3 和 Element Plus，支持响应式设计、深色模式及中英文切换
-- **后端 API**：Cloudflare Pages Functions 与 Workers 使用 Serverless 运行时；Docker 使用 Node.js 和 Hono 原生服务
-- **存储层**：支持多种存储后端（Telegram、R2、S3、Discord、Hugging Face、WebDAV）
-- **数据层**：Cloudflare 部署支持 KV 或 D1，Docker 使用本地 SQLite，并可使用本地文件系统替代 R2
-- **图片处理**：Cloudflare Pages 使用同域 URL 转换，Worker 使用 Images binding，Docker 使用 Sharp
-- **部署方式**：支持 Cloudflare Pages、Cloudflare Workers、Docker 多种部署方式
-- **AI 能力框架**：统一能力注册、供应商与模型选择、Prompt 配置及结构化输出，图片标签识别为其中一个能力示例
-
+- **同构内核，全域部署**：单一应用核心无缝跨越 Serverless（Pages / Workers）与容器化环境（Docker），底层持久化底座按需自适应挂载 KV、D1 或 SQLite。
+- **控制面与数据面解耦**：元数据管理与二进制文件载荷彻底分离，通过独立的可插拔适配器驱动，实现极致的存储扩展性与零侵入迁移。
+- **智能路由，高可用容灾**：内置多渠道动态路由引擎，原生支持流量负载均衡与故障自动降级兜底（Failover），确保极端场景下的服务连续性。
+- **AI 原生工作流**：将大模型能力深度织入文件生命周期，支持自定义模型接入、Prompt 编排与结构化结果输出，让图床从“静态存储”进化为“智能资产中枢”。
 
 ## 版本历史
 
