@@ -138,6 +138,15 @@
 }
 
 /* Follow the document theme, including the site's manual theme switch. */
+.vp-doc .project-banner {
+  display: block;
+  width: 80%;
+  height: auto;
+  margin: 0 auto;
+}
+
+html:not(.dark) .project-banner-dark,
+html.dark .project-banner-light,
 html:not(.dark) .star-history-dark,
 html.dark .star-history-light {
   display: none;
