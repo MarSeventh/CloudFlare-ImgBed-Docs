@@ -364,6 +364,41 @@ WebDAV service related settings, detailed introduction and usage methods can be 
 - Upload Channel: Storage channel used when uploading files via WebDAV, supports Telegram, Cloudflare R2, S3, Discord, HuggingFace, WebDAV
 - Channel Name: When the selected upload channel has multiple configurations, specify which channel name to use for uploading
 
+### File Expiry {#file-expiry}
+When enabled, uploaded files can carry an expiry time and are deleted automatically when it passes (the stored file, database record and directory index together), exactly like a manual deletion in the admin panel. The feature is off by default.
+
+- Enable: disabling only affects later uploads; files that already have an expiry are still deleted on time. To keep a file, make it permanent in the file details.
+- Available options: a number with a unit, `h` for hours and `d` for days, e.g. `12h` or `3d`, up to 3650 days and at most 20 options; `forever` means no expiry.
+- Default expiry: used when the uploader makes no choice or may not choose.
+- Let uploaders choose: when on, the upload page and the [Upload API](../api/upload.md) may pick one of the available options with the `expire` parameter, and other values are rejected with 400; when off, the parameter is ignored and the default always applies.
+
+Expired files return 404 even before they are deleted. Files with an expiry are only cached privately by browsers (never by the CDN) and never for longer than their remaining validity, so expiry changes take effect without a CloudFlare API Token. Administrators can change the expiry or make a file permanent in the file details.
+
+#### Automatic cleanup
+
+| Deployment | How cleanup runs |
+| --- | --- |
+| Workers | Add the `EXPIRY_CLEANUP_CRON` repository secret (e.g. `*/30 * * * *`) and redeploy; see [Workers deployment](./worker.md). The free plan allows at most 5 Cron Triggers per account |
+| Docker | The server process cleans up every 10 minutes; adjust with the `EXPIRY_CLEANUP_INTERVAL_MINUTES` environment variable, or set it to `0` to disable |
+| Pages | No scheduled tasks: opening file management cleans up a batch (at most once every 10 minutes), and Other Settings has a "Clean up now" button |
+
+Each run deletes a limited number of files (the Workers free plan allows 50 subrequests per invocation) and leaves the rest for the next run. On a paid plan, set the `EXPIRY_CLEANUP_SUBREQUESTS` environment variable (e.g. `1000`) to clean more per run. Other Settings shows how many expired files are awaiting cleanup; if that number never goes down, scheduled cleanup is not running.
+
+#### Storage notes
+
+- **D1**: expired files are found through the `idx_files_expires` index. New deployments get it from `init.sql`; existing D1 deployments must run the migration once when upgrading (Docker applies it automatically on startup):
+  ```bash
+  npx wrangler d1 execute <database-name> --remote --file=database/migrations/v2.7.9_add_files_expires_index.sql
+  ```
+  Without the migration the feature still works, but every cleanup scans the whole table.
+- **KV**: each file with an expiry writes an extra marker, which is deleted again during cleanup, so enabling the feature uses KV write and delete quota faster (1000 each per day on the free plan). Prefer D1 for large libraries.
+
+::: warning Limitations
+- For the Telegram and External channels, deletion removes only the record, as with manual deletion; the remote file is not deleted.
+- Files uploaded through the WebDAV service never expire.
+- Access through the storage's own public address (such as an R2 public domain) bypasses ImgBed, so such links keep working until cleanup has run.
+:::
+
 ## 🔧 Environment Variables List
 
 ::: warning Note
@@ -395,6 +430,13 @@ The legacy business environment variables listed below were deprecated after v2.
 | `WhiteList_Mode` | boolean | `false` | Enable whitelist mode |
 | `disable_telemetry` | boolean | `false` | Disable telemetry data |
 | `sampleRate` | number | `1` | Sentry performance tracing sample rate, from `0` to `1`; invalid values fall back to `1` |
+
+### File Expiry Cleanup Configuration
+
+| Variable Name | Type | Default | Description |
+|--------------|------|---------|-------------|
+| `EXPIRY_CLEANUP_SUBREQUESTS` | number | `45` | Subrequests each cleanup run may use; raise it on a paid plan (e.g. `1000`) |
+| `EXPIRY_CLEANUP_INTERVAL_MINUTES` | number | `10` | Docker only: cleanup interval in minutes, `0` disables |
 
 ### Security Configuration
 

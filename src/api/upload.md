@@ -26,6 +26,7 @@
 |--------|------|------|
 | `src` | string | 文件访问路径。默认不包含域名，如 `/file/abc123_image.jpg`；使用 `returnFormat=full` 时返回当前站点完整链接 |
 | `publicUrl` | string | 可选。普通上传、分块合并成功时，若已在`系统设置 -> 网页设置 -> 全局设置 -> 默认 URL 前缀`设置了默认的 URL 前缀，则返回该前缀拼接文件 ID 的公开访问链接 |
+| `expiresAt` | number | 可选。文件设置了有效期时返回到期时间（毫秒时间戳） |
 
 ## 普通上传
 
@@ -45,6 +46,7 @@
 | `uploadNameType` | string | 否 | `default` | 命名方式：`default`（前缀_原名）、`index`（仅前缀）、`origin`（仅原名）、`short`（短链接） |
 | `returnFormat` | string | 否 | `default` | 返回格式：`default`（`/file/id`）、`full`（完整链接） |
 | `uploadFolder` | string | 否 | - | 上传目录，相对路径，如 `img/test` |
+| `expire` | string | 否 | - | 文件有效期，如 `12h`、`7d`、`forever`。仅在管理员开启 [文件有效期](../deployment/configuration.md#file-expiry) 并允许自选时生效，必须是可选项之一，否则返回 400 |
 
 **Body 参数（FormData）：**
 
@@ -96,6 +98,7 @@ HuggingFace 渠道有独立的大文件直传流程，请参考下方 [HuggingFa
 |--------|------|------|------|
 | `authCode` | string | 否 | 上传认证码 |
 | `initChunked` | boolean | 是 | 固定为 `true` |
+| `expire` | string | 否 | 文件有效期，规则同普通上传；初始化时校验，合并请求需携带相同的值 |
 | `uploadChannel` | string | 否 | 上传渠道：`telegram`、`cfr2`、`s3`、`discord` |
 | `channelName` | string | 否 | 指定渠道名称（多渠道场景），可通过 `/api/channels` 获取可用列表 |
 
@@ -199,6 +202,7 @@ FormData:
 | `authCode` | string | 否 | 上传认证码 |
 | `chunked` | boolean | 是 | 固定为 `true` |
 | `merge` | boolean | 是 | 固定为 `true` |
+| `expire` | string | 否 | 文件有效期，需与初始化时相同 |
 | `uploadChannel` | string | 否 | 上传渠道：`telegram`、`cfr2`、`s3`、`discord` |
 | `channelName` | string | 否 | 指定渠道名称（多渠道场景），可通过 `/api/channels` 获取可用列表 |
 | `returnFormat` | string | 否 | 返回格式：`default`（`/file/id`）、`full`（完整链接） |
@@ -270,6 +274,10 @@ HuggingFace 渠道采用独立的上传流程，**文件由客户端直接上传
 | 大文件（≥ 20MB） | 直传流程（三步） | 客户端直传 HuggingFace S3，后端只做签名和提交 |
 
 ### 直传流程
+
+::: tip 文件有效期
+获取上传 URL 和提交文件引用两个请求都在 URL 上携带相同的 `expire` 参数（如 `/upload/huggingface/getUploadUrl?expire=7d`），规则同普通上传。
+:::
 
 #### 前置准备
 
