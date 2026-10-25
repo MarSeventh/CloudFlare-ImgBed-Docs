@@ -19,6 +19,7 @@ Add Features:
 
 Fix Bugs:
 
+- Fixed stale status tags remaining in the dimensions cell when switching File Details from landscape to portrait on wide screens, which caused the table and preview to jump upward or the no-dimensions placeholder to shift sideways; synchronized panel transitions are preserved
 - Unified format and channel content preferences for single-file, batch, and folder copying, with fallback to the image host link when the preferred channel link is unavailable
 - Fixed inconsistent border thickness around rounded metadata table corners, overflowing dimensions and status tags on narrow screens, and help example colors failing to switch in dark mode
 - Fixed File Details retaining its previous scroll position on reopening and portrait images intermittently reverting to a vertical preview-and-metadata layout when reopened after switching browser tabs
@@ -82,6 +83,7 @@ Add Features:
 
 Fix Bugs:
 
+- Fixed stale status tags remaining in the dimensions cell when switching File Details from landscape to portrait on wide screens, which caused the table and preview to jump upward or the no-dimensions placeholder to shift sideways; synchronized panel transitions are preserved
 - Unified format and channel content preferences for single-file, batch, and folder copying, with fallback to the image host link when the preferred channel link is unavailable
 - Fixed inconsistent border thickness around rounded metadata table corners, overflowing dimensions and status tags on narrow screens, and help example colors failing to switch in dark mode
 - Fixed File Details retaining its previous scroll position on reopening and portrait images intermittently reverting to a vertical preview-and-metadata layout when reopened after switching browser tabs
