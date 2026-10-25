@@ -4,6 +4,7 @@
 
 Add Features:
 
+- Added shimmer skeletons for image, video, and audio previews in File Details, with a gentle reveal when ready; preview and metadata panels move smoothly together between vertical and side-by-side layouts while the media dialog width stays stable, with light/dark theme and reduced-motion support
 - Split File Management link settings into Format Preference and Content Preference: choose Raw Link, Markdown, HTML, or BBCode independently of channel content, with separate preferences for Telegram, S3, and WebDAV and new S3 CDN and WebDAV public link options
 - Kept the four format tabs in File Details and added a content selector below the links to temporarily switch available channel content across all formats; TG File IDs use a single raw field
 - Added MIME type and file size badges beside upload filenames, with a down-arrow icon and the actual size reduction shown in the size badge; successful WebP conversions have a distinct icon and color
@@ -75,6 +76,7 @@ Optimization:
 
 Add Features:
 
+- Added shimmer skeletons for image, video, and audio previews in File Details, with a gentle reveal when ready; preview and metadata panels move smoothly together between vertical and side-by-side layouts while the media dialog width stays stable, with light/dark theme and reduced-motion support
 - Split File Management link settings into Format Preference and Content Preference: choose Raw Link, Markdown, HTML, or BBCode independently of channel content, with separate preferences for Telegram, S3, and WebDAV and new S3 CDN and WebDAV public link options
 - Kept the four format tabs in File Details and added a content selector below the links to temporarily switch available channel content across all formats; TG File IDs use a single raw field
 
