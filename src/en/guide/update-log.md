@@ -4,6 +4,8 @@
 
 Add Features:
 
+- Split File Management link settings into Format Preference and Content Preference: choose Raw Link, Markdown, HTML, or BBCode independently of channel content, with separate preferences for Telegram, S3, and WebDAV and new S3 CDN and WebDAV public link options
+- Kept the four format tabs in File Details and added a content selector below the links to temporarily switch available channel content across all formats; TG File IDs use a single raw field
 - Added MIME type and file size badges beside upload filenames, with a down-arrow icon and the actual size reduction shown in the size badge; successful WebP conversions have a distinct icon and color
 - Added an entry loading animation with the configured image hosting name, a gently swaying duck, and a synchronized looping progress bar, followed by fly-in page transitions when ready; internal navigation does not replay it
 - Added a custom User-Agent setting for S3 channels to support providers that validate the client associated with an access key; uploads and other S3 file operations use the configured value
@@ -16,6 +18,8 @@ Add Features:
 
 Fix Bugs:
 
+- Unified format and channel content preferences for single-file, batch, and folder copying, with fallback to the image host link when the preferred channel link is unavailable
+- Fixed inconsistent border thickness around rounded metadata table corners, overflowing dimensions and status tags on narrow screens, and help example colors failing to switch in dark mode
 - Fixed image recognition, filtering, and processing when clients omit a valid MIME type; uploads infer missing types from file extensions, historical records with missing or generic types also use extension inference, and explicit types are preserved
 - Animated GIF, WebP, and APNG uploads now skip WebP conversion, local compression, and Telegram server-side compression to preserve animation
 - Fixed a white loading background and delayed image hosting name in dark mode when a custom background is configured; theme and configuration initialization run in parallel before the app starts
@@ -36,6 +40,9 @@ Fix Bugs:
 
 Optimization:
 
+- Refined the File Details toolbar to show Download, Edit, and Delete by default; on large screens, additional actions expand leftward from the arrow on hover, stay expanded after a click, and collapse on the next click; mobile actions wrap and respect reduced-motion preferences
+- Adapted File Details to image and video orientation: portrait media uses a preview on the left and metadata on the right on large screens, while landscape and square media use a vertical layout; missing dimensions are detected after loading, audio uses a compact player, ordinary files and failed previews use a compact icon and information row, and mobile layouts remain vertical
+- Restyled metadata tables with rounded corners, single borders, and theme colors; aligned channel headings to the left and organized question-mark help into numbered lines, with distinct colors for the custom prefix entered by the user and the automatic file ID, and clarified that custom prefixes only affect image host links
 - Removed the remote telemetry sampling configuration request; the sampling rate now uses the local `sampleRate` environment variable and defaults to `1` (100%)
 - Kept complete upload filenames and added horizontal scrolling for overflowing filenames, MIME badges, and file information rows, with consistent badge styles across light and dark themes and mobile layouts
 - Centralized frontend and backend MIME utilities across uploads, chunked uploads, WebDAV, file serving, indexing, and AI image validation to reduce inconsistent extension mappings
@@ -62,6 +69,24 @@ Optimization:
 - Removed redundant styles and logic after the refactor, consolidated header scroll handling, and fixed the System Settings sidebar failing to remove its resize listener on unmount
 - Updated bilingual Worker deployment instructions and the `WORKER_VARS` format guide, with a direct link from the AI secret setup instructions in AI Settings to the variable format section
 - Added bilingual AI feature and settings documentation and an AI homepage card while keeping the total at eight
+
+## 2026.10.25
+
+Add Features:
+
+- Split File Management link settings into Format Preference and Content Preference: choose Raw Link, Markdown, HTML, or BBCode independently of channel content, with separate preferences for Telegram, S3, and WebDAV and new S3 CDN and WebDAV public link options
+- Kept the four format tabs in File Details and added a content selector below the links to temporarily switch available channel content across all formats; TG File IDs use a single raw field
+
+Fix Bugs:
+
+- Unified format and channel content preferences for single-file, batch, and folder copying, with fallback to the image host link when the preferred channel link is unavailable
+- Fixed inconsistent border thickness around rounded metadata table corners, overflowing dimensions and status tags on narrow screens, and help example colors failing to switch in dark mode
+
+Optimization:
+
+- Refined the File Details toolbar to show Download, Edit, and Delete by default; on large screens, additional actions expand leftward from the arrow on hover, stay expanded after a click, and collapse on the next click; mobile actions wrap and respect reduced-motion preferences
+- Adapted File Details to image and video orientation: portrait media uses a preview on the left and metadata on the right on large screens, while landscape and square media use a vertical layout; missing dimensions are detected after loading, audio uses a compact player, ordinary files and failed previews use a compact icon and information row, and mobile layouts remain vertical
+- Restyled metadata tables with rounded corners, single borders, and theme colors; aligned channel headings to the left and organized question-mark help into numbered lines, with distinct colors for the custom prefix entered by the user and the automatic file ID, and clarified that custom prefixes only affect image host links
 
 ## 2026.10.23
 
