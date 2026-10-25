@@ -20,6 +20,7 @@ Fix Bugs:
 
 - Unified format and channel content preferences for single-file, batch, and folder copying, with fallback to the image host link when the preferred channel link is unavailable
 - Fixed inconsistent border thickness around rounded metadata table corners, overflowing dimensions and status tags on narrow screens, and help example colors failing to switch in dark mode
+- Fixed File Details retaining its previous scroll position on reopening and portrait images intermittently reverting to a vertical preview-and-metadata layout when reopened after switching browser tabs
 - Fixed image recognition, filtering, and processing when clients omit a valid MIME type; uploads infer missing types from file extensions, historical records with missing or generic types also use extension inference, and explicit types are preserved
 - Animated GIF, WebP, and APNG uploads now skip WebP conversion, local compression, and Telegram server-side compression to preserve animation
 - Fixed a white loading background and delayed image hosting name in dark mode when a custom background is configured; theme and configuration initialization run in parallel before the app starts
@@ -42,7 +43,7 @@ Optimization:
 
 - Refined the File Details toolbar to show Download, Edit, and Delete by default; on large screens, additional actions expand leftward from the arrow on hover, stay expanded after a click, and collapse on the next click; mobile actions wrap and respect reduced-motion preferences
 - Adapted File Details to image and video orientation: portrait media uses a preview on the left and metadata on the right on large screens, while landscape and square media use a vertical layout; missing dimensions are detected after loading, audio uses a compact player, ordinary files and failed previews use a compact icon and information row, and mobile layouts remain vertical
-- Restyled metadata tables with rounded corners, single borders, and theme colors; aligned channel headings to the left and organized question-mark help into numbered lines, with distinct colors for the custom prefix entered by the user and the automatic file ID, and clarified that custom prefixes only affect image host links
+- Unified corner radii across images, videos, preview containers, and metadata tables, with consistent table borders and theme colors; aligned channel headings to the left and organized question-mark help into numbered lines, with distinct colors for the custom prefix entered by the user and the automatic file ID, and clarified that custom prefixes only affect image host links
 - Removed the remote telemetry sampling configuration request; the sampling rate now uses the local `sampleRate` environment variable and defaults to `1` (100%)
 - Kept complete upload filenames and added horizontal scrolling for overflowing filenames, MIME badges, and file information rows, with consistent badge styles across light and dark themes and mobile layouts
 - Centralized frontend and backend MIME utilities across uploads, chunked uploads, WebDAV, file serving, indexing, and AI image validation to reduce inconsistent extension mappings
@@ -81,12 +82,13 @@ Fix Bugs:
 
 - Unified format and channel content preferences for single-file, batch, and folder copying, with fallback to the image host link when the preferred channel link is unavailable
 - Fixed inconsistent border thickness around rounded metadata table corners, overflowing dimensions and status tags on narrow screens, and help example colors failing to switch in dark mode
+- Fixed File Details retaining its previous scroll position on reopening and portrait images intermittently reverting to a vertical preview-and-metadata layout when reopened after switching browser tabs
 
 Optimization:
 
 - Refined the File Details toolbar to show Download, Edit, and Delete by default; on large screens, additional actions expand leftward from the arrow on hover, stay expanded after a click, and collapse on the next click; mobile actions wrap and respect reduced-motion preferences
 - Adapted File Details to image and video orientation: portrait media uses a preview on the left and metadata on the right on large screens, while landscape and square media use a vertical layout; missing dimensions are detected after loading, audio uses a compact player, ordinary files and failed previews use a compact icon and information row, and mobile layouts remain vertical
-- Restyled metadata tables with rounded corners, single borders, and theme colors; aligned channel headings to the left and organized question-mark help into numbered lines, with distinct colors for the custom prefix entered by the user and the automatic file ID, and clarified that custom prefixes only affect image host links
+- Unified corner radii across images, videos, preview containers, and metadata tables, with consistent table borders and theme colors; aligned channel headings to the left and organized question-mark help into numbered lines, with distinct colors for the custom prefix entered by the user and the automatic file ID, and clarified that custom prefixes only affect image host links
 
 ## 2026.10.23
 
