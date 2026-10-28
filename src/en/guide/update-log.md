@@ -4,7 +4,7 @@
 
 Add Features:
 
-- Added single-file `existed` and batch/folder per-item `details` / `missing` to the Delete API to distinguish actual deletions from already absent records, preserving existing status codes and idempotent `success` / `deleted` semantics
+- The Delete API now distinguishes actual deletions from already absent records, with single-file existence information and per-file results for batch and folder deletion
 - Added shimmer skeletons for image, video, and audio previews in File Details, with a gentle reveal when ready; preview and metadata panels move smoothly together between vertical and side-by-side layouts while the media dialog width stays stable, with light/dark theme and reduced-motion support
 - Split File Management link settings into Format Preference and Content Preference: choose Raw Link, Markdown, HTML, or BBCode independently of channel content, with separate preferences for Telegram, S3, and WebDAV and new S3 CDN and WebDAV public link options
 - Kept the four format tabs in File Details and added a content selector below the links to temporarily switch available channel content across all formats; TG File IDs use a single raw field
@@ -44,7 +44,7 @@ Fix Bugs:
 
 Optimization:
 
-- Frontend tests now use isolated in-memory storage when Web Storage globals are missing, throw on access, or cannot read/write, while preserving working storage and existing data across Node environments
+- Improved Web Storage compatibility for frontend tests across Node environments and expanded deletion regressions for per-file results and stale-index cleanup
 - Refined the File Details toolbar to show Download, Edit, and Delete by default; on large screens, additional actions expand leftward from the arrow on hover, stay expanded after a click, and collapse on the next click; mobile actions wrap and respect reduced-motion preferences
 - Adapted File Details to image and video orientation: portrait media uses a preview on the left and metadata on the right on large screens, while landscape and square media use a vertical layout; missing dimensions are detected after loading, audio uses a compact player, ordinary files and failed previews use a compact icon and information row, and mobile layouts remain vertical
 - Unified corner radii across images, videos, preview containers, and metadata tables, with consistent table borders and theme colors; aligned channel headings to the left and organized question-mark help into numbered lines, with distinct colors for the custom prefix entered by the user and the automatic file ID, and clarified that custom prefixes only affect image host links
@@ -79,15 +79,12 @@ Optimization:
 
 Add Features:
 
-- Added single-file `existed` and batch/folder per-item `details` / `missing` to the Delete API; `deleted` retains every idempotently successful ID, while `missing` identifies already absent records, preserving compatibility with existing clients
-
-Fix Bugs:
-
-- Completed stale-index cleanup coverage for single-file, batch, and nested-folder deletion, preserving records and indexes on deletion failures and adding focused regressions
+- The Delete API now distinguishes actual deletions from already absent records, with single-file existence information and per-file results for batch and folder deletion; see the [Delete API](../api/delete.md)
 
 Optimization:
 
-- Improved frontend test compatibility across Node Web Storage environments, covering missing globals, throwing accessors, storage isolation, and preservation of existing data; updated Chinese and English Delete API documentation
+- Improved Web Storage compatibility for frontend tests across Node environments
+- Added regressions for per-file results, stale-index cleanup and storage failures in single-file, batch and nested-folder deletion
 
 ## 2026.10.25
 
