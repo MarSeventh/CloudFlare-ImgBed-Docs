@@ -4,6 +4,9 @@
 
 Add Features:
 
+- Added duplicate content scanning to System Status, grouping files by content and recommending the earliest upload to keep; individual files can be deleted from the report after confirmation. Currently supports the Cloudflare R2 channel on Docker / Node.js deployments
+- Scan reports identify timeouts, skipped files and index changes; successful deletions update duplicate groups, the file-list cache and system statistics
+- Added Node, Pages and Workers deployment markers for platform-specific frontend and backend features
 - The Delete API now distinguishes actual deletions from already absent records, with single-file existence information and per-file results for batch and folder deletion
 - Added shimmer skeletons for image, video, and audio previews in File Details, with a gentle reveal when ready; preview and metadata panels move smoothly together between vertical and side-by-side layouts while the media dialog width stays stable, with light/dark theme and reduced-motion support
 - Split File Management link settings into Format Preference and Content Preference: choose Raw Link, Markdown, HTML, or BBCode independently of channel content, with separate preferences for Telegram, S3, and WebDAV and new S3 CDN and WebDAV public link options
@@ -79,6 +82,9 @@ Optimization:
 
 Add Features:
 
+- Added duplicate content scanning to System Status, grouping files by content and recommending the earliest upload to keep; individual files can be deleted from the report after confirmation. Currently supports the Cloudflare R2 channel on Docker / Node.js deployments
+- Scan reports identify timeouts, skipped files and index changes; successful deletions update duplicate groups, the file-list cache and system statistics
+- Added Node, Pages and Workers deployment markers for platform-specific frontend and backend features
 - The Delete API now distinguishes actual deletions from already absent records, with single-file existence information and per-file results for batch and folder deletion; see the [Delete API](../api/delete.md)
 
 Optimization:
