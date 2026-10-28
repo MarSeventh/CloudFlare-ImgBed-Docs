@@ -60,15 +60,15 @@ Use the batch deletion endpoint to delete multiple files in one request. Files a
 
 ## Response Format
 
-Deletion remains idempotent: a missing record still returns success. The new fields distinguish whether a file record existed without changing existing status codes or `success` semantics.
-
-- A single-file response sets `existed` to `true` when the record existed before deletion, or `false` when it was already absent.
-- Batch and folder responses retain all idempotently successful IDs in `deleted`; `missing` is the subset whose records were already absent. Do not treat `deleted.length` as the number of records actually deleted.
-- `details` provides `fileId`, `success`, `existed`, and `error` for each item. Count actual record deletions with `details.filter(item => item.success && item.existed).length`.
-- Missing records still have stale index entries removed; failed deletions retain their records and indexes. `existed` describes the service record, not a remote storage inventory check.
-- Folder deletion preserves its existing top-level `success` behavior; check `failed` or `details` for partial failures. Batch deletion sets `success` to `false` if any item fails.
-
 ### Single File Deletion Success Response
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `success` | boolean | `true` when the deletion request succeeds; an already absent record also counts as success |
+| `fileId` | string | The file ID requested for deletion |
+| `existed` | boolean | Whether the file record existed in ImgBed before deletion |
+
+Deleting an existing record returns `existed: true`. An already absent record returns `existed: false`. Both cases return HTTP `200`.
 
 ```json
 {
@@ -77,6 +77,27 @@ Deletion remains idempotent: a missing record still returns success. The new fie
   "existed": true
 }
 ```
+
+### Folder and Batch Deletion Response Fields
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `success` | boolean | For batch deletion, `true` when every file is processed successfully. For folder deletion, `true` when traversal and processing finish; individual deletions may have failed, so check `failed` |
+| `deleted` | string[] | Successfully processed file IDs, including files whose records were already absent |
+| `missing` | string[] | The subset of `deleted` whose records were absent before deletion |
+| `failed` | string[] / object[] | Failed deletions. Folder deletion returns file IDs; batch deletion returns objects containing `fileId` and `error` |
+| `details` | object[] | Per-file results, with the fields listed below |
+
+Each item in `details` contains:
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `fileId` | string | File ID |
+| `success` | boolean | Whether the file was processed successfully; an already absent record also counts as success |
+| `existed` | boolean | When `success` is `true`, indicates whether the file record existed before deletion |
+| `error` | string | Failure reason, or an empty string on success |
+
+To count records actually deleted, count the items in `details` where both `success` and `existed` are `true`.
 
 ### Folder Deletion Success Response
 
@@ -152,14 +173,14 @@ When some files cannot be deleted, `success` is `false` and `failed` contains ea
 ### Delete Single File
 
 ```bash
-curl --location --request GET 'https://your.domain/api/manage/delete/example,image.jpg' \
+curl --location --request GET 'https://your.domain/api/manage/delete/example/image.jpg' \
 --header 'Authorization: Bearer your_token'
 ```
 
 ### Delete Folder
 
 ```bash
-curl --location --request GET 'https://your.domain/api/manage/delete/example,folder?folder=true' \
+curl --location --request GET 'https://your.domain/api/manage/delete/example/folder?folder=true' \
 --header 'Authorization: Bearer your_token'
 ```
 

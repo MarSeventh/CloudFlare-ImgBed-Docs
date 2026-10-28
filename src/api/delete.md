@@ -59,15 +59,15 @@
 
 ## 响应格式
 
-删除仍保持原有幂等语义：记录原本不存在时也返回成功。新增字段用于区分是否确实存在文件记录，不改变原有状态码和 `success` 的含义。
-
-- 单文件响应的 `existed` 为 `true` 表示删除前记录存在，`false` 表示记录原本不存在。
-- 批量和文件夹响应中的 `deleted` 保留所有幂等成功的 ID；`missing` 是其中记录原本不存在的子集，不能把 `deleted.length` 直接当作实际删除的记录数。
-- `details` 提供每项的 `fileId`、`success`、`existed` 和 `error`。实际删除的记录数可按 `details.filter(item => item.success && item.existed).length` 统计。
-- 已缺失的记录仍会清理对应的残留索引；删除失败的记录和索引会保留。`existed` 描述服务端记录，不表示已枚举或核对远端存储对象。
-- 文件夹接口保留原有顶层 `success` 行为，判断部分失败时请检查 `failed` 或 `details`；批量接口有任一失败时 `success` 为 `false`。
-
 ### 单文件删除成功响应
+
+| 字段名 | 类型 | 说明 |
+|--------|------|------|
+| `success` | boolean | 删除请求处理成功时为 `true`，目标记录不存在也视为成功 |
+| `fileId` | string | 请求删除的文件 ID |
+| `existed` | boolean | 删除前图床中是否存在该文件记录 |
+
+文件记录存在且删除成功时，返回 `existed: true`；记录不存在时，返回 `existed: false`。两种情况的 HTTP 状态码均为 `200`。
 
 ```json
 {
@@ -76,6 +76,27 @@
   "existed": true
 }
 ```
+
+### 文件夹和批量删除响应字段
+
+| 字段名 | 类型 | 说明 |
+|--------|------|------|
+| `success` | boolean | 批量删除中，所有文件均处理成功时为 `true`；文件夹删除中，遍历处理完成时为 `true`，部分文件可能删除失败，需检查 `failed` |
+| `deleted` | string[] | 处理成功的文件 ID 列表，包含记录不存在的文件 |
+| `missing` | string[] | `deleted` 中删除前记录不存在的文件 ID 列表 |
+| `failed` | string[] / object[] | 删除失败的文件。文件夹接口返回文件 ID 数组；批量接口返回包含 `fileId` 和 `error` 的对象数组 |
+| `details` | object[] | 每个文件的处理结果，字段见下表 |
+
+`details` 中每项的字段：
+
+| 字段名 | 类型 | 说明 |
+|--------|------|------|
+| `fileId` | string | 文件 ID |
+| `success` | boolean | 该文件是否处理成功，记录不存在也视为成功 |
+| `existed` | boolean | `success` 为 `true` 时，表示删除前是否存在该文件记录 |
+| `error` | string | 失败原因，成功时为空字符串 |
+
+需要统计实际删除的文件记录数时，统计 `details` 中 `success` 和 `existed` 均为 `true` 的项。
 
 ### 文件夹删除成功响应
 
