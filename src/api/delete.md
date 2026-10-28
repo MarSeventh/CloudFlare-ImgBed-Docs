@@ -59,12 +59,21 @@
 
 ## 响应格式
 
+删除仍保持原有幂等语义：记录原本不存在时也返回成功。新增字段用于区分是否确实存在文件记录，不改变原有状态码和 `success` 的含义。
+
+- 单文件响应的 `existed` 为 `true` 表示删除前记录存在，`false` 表示记录原本不存在。
+- 批量和文件夹响应中的 `deleted` 保留所有幂等成功的 ID；`missing` 是其中记录原本不存在的子集，不能把 `deleted.length` 直接当作实际删除的记录数。
+- `details` 提供每项的 `fileId`、`success`、`existed` 和 `error`。实际删除的记录数可按 `details.filter(item => item.success && item.existed).length` 统计。
+- 已缺失的记录仍会清理对应的残留索引；删除失败的记录和索引会保留。`existed` 描述服务端记录，不表示已枚举或核对远端存储对象。
+- 文件夹接口保留原有顶层 `success` 行为，判断部分失败时请检查 `failed` 或 `details`；批量接口有任一失败时 `success` 为 `false`。
+
 ### 单文件删除成功响应
 
 ```json
 {
   "success": true,
-  "fileId": "example/image.jpg"
+  "fileId": "example/image.jpg",
+  "existed": true
 }
 ```
 
@@ -78,7 +87,13 @@
     "folder/image2.png",
     "folder/subfolder/image3.gif"
   ],
-  "failed": []
+  "failed": [],
+  "missing": [],
+  "details": [
+    { "fileId": "folder/image1.jpg", "success": true, "existed": true, "error": "" },
+    { "fileId": "folder/image2.png", "success": true, "existed": true, "error": "" },
+    { "fileId": "folder/subfolder/image3.gif", "success": true, "existed": true, "error": "" }
+  ]
 }
 ```
 
@@ -91,7 +106,12 @@
     "folder/image1.jpg",
     "folder/image2.png"
   ],
-  "failed": []
+  "failed": [],
+  "missing": ["folder/image2.png"],
+  "details": [
+    { "fileId": "folder/image1.jpg", "success": true, "existed": true, "error": "" },
+    { "fileId": "folder/image2.png", "success": true, "existed": false, "error": "" }
+  ]
 }
 ```
 
@@ -108,6 +128,11 @@
       "fileId": "folder/image2.png",
       "error": "Delete file failed"
     }
+  ],
+  "missing": [],
+  "details": [
+    { "fileId": "folder/image1.jpg", "success": true, "existed": true, "error": "" },
+    { "fileId": "folder/image2.png", "success": false, "existed": true, "error": "Delete file failed" }
   ]
 }
 ```

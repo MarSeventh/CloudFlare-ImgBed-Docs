@@ -60,12 +60,21 @@ Use the batch deletion endpoint to delete multiple files in one request. Files a
 
 ## Response Format
 
+Deletion remains idempotent: a missing record still returns success. The new fields distinguish whether a file record existed without changing existing status codes or `success` semantics.
+
+- A single-file response sets `existed` to `true` when the record existed before deletion, or `false` when it was already absent.
+- Batch and folder responses retain all idempotently successful IDs in `deleted`; `missing` is the subset whose records were already absent. Do not treat `deleted.length` as the number of records actually deleted.
+- `details` provides `fileId`, `success`, `existed`, and `error` for each item. Count actual record deletions with `details.filter(item => item.success && item.existed).length`.
+- Missing records still have stale index entries removed; failed deletions retain their records and indexes. `existed` describes the service record, not a remote storage inventory check.
+- Folder deletion preserves its existing top-level `success` behavior; check `failed` or `details` for partial failures. Batch deletion sets `success` to `false` if any item fails.
+
 ### Single File Deletion Success Response
 
 ```json
 {
   "success": true,
-  "fileId": "example/image.jpg"
+  "fileId": "example/image.jpg",
+  "existed": true
 }
 ```
 
@@ -79,7 +88,13 @@ Use the batch deletion endpoint to delete multiple files in one request. Files a
     "folder/image2.png",
     "folder/subfolder/image3.gif"
   ],
-  "failed": []
+  "failed": [],
+  "missing": [],
+  "details": [
+    { "fileId": "folder/image1.jpg", "success": true, "existed": true, "error": "" },
+    { "fileId": "folder/image2.png", "success": true, "existed": true, "error": "" },
+    { "fileId": "folder/subfolder/image3.gif", "success": true, "existed": true, "error": "" }
+  ]
 }
 ```
 
@@ -92,7 +107,12 @@ Use the batch deletion endpoint to delete multiple files in one request. Files a
     "folder/image1.jpg",
     "folder/image2.png"
   ],
-  "failed": []
+  "failed": [],
+  "missing": ["folder/image2.png"],
+  "details": [
+    { "fileId": "folder/image1.jpg", "success": true, "existed": true, "error": "" },
+    { "fileId": "folder/image2.png", "success": true, "existed": false, "error": "" }
+  ]
 }
 ```
 
@@ -109,6 +129,11 @@ When some files cannot be deleted, `success` is `false` and `failed` contains ea
       "fileId": "folder/image2.png",
       "error": "Delete file failed"
     }
+  ],
+  "missing": [],
+  "details": [
+    { "fileId": "folder/image1.jpg", "success": true, "existed": true, "error": "" },
+    { "fileId": "folder/image2.png", "success": false, "existed": true, "error": "Delete file failed" }
   ]
 }
 ```

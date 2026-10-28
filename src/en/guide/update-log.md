@@ -4,6 +4,7 @@
 
 Add Features:
 
+- Added single-file `existed` and batch/folder per-item `details` / `missing` to the Delete API to distinguish actual deletions from already absent records, preserving existing status codes and idempotent `success` / `deleted` semantics
 - Added shimmer skeletons for image, video, and audio previews in File Details, with a gentle reveal when ready; preview and metadata panels move smoothly together between vertical and side-by-side layouts while the media dialog width stays stable, with light/dark theme and reduced-motion support
 - Split File Management link settings into Format Preference and Content Preference: choose Raw Link, Markdown, HTML, or BBCode independently of channel content, with separate preferences for Telegram, S3, and WebDAV and new S3 CDN and WebDAV public link options
 - Kept the four format tabs in File Details and added a content selector below the links to temporarily switch available channel content across all formats; TG File IDs use a single raw field
@@ -43,6 +44,7 @@ Fix Bugs:
 
 Optimization:
 
+- Frontend tests now use isolated in-memory storage when Web Storage globals are missing, throw on access, or cannot read/write, while preserving working storage and existing data across Node environments
 - Refined the File Details toolbar to show Download, Edit, and Delete by default; on large screens, additional actions expand leftward from the arrow on hover, stay expanded after a click, and collapse on the next click; mobile actions wrap and respect reduced-motion preferences
 - Adapted File Details to image and video orientation: portrait media uses a preview on the left and metadata on the right on large screens, while landscape and square media use a vertical layout; missing dimensions are detected after loading, audio uses a compact player, ordinary files and failed previews use a compact icon and information row, and mobile layouts remain vertical
 - Unified corner radii across images, videos, preview containers, and metadata tables, with consistent table borders and theme colors; aligned channel headings to the left and organized question-mark help into numbered lines, with distinct colors for the custom prefix entered by the user and the automatic file ID, and clarified that custom prefixes only affect image host links
@@ -72,6 +74,20 @@ Optimization:
 - Removed redundant styles and logic after the refactor, consolidated header scroll handling, and fixed the System Settings sidebar failing to remove its resize listener on unmount
 - Updated bilingual Worker deployment instructions and the `WORKER_VARS` format guide, with a direct link from the AI secret setup instructions in AI Settings to the variable format section
 - Added bilingual AI feature and settings documentation and an AI homepage card while keeping the total at eight
+
+## 2026.10.28
+
+Add Features:
+
+- Added single-file `existed` and batch/folder per-item `details` / `missing` to the Delete API; `deleted` retains every idempotently successful ID, while `missing` identifies already absent records, preserving compatibility with existing clients
+
+Fix Bugs:
+
+- Completed stale-index cleanup coverage for single-file, batch, and nested-folder deletion, preserving records and indexes on deletion failures and adding focused regressions
+
+Optimization:
+
+- Improved frontend test compatibility across Node Web Storage environments, covering missing globals, throwing accessors, storage isolation, and preservation of existing data; updated Chinese and English Delete API documentation
 
 ## 2026.10.25
 
