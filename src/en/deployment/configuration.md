@@ -393,7 +393,7 @@ Expired files return 404 right away, but their stored data is only deleted by th
 | Docker | The server cleans up every 10 minutes; change it with the `EXPIRY_CLEANUP_INTERVAL_MINUTES` environment variable, `0` disables |
 | Pages | No scheduled tasks: while the feature is on, opening file management cleans up a batch (at most once every 10 minutes per instance), and Other Settings has a "Clean up now" button |
 
-Each run deletes a limited number of files (the Workers free plan allows 50 subrequests per invocation) and leaves the rest for the next run. Files whose deletion fails (for example while storage is unavailable) are kept and retried about an hour later, without blocking other files. Without scheduled cleanup, expired files are not deleted but stay inaccessible. Other Settings shows how many files can be cleaned up; if that number never goes down, cleanup is not running or keeps failing.
+Each run deletes a limited number of files (the Workers free plan allows 50 subrequests per invocation) and leaves the rest for the next run. Files whose deletion fails (for example while storage is unavailable) are kept and retried about an hour later, without blocking other files. Without scheduled cleanup, expired files are not deleted but stay inaccessible. Other Settings shows how many files can be cleaned up (approximate on KV, where markers left by renewals and similar edits count until the next cleanup removes them); if that number never goes down, cleanup is not running or keeps failing.
 
 | Environment variable | Default | Description |
 |--------|--------|------|
