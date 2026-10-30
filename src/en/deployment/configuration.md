@@ -393,7 +393,7 @@ Files are deleted 5 minutes after they expire, leaving time for edits sent befor
 | Docker | The server cleans up every 10 minutes; change it with the `EXPIRY_CLEANUP_INTERVAL_MINUTES` environment variable, `0` disables |
 | Pages | No scheduled tasks: while the feature is on, opening file management cleans up a batch (at most once every 10 minutes per instance), and Other Settings has a "Clean up now" button |
 
-Each run deletes a limited number of files (the Workers free plan allows 50 subrequests per invocation) and leaves the rest for the next run. Files whose deletion fails (for example while storage is unavailable) are kept and retried in the next run. Without scheduled cleanup, expired files are not deleted but stay inaccessible. Other Settings shows how many files can be cleaned up; if that number never goes down, cleanup is not running or keeps failing.
+Each run deletes a limited number of files (the Workers free plan allows 50 subrequests per invocation) and leaves the rest for the next run. Files whose deletion fails (for example while storage is unavailable) are kept and retried about an hour later, without blocking other files. Without scheduled cleanup, expired files are not deleted but stay inaccessible. Other Settings shows how many files can be cleaned up; if that number never goes down, cleanup is not running or keeps failing.
 
 | Environment variable | Default | Description |
 |--------|--------|------|
@@ -404,6 +404,7 @@ Each run deletes a limited number of files (the Workers free plan allows 50 subr
 
 - **D1**: expired files are found through a database index. For existing D1 deployments, follow the release notes of the corresponding version for any required migration.
 - **KV**: each file with an expiry writes an extra marker, which is deleted again during cleanup, so enabling the feature uses KV write and delete quota faster (1000 each per day on the free plan). Prefer D1 for large libraries.
+- **KV consistency**: KV is eventually consistent. After an expiry change or a deletion, other locations may read the old state for up to about 60 seconds, so "immediately" in the table above can take that long on KV deployments, and a re-upload with the same name during cleanup cannot be fully excluded. Prefer D1 when you need strict guarantees.
 
 ::: warning Limitations
 - For the Telegram and External channels, deletion removes only the record, as with manual deletion; the remote file is not deleted.
