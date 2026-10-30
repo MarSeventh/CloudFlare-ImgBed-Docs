@@ -62,12 +62,42 @@ Use the batch deletion endpoint to delete multiple files in one request. Files a
 
 ### Single File Deletion Success Response
 
+| Field | Type | Description |
+|-------|------|-------------|
+| `success` | boolean | `true` when the deletion request succeeds; an already absent record also counts as success |
+| `fileId` | string | The file ID requested for deletion |
+| `existed` | boolean | Whether the file record existed in ImgBed before deletion |
+
+Deleting an existing record returns `existed: true`. An already absent record returns `existed: false`. Both cases return HTTP `200`.
+
 ```json
 {
   "success": true,
-  "fileId": "example/image.jpg"
+  "fileId": "example/image.jpg",
+  "existed": true
 }
 ```
+
+### Folder and Batch Deletion Response Fields
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `success` | boolean | For batch deletion, `true` when every file is processed successfully. For folder deletion, `true` when traversal and processing finish; individual deletions may have failed, so check `failed` |
+| `deleted` | string[] | Successfully processed file IDs, including files whose records were already absent |
+| `missing` | string[] | The subset of `deleted` whose records were absent before deletion |
+| `failed` | string[] / object[] | Failed deletions. Folder deletion returns file IDs; batch deletion returns objects containing `fileId` and `error` |
+| `details` | object[] | Per-file results, with the fields listed below |
+
+Each item in `details` contains:
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `fileId` | string | File ID |
+| `success` | boolean | Whether the file was processed successfully; an already absent record also counts as success |
+| `existed` | boolean | When `success` is `true`, indicates whether the file record existed before deletion |
+| `error` | string | Failure reason, or an empty string on success |
+
+To count records actually deleted, count the items in `details` where both `success` and `existed` are `true`.
 
 ### Folder Deletion Success Response
 
@@ -79,7 +109,13 @@ Use the batch deletion endpoint to delete multiple files in one request. Files a
     "folder/image2.png",
     "folder/subfolder/image3.gif"
   ],
-  "failed": []
+  "failed": [],
+  "missing": [],
+  "details": [
+    { "fileId": "folder/image1.jpg", "success": true, "existed": true, "error": "" },
+    { "fileId": "folder/image2.png", "success": true, "existed": true, "error": "" },
+    { "fileId": "folder/subfolder/image3.gif", "success": true, "existed": true, "error": "" }
+  ]
 }
 ```
 
@@ -92,7 +128,12 @@ Use the batch deletion endpoint to delete multiple files in one request. Files a
     "folder/image1.jpg",
     "folder/image2.png"
   ],
-  "failed": []
+  "failed": [],
+  "missing": ["folder/image2.png"],
+  "details": [
+    { "fileId": "folder/image1.jpg", "success": true, "existed": true, "error": "" },
+    { "fileId": "folder/image2.png", "success": true, "existed": false, "error": "" }
+  ]
 }
 ```
 
@@ -109,6 +150,11 @@ When some files cannot be deleted, `success` is `false` and `failed` contains ea
       "fileId": "folder/image2.png",
       "error": "Delete file failed"
     }
+  ],
+  "missing": [],
+  "details": [
+    { "fileId": "folder/image1.jpg", "success": true, "existed": true, "error": "" },
+    { "fileId": "folder/image2.png", "success": false, "existed": true, "error": "Delete file failed" }
   ]
 }
 ```
@@ -127,14 +173,14 @@ When some files cannot be deleted, `success` is `false` and `failed` contains ea
 ### Delete Single File
 
 ```bash
-curl --location --request GET 'https://your.domain/api/manage/delete/example,image.jpg' \
+curl --location --request GET 'https://your.domain/api/manage/delete/example/image.jpg' \
 --header 'Authorization: Bearer your_token'
 ```
 
 ### Delete Folder
 
 ```bash
-curl --location --request GET 'https://your.domain/api/manage/delete/example,folder?folder=true' \
+curl --location --request GET 'https://your.domain/api/manage/delete/example/folder?folder=true' \
 --header 'Authorization: Bearer your_token'
 ```
 

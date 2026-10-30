@@ -61,12 +61,42 @@
 
 ### 单文件删除成功响应
 
+| 字段名 | 类型 | 说明 |
+|--------|------|------|
+| `success` | boolean | 删除请求处理成功时为 `true`，目标记录不存在也视为成功 |
+| `fileId` | string | 请求删除的文件 ID |
+| `existed` | boolean | 删除前图床中是否存在该文件记录 |
+
+文件记录存在且删除成功时，返回 `existed: true`；记录不存在时，返回 `existed: false`。两种情况的 HTTP 状态码均为 `200`。
+
 ```json
 {
   "success": true,
-  "fileId": "example/image.jpg"
+  "fileId": "example/image.jpg",
+  "existed": true
 }
 ```
+
+### 文件夹和批量删除响应字段
+
+| 字段名 | 类型 | 说明 |
+|--------|------|------|
+| `success` | boolean | 批量删除中，所有文件均处理成功时为 `true`；文件夹删除中，遍历处理完成时为 `true`，部分文件可能删除失败，需检查 `failed` |
+| `deleted` | string[] | 处理成功的文件 ID 列表，包含记录不存在的文件 |
+| `missing` | string[] | `deleted` 中删除前记录不存在的文件 ID 列表 |
+| `failed` | string[] / object[] | 删除失败的文件。文件夹接口返回文件 ID 数组；批量接口返回包含 `fileId` 和 `error` 的对象数组 |
+| `details` | object[] | 每个文件的处理结果，字段见下表 |
+
+`details` 中每项的字段：
+
+| 字段名 | 类型 | 说明 |
+|--------|------|------|
+| `fileId` | string | 文件 ID |
+| `success` | boolean | 该文件是否处理成功，记录不存在也视为成功 |
+| `existed` | boolean | `success` 为 `true` 时，表示删除前是否存在该文件记录 |
+| `error` | string | 失败原因，成功时为空字符串 |
+
+需要统计实际删除的文件记录数时，统计 `details` 中 `success` 和 `existed` 均为 `true` 的项。
 
 ### 文件夹删除成功响应
 
@@ -78,7 +108,13 @@
     "folder/image2.png",
     "folder/subfolder/image3.gif"
   ],
-  "failed": []
+  "failed": [],
+  "missing": [],
+  "details": [
+    { "fileId": "folder/image1.jpg", "success": true, "existed": true, "error": "" },
+    { "fileId": "folder/image2.png", "success": true, "existed": true, "error": "" },
+    { "fileId": "folder/subfolder/image3.gif", "success": true, "existed": true, "error": "" }
+  ]
 }
 ```
 
@@ -91,7 +127,12 @@
     "folder/image1.jpg",
     "folder/image2.png"
   ],
-  "failed": []
+  "failed": [],
+  "missing": ["folder/image2.png"],
+  "details": [
+    { "fileId": "folder/image1.jpg", "success": true, "existed": true, "error": "" },
+    { "fileId": "folder/image2.png", "success": true, "existed": false, "error": "" }
+  ]
 }
 ```
 
@@ -108,6 +149,11 @@
       "fileId": "folder/image2.png",
       "error": "Delete file failed"
     }
+  ],
+  "missing": [],
+  "details": [
+    { "fileId": "folder/image1.jpg", "success": true, "existed": true, "error": "" },
+    { "fileId": "folder/image2.png", "success": false, "existed": true, "error": "Delete file failed" }
   ]
 }
 ```
