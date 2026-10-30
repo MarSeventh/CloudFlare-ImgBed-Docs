@@ -385,7 +385,7 @@ Administrators can change the expiry time or make a file permanent in the file d
 
 #### Automatic Cleanup
 
-Files are deleted 5 minutes after they expire, leaving time for edits sent before the expiry; requests already return 404 during this period.
+Expired files return 404 right away, but their stored data is only deleted by the first cleanup run at least 5 minutes after the expiry, leaving time for edits sent before the expiry. When that happens depends on the cleanup method below.
 
 | Deployment | Cleanup |
 | --- | --- |
