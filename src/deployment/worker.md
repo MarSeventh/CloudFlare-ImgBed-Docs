@@ -69,6 +69,7 @@ Cloudflare Workers 部署是 Pages 部署之外的另一种 Serverless 部署方
 | `R2_BUCKET_NAME` | R2 存储桶名称 | 可选 |
 | `WORKER_NAME` | Worker 名称（默认 `cloudflare-imgbed`） | 可选 |
 | `WORKER_VARS` | 业务环境变量（JSON 格式，支持 `text` / `secret`） | 可选 |
+| `EXPIRY_CLEANUP_CRON` | 文件有效期清理的 Cron 表达式（如 `*/30 * * * *`），启用 [文件有效期](./configuration.md#file-expiry) 时配置 | 可选 |
 
 ### WORKER_VARS 格式说明 {#worker-vars}
 

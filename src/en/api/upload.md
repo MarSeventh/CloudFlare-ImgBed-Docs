@@ -26,6 +26,7 @@ Successful upload responses are arrays. Common fields:
 |-------|------|-------------|
 | `src` | string | File access path. By default it does not include the domain, for example `/file/abc123_image.jpg`; with `returnFormat=full`, it returns a full URL for the current site |
 | `publicUrl` | string | Optional. For successful basic uploads and chunked-upload merge, returned when a default URL prefix is set under `System Settings -> Web Settings -> Global Settings -> Default URL Prefix`; combines that prefix with the file ID |
+| `expiresAt` | number | Optional. Expiry time in milliseconds when the file has an expiry |
 
 ## Basic Upload
 
@@ -45,6 +46,7 @@ Upload a file directly via the `/upload` endpoint. Suitable for small files.
 | `uploadNameType` | string | No | `default` | Naming: `default` (prefix_original), `index` (prefix only), `origin` (original only), `short` (short link) |
 | `returnFormat` | string | No | `default` | Response format: `default` (`/file/id`), `full` (full URL) |
 | `uploadFolder` | string | No | - | Upload directory, relative path, e.g. `img/test` |
+| `expire` | string | No | - | File expiry such as `12h`, `7d` or `forever`. Only applies when the administrator has enabled [File Expiry](../deployment/configuration.md#file-expiry) and lets uploaders choose; must be one of the available options, otherwise 400 |
 
 **Body Parameters (FormData):**
 
@@ -96,6 +98,7 @@ Create an upload session and obtain an `uploadId`.
 |-----------|------|----------|-------------|
 | `authCode` | string | No | Upload authentication code |
 | `initChunked` | boolean | Yes | Set to `true` |
+| `expire` | string | No | File expiry, same rules as a basic upload; validated at initialization, and the merge request must send the same value |
 | `uploadChannel` | string | No | Storage channel: `telegram`, `cfr2`, `s3`, `discord` |
 | `channelName` | string | No | Specific channel name (multi-channel scenarios). Get available list via `/api/channels` |
 
@@ -199,6 +202,7 @@ After all chunks are uploaded, request a merge. The merge process is **synchrono
 | `authCode` | string | No | Upload authentication code |
 | `chunked` | boolean | Yes | Set to `true` |
 | `merge` | boolean | Yes | Set to `true` |
+| `expire` | string | No | File expiry, same value as at initialization |
 | `uploadChannel` | string | No | Storage channel: `telegram`, `cfr2`, `s3`, `discord` |
 | `channelName` | string | No | Specific channel name (multi-channel scenarios). Get available list via `/api/channels` |
 | `returnFormat` | string | No | Response format: `default` (`/file/id`), `full` (full URL) |
@@ -270,6 +274,10 @@ The HuggingFace channel uses a dedicated upload flow where **the client uploads 
 | Large files (≥ 20MB) | Direct upload (3 steps) | Client uploads directly to HuggingFace S3 |
 
 ### Direct Upload Flow
+
+::: tip File expiry
+Send the same `expire` query parameter on both the upload-URL and the commit requests (e.g. `/upload/huggingface/getUploadUrl?expire=7d`); the rules are the same as for a basic upload.
+:::
 
 #### Prerequisites
 

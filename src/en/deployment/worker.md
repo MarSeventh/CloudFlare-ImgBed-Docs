@@ -69,6 +69,7 @@ In your forked repository, go to **Settings → Secrets and variables → Action
 | `R2_BUCKET_NAME` | R2 Bucket name | Optional |
 | `WORKER_NAME` | Worker name (default `cloudflare-imgbed`) | Optional |
 | `WORKER_VARS` | Business environment variables (JSON format, supports `text` / `secret`) | Optional |
+| `EXPIRY_CLEANUP_CRON` | Cron expression for file expiry cleanup (e.g. `*/30 * * * *`); set it when using [File Expiry](./configuration.md#file-expiry) | Optional |
 
 ### WORKER_VARS Format {#worker-vars}
 
