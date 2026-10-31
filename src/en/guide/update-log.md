@@ -53,6 +53,7 @@ Fix Bugs:
 
 Optimization:
 
+- Default file expiry now accepts custom durations directly and adds them to the available options, with more common durations offered in the dropdown
 - Unified bulleted tooltips, indentation and text wrapping across Chinese and English, including narrow screens
 - Improved Web Storage compatibility for frontend tests across Node environments and expanded deletion regressions for per-file results and stale-index cleanup
 - Refined the File Details toolbar to show Download, Edit, and Delete by default; on large screens, additional actions expand leftward from the arrow on hover, stay expanded after a click, and collapse on the next click; mobile actions wrap and respect reduced-motion preferences

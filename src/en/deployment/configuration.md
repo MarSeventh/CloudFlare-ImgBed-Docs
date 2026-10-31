@@ -131,7 +131,7 @@ Use file expiry to automatically remove temporary files. It is off by default. W
 
 - **Enable**: apply expiry to future uploads; turning it off does not change existing expiry times
 - **Available options**: enter a duration and press Enter to add it. Use `h` for hours or `d` for days, such as `12h` or `7d`, and `forever` for no expiry. Up to 3650 days and 20 options are supported
-- **Default expiry**: used when the uploader makes no choice or is not allowed to choose
+- **Default expiry**: used when the uploader makes no choice or is not allowed to choose; select from the list or enter a duration such as `6h` or `15d` and press Enter. New durations are automatically added to the available options
 - **Let uploaders choose**: allow uploaders to select an available option; when off, the default always applies
 
 Click "Save" after configuring these options. When choosing is allowed, uploaders can select an expiry in the upload settings dialog. Administrators can also change the expiry or choose "Never expire" in file details before a file expires.
