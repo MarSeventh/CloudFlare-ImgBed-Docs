@@ -69,6 +69,7 @@ Cloudflare Workers 部署是 Pages 部署之外的另一种 Serverless 部署方
 | `R2_BUCKET_NAME` | R2 存储桶名称 | 可选 |
 | `WORKER_NAME` | Worker 名称（默认 `cloudflare-imgbed`） | 可选 |
 | `WORKER_VARS` | 业务环境变量（JSON 格式，支持 `text` / `secret`） | 可选 |
+| `WRANGLER_CONFIG` | 额外的 Wrangler 配置（JSON 格式），如 workers.dev 访问和可观测性 | 可选 |
 | `EXPIRY_CLEANUP_CRON` | 文件有效期清理的 Cron 表达式（如 `*/30 * * * *`），启用 [文件有效期](./configuration.md#file-expiry) 时配置 | 可选 |
 
 ### WORKER_VARS 格式说明 {#worker-vars}
@@ -108,6 +109,26 @@ Cloudflare Workers 部署是 Pages 部署之外的另一种 Serverless 部署方
 请将配置保存在 GitHub Secrets 中，不要将真实密钥提交到代码仓库或填写到公开仓库的 Variables。GitHub Secret 不会自动变成 Cloudflare Secret，密钥、Token 等敏感值应明确设置 `type: "secret"`。
 :::
 
+### 额外的 Wrangler 配置 {#wrangler-config}
+
+需要在每次部署时保留 workers.dev 访问、可观测性等设置，可添加名为 `WRANGLER_CONFIG` 的 GitHub Actions Secret，值填写 JSON 对象：
+
+```json
+{
+  "workers_dev": false,
+  "observability": {
+    "enabled": true,
+    "head_sampling_rate": 1
+  }
+}
+```
+
+以上配置关闭 workers.dev 地址，并开启可观测性及全量采样。关闭 workers.dev 前，请先配置好自定义域名或路由，部署后通过该地址访问。
+
+- 字符串、数字、布尔值作为顶层设置，对象作为配置表，支持嵌套对象；不支持数组和 `null`。具体字段和值请参考 [Wrangler 配置文档](https://developers.cloudflare.com/workers/wrangler/configuration/)。
+- 不能覆盖脚本管理的字段：`name`、`main`、`compatibility_date`、`compatibility_flags`、`assets`、`images`、`d1_databases`、`kv_namespaces`、`r2_buckets`、`vars`、`triggers`。绑定、业务变量和清理定时任务请使用上表中对应的 Secret。
+- JSON 格式、值类型不符合要求，或包含脚本管理的字段时，配置生成会报错停止。不设置此 Secret 则沿用默认配置。
+
 ## 🚀 第四步：运行部署
 
 1. 进入 Fork 仓库的 **Actions** 页面
@@ -117,7 +138,7 @@ Cloudflare Workers 部署是 Pages 部署之外的另一种 Serverless 部署方
 5. 可选修改 Worker 名称（优先级：手动输入 > Secrets 中的 `WORKER_NAME` > `cloudflare-imgbed`）
 6. 点击 **Run workflow** 开始部署
 
-部署完成后，可以通过 `https://<worker-name>.<account-subdomain>.workers.dev` 访问。
+部署完成后，可以通过自定义域名或已启用的 `https://<worker-name>.<account-subdomain>.workers.dev` 地址访问。
 
 ## 🚀 下一步
 

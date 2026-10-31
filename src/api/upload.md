@@ -11,6 +11,8 @@
 
 ## 响应格式
 
+普通上传和分块合并成功时，默认返回数组：
+
 ```json
 [
   {
@@ -20,7 +22,18 @@
 ]
 ```
 
-上传成功响应为数组，常见字段如下：
+第三方工具只能读取 JSON 对象时，在上传或合并请求中添加 `responseFormat=object`。例如，`/upload?responseFormat=object&returnFormat=full` 返回：
+
+```json
+{
+  "src": "https://your.domain/file/abc123_image.jpg",
+  "publicUrl": "https://img.example.com/abc123_image.jpg"
+}
+```
+
+`responseFormat` 控制 JSON 结构，`returnFormat` 控制 `src` 使用相对路径还是完整链接。只有 `responseFormat=object` 返回对象，未传入或使用其他值时均返回数组。分块初始化、逐块上传、HuggingFace 直传及错误响应仍使用各自的格式。
+
+常见字段如下：
 
 | 字段名 | 类型 | 说明 |
 |--------|------|------|
@@ -44,7 +57,8 @@
 | `serverCompress` | boolean | 否 | `true` | 服务端压缩（仅 Telegram 渠道图片） |
 | `autoRetry` | boolean | 否 | `true` | 失败时自动切换渠道重试 |
 | `uploadNameType` | string | 否 | `default` | 命名方式：`default`（前缀_原名）、`index`（仅前缀）、`origin`（仅原名）、`short`（短链接） |
-| `returnFormat` | string | 否 | `default` | 返回格式：`default`（`/file/id`）、`full`（完整链接） |
+| `returnFormat` | string | 否 | `default` | 链接格式：`default`（`/file/id`）、`full`（完整链接） |
+| `responseFormat` | string | 否 | `array` | JSON 结构：`array`（默认数组）、`object`（单文件对象） |
 | `uploadFolder` | string | 否 | - | 上传目录，相对路径，如 `img/test` |
 | `expire` | string | 否 | - | 文件有效期，如 `12h`、`7d`、`forever`。仅在管理员开启 [文件有效期](../deployment/configuration.md#file-expiry) 并允许自选时生效，必须是可选项之一，否则返回 400 |
 
@@ -207,7 +221,8 @@ FormData:
 | `expire` | string | 否 | 文件有效期，需与初始化时相同 |
 | `uploadChannel` | string | 否 | 上传渠道：`telegram`、`cfr2`、`s3`、`discord` |
 | `channelName` | string | 否 | 指定渠道名称（多渠道场景），可通过 `/api/channels` 获取可用列表 |
-| `returnFormat` | string | 否 | 返回格式：`default`（`/file/id`）、`full`（完整链接） |
+| `returnFormat` | string | 否 | 链接格式：`default`（`/file/id`）、`full`（完整链接） |
+| `responseFormat` | string | 否 | JSON 结构：`array`（默认数组）、`object`（单文件对象） |
 | `uploadFolder` | string | 否 | 上传目录，相对路径，如 `img/test` |
 
 **Body 参数（FormData）：**

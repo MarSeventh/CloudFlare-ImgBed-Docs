@@ -11,6 +11,8 @@ The Upload API allows uploading files to CloudFlare ImgBed from third-party appl
 
 ## Response Format
 
+Successful basic uploads and chunk merges return an array by default:
+
 ```json
 [
   {
@@ -20,7 +22,18 @@ The Upload API allows uploading files to CloudFlare ImgBed from third-party appl
 ]
 ```
 
-Successful upload responses are arrays. Common fields:
+For clients that can only read JSON objects, add `responseFormat=object` to the upload or merge request. For example, `/upload?responseFormat=object&returnFormat=full` returns:
+
+```json
+{
+  "src": "https://your.domain/file/abc123_image.jpg",
+  "publicUrl": "https://img.example.com/abc123_image.jpg"
+}
+```
+
+`responseFormat` controls the JSON shape; `returnFormat` controls whether `src` is a relative path or a full URL. Only `responseFormat=object` selects an object; omitted or other values retain the array response. Chunk initialization, individual chunks, HuggingFace direct upload and error responses keep their respective formats.
+
+Common fields:
 
 | Field | Type | Description |
 |-------|------|-------------|
@@ -44,7 +57,8 @@ Upload a file directly via the `/upload` endpoint. Suitable for small files.
 | `serverCompress` | boolean | No | `true` | Server-side compression (Telegram channel images only) |
 | `autoRetry` | boolean | No | `true` | Auto-retry with another channel on failure |
 | `uploadNameType` | string | No | `default` | Naming: `default` (prefix_original), `index` (prefix only), `origin` (original only), `short` (short link) |
-| `returnFormat` | string | No | `default` | Response format: `default` (`/file/id`), `full` (full URL) |
+| `returnFormat` | string | No | `default` | Link format: `default` (`/file/id`), `full` (full URL) |
+| `responseFormat` | string | No | `array` | JSON shape: `array` (default), `object` (single file object) |
 | `uploadFolder` | string | No | - | Upload directory, relative path, e.g. `img/test` |
 | `expire` | string | No | - | File expiry such as `12h`, `7d` or `forever`. Only applies when the administrator has enabled [File Expiry](../deployment/configuration.md#file-expiry) and lets uploaders choose; must be one of the available options, otherwise 400 |
 
@@ -207,7 +221,8 @@ After all chunks are uploaded, request a merge. The merge process is **synchrono
 | `expire` | string | No | File expiry, same value as at initialization |
 | `uploadChannel` | string | No | Storage channel: `telegram`, `cfr2`, `s3`, `discord` |
 | `channelName` | string | No | Specific channel name (multi-channel scenarios). Get available list via `/api/channels` |
-| `returnFormat` | string | No | Response format: `default` (`/file/id`), `full` (full URL) |
+| `returnFormat` | string | No | Link format: `default` (`/file/id`), `full` (full URL) |
+| `responseFormat` | string | No | JSON shape: `array` (default), `object` (single file object) |
 | `uploadFolder` | string | No | Upload directory, relative path, e.g. `img/test` |
 
 **Body Parameters (FormData):**

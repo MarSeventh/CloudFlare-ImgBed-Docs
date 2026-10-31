@@ -69,6 +69,7 @@ In your forked repository, go to **Settings → Secrets and variables → Action
 | `R2_BUCKET_NAME` | R2 Bucket name | Optional |
 | `WORKER_NAME` | Worker name (default `cloudflare-imgbed`) | Optional |
 | `WORKER_VARS` | Business environment variables (JSON format, supports `text` / `secret`) | Optional |
+| `WRANGLER_CONFIG` | Additional Wrangler settings (JSON format), such as workers.dev access and observability | Optional |
 | `EXPIRY_CLEANUP_CRON` | Cron expression for file expiry cleanup (e.g. `*/30 * * * *`); set it when using [File Expiry](./configuration.md#file-expiry) | Optional |
 
 ### WORKER_VARS Format {#worker-vars}
@@ -108,6 +109,26 @@ All business settings can be configured through the admin panel after deployment
 Store configuration in GitHub Secrets. Do not commit real credentials or put them in Variables in a public repository. A GitHub Secret does not automatically become a Cloudflare Secret. Set `type: "secret"` explicitly for keys, tokens, and other sensitive values.
 :::
 
+### Additional Wrangler Settings {#wrangler-config}
+
+To keep settings such as workers.dev access and observability across deployments, add a GitHub Actions Secret named `WRANGLER_CONFIG` with a JSON object as its value:
+
+```json
+{
+  "workers_dev": false,
+  "observability": {
+    "enabled": true,
+    "head_sampling_rate": 1
+  }
+}
+```
+
+This example disables the workers.dev URL and enables observability with full sampling. Set up a custom domain or route before disabling workers.dev, and use that address after deployment.
+
+- Strings, numbers and booleans become top-level settings; objects become tables, with nested objects supported. Arrays and `null` are not supported. Use keys and values from the [Wrangler configuration reference](https://developers.cloudflare.com/workers/wrangler/configuration/).
+- Script-managed keys cannot be overridden: `name`, `main`, `compatibility_date`, `compatibility_flags`, `assets`, `images`, `d1_databases`, `kv_namespaces`, `r2_buckets`, `vars` and `triggers`. Use the corresponding Secrets above for bindings, business variables and cleanup schedules.
+- Invalid JSON, unsupported value types or managed keys stop configuration generation. Leaving this Secret unset keeps the default configuration.
+
 ## 🚀 Step 4: Run Deployment
 
 1. Go to the **Actions** page of your forked repository
@@ -117,7 +138,7 @@ Store configuration in GitHub Secrets. Do not commit real credentials or put the
 5. Optionally modify the Worker name (priority: manual input > `WORKER_NAME` Secret > `cloudflare-imgbed`)
 6. Click **Run workflow** to start deployment
 
-After deployment, access your site at `https://<worker-name>.<account-subdomain>.workers.dev`.
+After deployment, access your site through your custom domain or `https://<worker-name>.<account-subdomain>.workers.dev` if enabled.
 
 ## 🚀 Next Steps
 
