@@ -4,6 +4,7 @@
 
 Add Features:
 
+- Added **Automatically tag uploads** in AI Settings to recognize original images and append tags in the background after successful web or API uploads; disabled by default, limited to images up to 20 MiB, and unavailable for the External channel
 - Added upload format restrictions with extension whitelists, blacklists and common format groups; the same rules apply to web and API uploads, with a clear error when a format is not allowed
 - Added `responseFormat=object` to the Upload API for third-party clients that require a JSON object; basic uploads and chunk merges support it, while existing requests still return arrays
 - Worker deployments support a `WRANGLER_CONFIG` Secret to preserve additional settings such as workers.dev access and observability across deployments
@@ -85,6 +86,12 @@ Optimization:
 - Removed redundant styles and logic after the refactor, consolidated header scroll handling, and fixed the System Settings sidebar failing to remove its resize listener on unmount
 - Updated bilingual Worker deployment instructions and the `WORKER_VARS` format guide, with a direct link from the AI secret setup instructions in AI Settings to the variable format section
 - Added bilingual AI feature and settings documentation and an AI homepage card while keeping the total at eight
+
+## 2026.11.01
+
+Add Features:
+
+- Added **Automatically tag uploads** in AI Settings to recognize original images and append tags in the background after successful web or API uploads; disabled by default, limited to images up to 20 MiB, and unavailable for the External channel
 
 ## 2026.10.31
 

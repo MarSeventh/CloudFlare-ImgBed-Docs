@@ -351,16 +351,19 @@ Edit **Image tag recognition prompt** or restore the built-in prompt. Supported 
 
 ### Image Tag Recognition
 
-- **Enable recognition**: Controls image tag recognition in the admin backend; Enable AI must also be on.
+- **Enable recognition**: The main switch for image tag recognition; Enable AI must also be on.
+- **Automatically tag uploads**: Off by default; both AI and image tag recognition must be enabled. After a web or API upload succeeds, the server sends the original image to the selected model in the background and appends recognized tags to existing tags. The upload response does not wait for recognition. Tags remain unchanged if reading or recognition fails, or if no tags are returned.
 - **Model**: Select an available image model; options show both the model identifier and provider.
 - **Tag language**: Simplified Chinese or English; defaults to Simplified Chinese.
 - **Maximum tags per image**: Default `6`, range `1–10`.
 - **Preferred tags**: Separate with English commas `,`, Chinese commas `，`, or newlines, up to 100 tags. The model considers relevant vocabulary but is not guaranteed to use it every time.
 
 ::: tip Image and runtime limits
-JPEG, PNG, WebP, AVIF, and GIF are supported (using the first frame decoded by the browser), with an original-file limit of 20 MiB. SVG and non-image files are unsupported.
+JPEG, PNG, WebP, AVIF, and GIF are supported, with an original-file limit of 20 MiB. SVG and non-image files are unsupported. Manual recognition uses a browser-generated preview, taking the first decoded frame for GIF. Automatic recognition sends the original image, so format and animation support depend on the model provider.
 
-Each recognition request has an overall processing deadline of 25 seconds, with at most 3 images per batch and 2 concurrent calls. Completion still depends on model latency and deployment platform limits.
+Automatic tagging supports ordinary, chunked and direct uploads through R2, S3, Telegram, Discord, HuggingFace and WebDAV, without requiring public image links. The External channel and files over the size limit are excluded from automatic recognition.
+
+Each recognition request has a processing deadline of at most 25 seconds. Automatic recognition shares this deadline between reading the original and calling the model. Manual recognition allows at most 3 images per batch and 2 concurrent calls; these batch limits do not cap site-wide automatic tagging concurrency. Background tasks remain subject to the deployment platform's CPU, memory and task duration limits, and completion also depends on model latency.
 :::
 
 ## 🛠️ Other Settings
