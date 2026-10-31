@@ -9,6 +9,8 @@ The Upload API allows uploading files to CloudFlare ImgBed from third-party appl
 - **Authentication**: Upload auth code or API Token (requires `upload` permission)
 - **Content Type**: `multipart/form-data`
 
+Uploads follow the administrator’s [format restrictions](../deployment/configuration.md#upload-formats). A blocked file returns HTTP `400` with `code: "UPLOAD_FORMAT_NOT_ALLOWED"` and an `error` message. These rules apply to basic uploads, chunked uploads and HuggingFace direct uploads.
+
 ## Response Format
 
 Successful basic uploads and chunk merges return an array by default:

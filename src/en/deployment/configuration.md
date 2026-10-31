@@ -114,6 +114,17 @@ Fill in the WebDAV channel configuration in the admin backend:
 - **Auto Create Directory**: Automatically create parent directories before uploading files, enabled by default
 
 
+### Upload Format Restrictions {#upload-formats}
+
+Enable this setting to control which file extensions can be uploaded. It is off by default.
+
+- **Whitelist**: allow only the selected formats; select at least one before enabling it.
+- **Blacklist**: block the selected formats.
+- **Formats**: select or enter extensions such as `jpg`, `pdf` or `tar.gz`. Letter case does not matter.
+- **Common format groups**: quickly add images, videos, audio, documents or archives, then add or remove individual formats.
+
+Click **Save** to apply your choices. Rejected uploads show a format-not-allowed message; the same rules apply to API uploads. Files without an extension are blocked in whitelist mode and allowed in blacklist mode. If the upload page converts a file to WebP, the `webp` rule applies. Existing files remain available and can still be renamed.
+
 ### File Expiry {#file-expiry}
 
 Use file expiry to automatically remove temporary files. It is off by default. When enabled, expired files become inaccessible through the image bed and are deleted during cleanup.

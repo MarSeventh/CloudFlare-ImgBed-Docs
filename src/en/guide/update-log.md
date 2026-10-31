@@ -4,6 +4,7 @@
 
 Add Features:
 
+- Added upload format restrictions with extension whitelists, blacklists and common format groups; the same rules apply to web and API uploads, with a clear error when a format is not allowed
 - Added `responseFormat=object` to the Upload API for third-party clients that require a JSON object; basic uploads and chunk merges support it, while existing requests still return arrays
 - Worker deployments support a `WRANGLER_CONFIG` Secret to preserve additional settings such as workers.dev access and observability across deployments
 - Added File Expiry under Upload Settings, with available choices, a default expiry and uploader choice permissions; supported by the upload page and API, and disabled by default
@@ -52,10 +53,11 @@ Fix Bugs:
 
 Optimization:
 
+- Unified bulleted tooltips, indentation and text wrapping across Chinese and English, including narrow screens
 - Improved Web Storage compatibility for frontend tests across Node environments and expanded deletion regressions for per-file results and stale-index cleanup
 - Refined the File Details toolbar to show Download, Edit, and Delete by default; on large screens, additional actions expand leftward from the arrow on hover, stay expanded after a click, and collapse on the next click; mobile actions wrap and respect reduced-motion preferences
 - Adapted File Details to image and video orientation: portrait media uses a preview on the left and metadata on the right on large screens, while landscape and square media use a vertical layout; missing dimensions are detected after loading, audio uses a compact player, ordinary files and failed previews use a compact icon and information row, and mobile layouts remain vertical
-- Unified corner radii across images, videos, preview containers, and metadata tables, with consistent table borders and theme colors; aligned channel headings to the left and organized question-mark help into numbered lines, with distinct colors for the custom prefix entered by the user and the automatic file ID, and clarified that custom prefixes only affect image host links
+- Unified corner radii across images, videos, preview containers, and metadata tables, with consistent table borders and theme colors; aligned channel headings to the left and organized question-mark help into separate points, with distinct colors for the custom prefix entered by the user and the automatic file ID, and clarified that custom prefixes only affect image host links
 - Removed the remote telemetry sampling configuration request; the sampling rate now uses the local `sampleRate` environment variable and defaults to `1` (100%)
 - Kept complete upload filenames and added horizontal scrolling for overflowing filenames, MIME badges, and file information rows, with consistent badge styles across light and dark themes and mobile layouts
 - Centralized frontend and backend MIME utilities across uploads, chunked uploads, WebDAV, file serving, indexing, and AI image validation to reduce inconsistent extension mappings

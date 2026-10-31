@@ -9,6 +9,8 @@
 - **认证**：上传认证码或 API Token（需要 `upload` 权限）
 - **内容类型**：`multipart/form-data`
 
+上传需符合管理员设置的[格式限制](../deployment/configuration.md#upload-formats)。不允许上传的格式返回 HTTP `400`，响应包含 `code: "UPLOAD_FORMAT_NOT_ALLOWED"` 和 `error` 提示，适用于普通上传、分块上传及 HuggingFace 直传。
+
 ## 响应格式
 
 普通上传和分块合并成功时，默认返回数组：
