@@ -48,6 +48,8 @@
 | `uploadFolder` | string | 否 | - | 上传目录，相对路径，如 `img/test` |
 | `expire` | string | 否 | - | 文件有效期，如 `12h`、`7d`、`forever`。仅在管理员开启 [文件有效期](../deployment/configuration.md#file-expiry) 并允许自选时生效，必须是可选项之一，否则返回 400 |
 
+未传入 `expire` 时使用管理员设置的默认有效期。未开启文件有效期时，上传的文件为永久文件；不允许上传者自选时，传入的 `expire` 会被忽略。
+
 **Body 参数（FormData）：**
 
 | 参数名 | 类型 | 必需 | 说明 |

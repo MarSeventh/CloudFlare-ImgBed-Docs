@@ -4,6 +4,9 @@
 
 Add Features:
 
+- 新增[文件有效期](/deployment/configuration#file-expiry)，在上传设置中配置可选范围、默认有效期和上传者自选权限；上传页和 API 均支持，默认关闭
+- 文件到期后停止通过本站提供访问，满 5 分钟后由清理任务删除；支持 Workers 定时任务、Node / Docker 定时清理、Pages 管理请求触发清理，以及所有部署方式的手动清理和待清理计数
+- 文件管理支持在到期前修改有效期或改为永久，卡片与列表用绿色、黄色和红色分别表示有效、24 小时内到期和已到期，状态随时间自动更新
 - 系统状态页新增重复内容扫描，按文件内容分组并建议保留上传时间最早的文件，支持在报告中确认删除指定文件；目前适用于 Docker / Node.js 部署的 Cloudflare R2 渠道
 - 扫描报告展示超时、跳过文件和索引变化等未完成状态，删除后同步更新重复分组、文件列表缓存与系统统计
 - 新增 Node、Pages 和 Workers 部署平台标志，供前后端按平台适配功能
@@ -77,6 +80,16 @@ Optimization:
 - 清理重构后重复或无用的样式和逻辑，收拢顶栏滚动处理，并修复系统设置侧栏卸载时未清理窗口尺寸监听的问题
 - 完善中英文 Worker 部署及 `WORKER_VARS` 格式说明，智能设置中的 AI 密钥配置指引直接链接到变量格式章节
 - 补充中英文 AI 功能与智能设置文档，首页增加 AI 能力卡片并保持 8 张介绍卡片
+
+## 2026.10.31
+
+Add Features:
+
+- 新增[文件有效期](/deployment/configuration#file-expiry)，在上传设置中配置可选范围、默认有效期和上传者自选权限；上传页和 API 均支持，默认关闭
+- 文件到期后停止通过本站提供访问，满 5 分钟后由清理任务删除；支持 Workers 定时任务、Node / Docker 定时清理、Pages 管理请求触发清理，以及所有部署方式的手动清理和待清理计数
+- 文件管理支持在到期前修改有效期或改为永久，卡片与列表用绿色、黄色和红色分别表示有效、24 小时内到期和已到期，状态随时间自动更新
+
+升级说明：已有 D1 部署建议执行 [`v2.7.9_add_files_expires_index.sql`](https://github.com/MarSeventh/CloudFlare-ImgBed/blob/main/database/migrations/v2.7.9_add_files_expires_index.sql)，为到期查询建立索引；Node / Docker 的 SQLite 数据库会在启动时自动执行迁移。
 
 ## 2026.10.28
 

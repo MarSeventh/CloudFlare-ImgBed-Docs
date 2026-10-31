@@ -48,6 +48,8 @@ Upload a file directly via the `/upload` endpoint. Suitable for small files.
 | `uploadFolder` | string | No | - | Upload directory, relative path, e.g. `img/test` |
 | `expire` | string | No | - | File expiry such as `12h`, `7d` or `forever`. Only applies when the administrator has enabled [File Expiry](../deployment/configuration.md#file-expiry) and lets uploaders choose; must be one of the available options, otherwise 400 |
 
+If `expire` is omitted, the configured default applies. When file expiry is disabled, uploads are permanent; when uploaders may not choose, any supplied `expire` value is ignored.
+
 **Body Parameters (FormData):**
 
 | Parameter | Type | Required | Description |

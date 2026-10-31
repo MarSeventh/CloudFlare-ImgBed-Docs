@@ -4,6 +4,9 @@
 
 Add Features:
 
+- Added [File Expiry](/en/deployment/configuration#file-expiry) under Upload Settings, with available choices, a default expiry and uploader choice permissions; supported by the upload page and API, and disabled by default
+- Expired files become inaccessible through the site and eligible for deletion after 5 minutes; cleanup supports Workers schedules, Node / Docker timers, Pages management requests, and manual cleanup with pending counts on every deployment
+- File Management supports changing expiry or making files permanent before they expire; card and list indicators update automatically, showing green for more than 24 hours remaining, yellow for expiry within 24 hours and red for expired files
 - Added duplicate content scanning to System Status, grouping files by content and recommending the earliest upload to keep; individual files can be deleted from the report after confirmation. Currently supports the Cloudflare R2 channel on Docker / Node.js deployments
 - Scan reports identify timeouts, skipped files and index changes; successful deletions update duplicate groups, the file-list cache and system statistics
 - Added Node, Pages and Workers deployment markers for platform-specific frontend and backend features
@@ -77,6 +80,16 @@ Optimization:
 - Removed redundant styles and logic after the refactor, consolidated header scroll handling, and fixed the System Settings sidebar failing to remove its resize listener on unmount
 - Updated bilingual Worker deployment instructions and the `WORKER_VARS` format guide, with a direct link from the AI secret setup instructions in AI Settings to the variable format section
 - Added bilingual AI feature and settings documentation and an AI homepage card while keeping the total at eight
+
+## 2026.10.31
+
+Add Features:
+
+- Added [File Expiry](/en/deployment/configuration#file-expiry) under Upload Settings, with available choices, a default expiry and uploader choice permissions; supported by the upload page and API, and disabled by default
+- Expired files become inaccessible through the site and eligible for deletion after 5 minutes; cleanup supports Workers schedules, Node / Docker timers, Pages management requests, and manual cleanup with pending counts on every deployment
+- File Management supports changing expiry or making files permanent before they expire; card and list indicators update automatically, showing green for more than 24 hours remaining, yellow for expiry within 24 hours and red for expired files
+
+Upgrade note: existing D1 deployments should run [`v2.7.9_add_files_expires_index.sql`](https://github.com/MarSeventh/CloudFlare-ImgBed/blob/main/database/migrations/v2.7.9_add_files_expires_index.sql) to index expiry queries. Node / Docker applies the migration to SQLite automatically at startup.
 
 ## 2026.10.28
 
