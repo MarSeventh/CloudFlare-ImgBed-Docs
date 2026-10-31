@@ -4,16 +4,11 @@ This section details the various configuration options and custom settings for C
 
 ## 🗂️ Upload Settings {#🗂️-storage-channel-configuration}
 
-After deployment, visit your domain and open "System Settings" → "Upload Settings" in the admin backend to configure storage channels and file expiry.
+Upload-related settings are configured in "System Settings" → "Upload Settings" in the admin backend
 
-### Access Admin Backend
+### Upload Channel Management
 
-Visit `https://your-domain/dashboard`
-::: tip Note
-   The admin backend requires no password by default. Please set an admin username and password promptly after logging in.
-:::
-
-### Configure Telegram Channel
+#### Configure Telegram Channel
 
 1. Enter "System Settings" → "Upload Settings" from the top left menu
 2. Find "Telegram Channel Configuration"
@@ -50,7 +45,7 @@ export default {
 After deploying this Worker, fill in the Worker address in the Proxy URL field.
 :::
 
-### Configure R2 Channel
+#### Configure R2 Channel
 
 For server deployment, Cloudflare R2 storage is added by default. The following steps are only for Cloudflare deployment:
 
@@ -71,7 +66,7 @@ Please note the free tier limits of Cloudflare R2, exceeding which may incur cos
    ![Note](/images/deployment/r2-free-tier.png)
 :::
 
-### Configure S3 Channel
+#### Configure S3 Channel
 
 Fill in the S3 channel configuration in the admin backend:
 
@@ -83,7 +78,7 @@ Fill in the S3 channel configuration in the admin backend:
 - **Region**: Storage region (optional)
 - **CDN Domain**: (Optional) Custom CDN acceleration domain. The file will firstly read from CDN if configured.
 
-### Configure Discord Channel
+#### Configure Discord Channel
 
 Fill in the Discord channel configuration in the admin backend:
 
@@ -93,7 +88,7 @@ Fill in the Discord channel configuration in the admin backend:
 - **Is Nitro**: Whether the account is Nitro (Nitro users have 25MB single file limit, regular users have 10MB)
 - **Proxy URL**: (Optional) Custom proxy address
 
-### Configure HuggingFace Channel
+#### Configure HuggingFace Channel
 
 Fill in the HuggingFace channel configuration in the admin backend:
 
@@ -106,7 +101,7 @@ Fill in the HuggingFace channel configuration in the admin backend:
 HuggingFace channel supports large file direct upload, suitable for uploading files larger than 20MB. For large files, the system will automatically use LFS protocol for chunked uploads.
 :::
 
-### Configure WebDAV Channel
+#### Configure WebDAV Channel
 
 Fill in the WebDAV channel configuration in the admin backend:
 
@@ -121,68 +116,30 @@ Fill in the WebDAV channel configuration in the admin backend:
 
 ### File Expiry {#file-expiry}
 
-Configure file expiry under "System Settings" → "Upload Settings". It is off by default. When enabled, new uploads can have an expiry time. Expired files become inaccessible through this site and are then deleted by cleanup.
+Use file expiry to automatically remove temporary files. It is off by default. When enabled, expired files become inaccessible through the image bed and are deleted during cleanup.
 
-| Setting | Description |
-| --- | --- |
-| Enable | Controls expiry for future uploads; turning it off does not change existing expiry times |
-| Available options | A positive integer followed by `h` for hours or `d` for days, such as `12h` or `3d`; up to 3650 days and 20 options. `forever` means no expiry |
-| Default expiry | Used when the uploader makes no choice or is not allowed to choose |
-| Let uploaders choose | Allows the upload page and [Upload API](../api/upload.md) to select an available option; when off, the default always applies |
+- **Enable**: apply expiry to future uploads; turning it off does not change existing expiry times
+- **Available options**: enter a duration and press Enter to add it. Use `h` for hours or `d` for days, such as `12h` or `7d`, and `forever` for no expiry. Up to 3650 days and 20 options are supported
+- **Default expiry**: used when the uploader makes no choice or is not allowed to choose
+- **Let uploaders choose**: allow uploaders to select an available option; when off, the default always applies
 
-On the upload page, the expiry selector appears below "File Naming" in the upload settings dialog. Administrators can also change the expiry or choose "Never expire" in file details before a file expires. An expired file can no longer be edited or renewed.
-
-The clock icon in file management shows the current state: green means more than 24 hours remain, yellow means expiry is within 24 hours, and red means the file has expired and is awaiting cleanup. Permanent files have no expiry icon.
+Click "Save" after configuring these options. When choosing is allowed, uploaders can select an expiry in the upload settings dialog. Administrators can also change the expiry or choose "Never expire" in file details before a file expires.
 
 #### Cleanup
 
-Once a file expires, the site's file endpoint returns 404, including for HEAD and Range requests. Stored files are deleted by the first cleanup run at least 5 minutes after expiry. They remain in file management until cleanup completes; refresh the list to see the result.
+Files become eligible for cleanup 5 minutes after expiry. Click "Clean up now" to delete a batch, and click again if files remain. "Expired, awaiting cleanup" shows the number currently eligible for cleanup; this is an estimate with KV storage.
 
-| Deployment | Cleanup method |
+| Deployment | Automatic cleanup setup |
 | --- | --- |
-| Workers | Add the `EXPIRY_CLEANUP_CRON` repository secret (e.g. `*/30 * * * *`) and redeploy; see [Workers Deployment](./worker.md) |
-| Node / Docker | The server runs cleanup every 10 minutes by default; change `EXPIRY_CLEANUP_INTERVAL_MINUTES` to adjust the interval, or set it to `0` to disable it |
-| Pages | Opening file management triggers cleanup while file expiry is enabled, at most once every 10 minutes per instance |
+| Workers | Set the `EXPIRY_CLEANUP_CRON` repository secret, for example `*/30 * * * *` for every 30 minutes, then redeploy |
+| Node / Docker | Runs every 10 minutes by default; set `EXPIRY_CLEANUP_INTERVAL_MINUTES` to change the interval in minutes, or `0` to disable it |
+| Pages | Opening file management triggers cleanup while file expiry is enabled; there is no scheduled task, and "Clean up now" is also available |
 
-Every deployment supports "Clean up now" under "Upload Settings" → "File Expiry". Each run processes a limited batch; click again if files remain. Turning file expiry off does not stop Workers or Node / Docker scheduled cleanup of existing expired files. Pages stops cleaning up during management requests and needs manual cleanup.
-
-Files whose deletion fails are retained for a later retry, usually about an hour later, depending on the cleanup interval. They do not block other expired files. If the pending count stays unchanged for a long time, check the cleanup schedule, storage deletion permissions and runtime logs.
-
-##### Pending cleanup count
-
-"Expired, awaiting cleanup" counts files currently eligible for cleanup, rather than every expired file. It excludes files that expired less than 5 minutes ago and files still waiting for a retry after a failed deletion.
-
-| Database | How files are counted |
-| --- | --- |
-| D1 / SQLite | An exact count of records whose expiry and retry times are both no later than the current time minus 5 minutes |
-| KV | An estimate from at most 1000 expiry markers per query, deduplicated by file; stale markers left after extensions, changes to permanent storage or deletion may still count until cleanup removes them |
-
-The count updates when settings are opened and after manual cleanup; it is not polled automatically. If KV markers exceed the scan limit, the interface indicates that only part of the total was counted. Counting works on every deployment, whether or not scheduled cleanup is configured.
-
-##### Cleanup configuration
-
-| Setting | Default | Description |
-| --- | --- | --- |
-| `EXPIRY_CLEANUP_CRON` | Not configured | Workers: a repository secret specifying the cleanup Cron schedule |
-| `EXPIRY_CLEANUP_SUBREQUESTS` | `45` | Subrequest budget per cleanup run on Cloudflare deployments; adjust it to your plan's limits |
-| `EXPIRY_CLEANUP_INTERVAL_MINUTES` | `10` | Node / Docker: cleanup interval in minutes; `0` disables it |
-
-#### Caching and When Changes Apply
-
-| Case | When it applies |
-| --- | --- |
-| Expiry | Immediately: the server returns 404 based on the expiry time, whether or not cleanup has run |
-| Extending the expiry or making a file permanent | Immediately |
-| Shortening the expiry of a file that already has one | Files with an expiry never enter the Worker or CDN shared cache, and browsers cache them for at most 1 hour (and never past the expiry), then revalidate with an ETag. Browsers that cached the file see the change within 1 hour |
-| Giving a permanent file an expiry | On Workers deployments the shared cache checks the file's current state on every hit, so no API Token is needed. If you set up CDN cache rules for a Pages or Docker deployment, configure the CloudFlare API Token in Other Settings so the CDN cache is purged when the expiry changes. Browsers that already cached the permanent file may keep using it for up to 30 days, which cannot be cleared remotely; set the expiry at upload time for files that must disappear on time |
-
-#### Storage and Access Limits
-
-- **D1 / SQLite**: expired files are queried through a database index. Existing D1 deployments should run [`v2.7.9_add_files_expires_index.sql`](https://github.com/MarSeventh/CloudFlare-ImgBed/blob/main/database/migrations/v2.7.9_add_files_expires_index.sql) to index expiry queries; Node / Docker applies the migration to SQLite automatically at startup.
-- **KV**: expiry requires additional marker writes and deletions. The free plan allows 1000 writes and 1000 deletions per day; prefer D1 for larger libraries. KV propagation across locations is delayed, so other locations may temporarily read old data after an expiry change or deletion.
-- **Telegram and External links**: as with manual deletion, only the image bed's records and index entries are removed; remote files are not deleted.
-- **WebDAV service uploads**: files uploaded through the image bed's WebDAV service do not receive an expiry.
-- **Public storage URLs**: direct links such as an R2 public domain bypass the image bed, so its expiry checks do not apply. Those links stop working only after the stored file is deleted.
+::: tip Usage notes
+- To keep a file, make it permanent before it expires; disabling the feature does not cancel existing expiry times
+- For files that must expire on time, set expiry when uploading and share the image bed link. Public storage links remain accessible until cleanup, and browsers may still display cached copies
+- Telegram and external-link channels only remove the image bed record, not the remote file; uploads through the image bed's WebDAV service do not receive an expiry
+:::
 
 ## 🔒 Security Settings
 

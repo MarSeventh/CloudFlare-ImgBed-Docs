@@ -4,7 +4,7 @@
 
 Add Features:
 
-- Added [File Expiry](/en/deployment/configuration#file-expiry) under Upload Settings, with available choices, a default expiry and uploader choice permissions; supported by the upload page and API, and disabled by default
+- Added File Expiry under Upload Settings, with available choices, a default expiry and uploader choice permissions; supported by the upload page and API, and disabled by default
 - Expired files become inaccessible through the site and eligible for deletion after 5 minutes; cleanup supports Workers schedules, Node / Docker timers, Pages management requests, and manual cleanup with pending counts on every deployment
 - File Management supports changing expiry or making files permanent before they expire; card and list indicators update automatically, showing green for more than 24 hours remaining, yellow for expiry within 24 hours and red for expired files
 - Added duplicate content scanning to System Status, grouping files by content and recommending the earliest upload to keep; individual files can be deleted from the report after confirmation. Currently supports the Cloudflare R2 channel on Docker / Node.js deployments
@@ -85,7 +85,7 @@ Optimization:
 
 Add Features:
 
-- Added [File Expiry](/en/deployment/configuration#file-expiry) under Upload Settings, with available choices, a default expiry and uploader choice permissions; supported by the upload page and API, and disabled by default
+- Added File Expiry under Upload Settings, with available choices, a default expiry and uploader choice permissions; supported by the upload page and API, and disabled by default
 - Expired files become inaccessible through the site and eligible for deletion after 5 minutes; cleanup supports Workers schedules, Node / Docker timers, Pages management requests, and manual cleanup with pending counts on every deployment
 - File Management supports changing expiry or making files permanent before they expire; card and list indicators update automatically, showing green for more than 24 hours remaining, yellow for expiry within 24 hours and red for expired files
 
